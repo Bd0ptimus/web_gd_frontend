@@ -26,14 +26,14 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                             ?
                             <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000}>
 
-                                <Image
+                                <img
                                     alt="Mountains"
                                     src={`/logo/logo_vert.webp`}
-                                    fill
-                                    sizes="100%"
-                                    placeholder="blur"
-                                    quality={10}
-                                    blurDataURL={`/logo/logo_vert.webp`}
+                                    // fill
+                                    // sizes="100%"
+                                    // placeholder="blur"
+                                    // quality={10}
+                                    // blurDataURL={`/logo/logo_vert.webp`}
                                     style={{
                                         objectFit: 'cover', // cover, contain, none
                                     }}
