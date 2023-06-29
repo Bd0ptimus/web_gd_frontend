@@ -27,9 +27,8 @@ import { connect } from 'react-redux';
 
 import mainStyles from '../../index.module.scss';
 import ProductsApi from '@/api/products';
-import EditCategoryModal from './editCategoryModal';
-import AddProductModal from './addProductModal';
-import EditProductModal from './editProductModal';
+import AddProductModal from '@/components/sections/addProductModal';
+import EditProductModal from '@/components/sections/editProductModal';
 import ProductApi from '@/api/products';
 function ProductsManager({ data, JWT }) {
     const [selectedProduct, setSelectedProduct] = useState({});

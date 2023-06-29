@@ -10,8 +10,8 @@ import Compressor from 'compressorjs';
 import imageCompression from 'browser-image-compression';
 
 import ProductsApi from '@/api/products';
-import styles from './product.module.scss';
-function EditProductModal(props) {
+import styles from '@/pages/admin/products/product.module.scss';
+function AddProductModal(props) {
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState(0);
     const [wholeSalePrice, setWholeSalePrice] = useState(0);
@@ -20,46 +20,16 @@ function EditProductModal(props) {
     const [listCates, setListCates] = useState([]);
     const [cate, setCate] = useState(null);
     const [listFile, setListFile] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState({});
-    const [listFileShow, setListFileShow] = useState([]);
-    const [listFileWasSelectedMore, setListFileWasSelectedMore] = useState([]);
-
     const fileTypeAllow = ["image/gif", "image/jpeg", "image/png"];
     useEffect(() => {
-        setCate(props.selectedProduct.Product_Category);
-        setProductName(props.selectedProduct.name);
-        setPrice(props.selectedProduct.price);
-        setWholeSalePrice(props.selectedProduct.wholeSalePrice);
-        setDes(props.selectedProduct.des);
+        setCate(null);
+        setProductName('');
+        setPrice(0);
+        setWholeSalePrice(0);
+        setDes('');
         setListCates(props.listCates);
         setListFile([]);
-        setListFileShow([]);
-        setSelectedProduct(props.selectedProduct);
-        // setListFileFunc(props.selectedProduct.Product_Attachments);
-        if (!props.selectedProduct.Product_Attachments) {
-            setListFile([]);
-        } else {
-            props.selectedProduct.Product_Attachments.map((img, index) => {
-                // console.log('Checkj all product attachments :', img, ' - indewx : ', index);
-                setListFile((listFile) => ([...listFile, {
-                    file: process.env.NEXT_PUBLIC_APP_BACKEND_URL + img.path,
-                    id: index,
-                }]))
-                setListFileShow((listFileShow) => ([...listFileShow, {
-                    file: process.env.NEXT_PUBLIC_APP_BACKEND_URL + img.path,
-                    id: index,
-                }]))
-                // console.log('List file Checkj all product attachments: ', listFile);
-
-            })
-        }
-        // setListFileShow(listFile);
-        setListFileWasSelectedMore([]);
-        // console.log('List file : ', listFile);
-
     }, [props])
-
-
 
     function dropDownHandler(value) {
         // listCates.pid = value;
@@ -67,10 +37,9 @@ function EditProductModal(props) {
     }
 
     async function handleChange(e) {
-        console.log(e.target.files);
-        // setListFileWasSelectedMore([]);
+        // console.log(e.target.files);
+        setListFile([]);
         let arr = [];
-        let highestIndex = listFileShow.length == 0 ? -1 : listFileShow[listFileShow.length - 1].id;
         for (let i = 0; i < e.target.files.length; i++) {
             if (fileTypeAllow.includes(e.target.files[i].type)) {
                 let compressedFile = await imageCompression(e.target.files[i], {
@@ -78,61 +47,52 @@ function EditProductModal(props) {
                     maxWidthOrHeight: 1920,
                     useWebWorker: true,
                 });
-                setListFileWasSelectedMore((listFileWasSelectedMore) => ([...listFileWasSelectedMore, {
+                arr = [...arr, {
                     file: compressedFile,
-                    id: i + highestIndex + 1,
-                }]));
-                setListFileShow((listFileShow) => ([...listFileShow, {
-                    file: URL.createObjectURL(compressedFile),
-                    id: i + highestIndex + 1,
-                }]))
+                    id: i,
+                }];
             } else {
                 props.errorAlert('Một file đã chọn không được hỗ trợ');
 
             }
 
-
         }
-        // console.log('----> listFileWasSelectedMore : ', listFileWasSelectedMore);
+        setListFile(arr);
+        // console.log(listFile);
     }
 
     function removeImage(value) {
-        if (listFile.filter((img) => img.id != value)) {
-            setListFile(listFile.filter((img) => img.id != value));
-        } else {
-            setListFileWasSelectedMore(listFileWasSelectedMore.filter((img) => img.id != value));
-        }
-        setListFileShow(listFileShow.filter((img) => img.id != value));
-
+        setListFile(listFile.filter((img) => img.id != value));
     }
 
-    async function submitUpdateProductHandler() {
-        const data = new FormData();
-        let fileKeptArr = [];
-        listFile.forEach((item) => {
-            // fileKeptArr = [...fileKeptArr, item.file];
-            data.append(`fileKept`, item.file);
-
+    function getBase64(file) {
+        return new Promise(resolve => {
+            let baseURL = "";
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                // Make a fileInfo Object
+                // console.log("Called", reader);
+                baseURL = reader.result;
+                // console.log(baseURL);
+                resolve(baseURL);
+            };
         });
-        console.log('====>fileKeptArr : ', fileKeptArr);
-        // data.append(`fileKept`, fileKeptArr);
-        // data.append(`fileKept`, ' ');
+    };
+    function submitNewProductHandler() {
+        const data = new FormData();
 
-        listFileWasSelectedMore.forEach(async (item) => {
-            // console.log('===> file was selected : ', item);
-            await data.append(`fileSelected`, item.file);
+        listFile.forEach((item) => {
+            data.append(`fileSelected`, item.file);
         })
-        data.append(`wholeSalePrice`, wholeSalePrice);
-
-        // console.log('fileSelected : ', data);
-        data.append(`id`, selectedProduct.id);
         data.append(`name`, productName);
         data.append(`categoryId`, cate ? Number(cate.id) : null);
         data.append(`price`, Number(price));
+        data.append(`wholeSalePrice`, Number(wholeSalePrice));
         data.append(`des`, des);
 
-        ProductsApi.updateProducts(data, props.JWT).then((response) => {
-            // console.log('response : ', response);
+        ProductsApi.addProducts(data, props.JWT).then((response) => {
+            console.log('response : ', response);
             if (response.data.errCode == 0) {
                 props.successAlert('Thêm sản phẩm thành công');
                 props.reloadPage();
@@ -156,7 +116,7 @@ function EditProductModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Chỉnh sửa sản phẩm
+                    Thêm sản phẩm
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -166,7 +126,7 @@ function EditProductModal(props) {
                         <Form.Control type="text" placeholder="Tên sản phẩm" value={productName} onChange={(e) => setProductName(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Giá lẻ (VND)</Form.Label>
+                        <Form.Label>Giá bán lẻ (VND)</Form.Label>
                         <Form.Control type="number" placeholder="Giá bán lẻ sản phẩm" value={price} onChange={(e) => setPrice(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -199,10 +159,10 @@ function EditProductModal(props) {
 
                         <div className={`d-flex justify-content-center`} style={{ flexWrap: 'wrap' }}>
                             {
-                                listFileShow.map((item, index) => {
+                                listFile.map((item, index) => {
                                     return (
                                         <div className={`${styles.previewImgSec}`} key={index}>
-                                            <img src={(item.file)} className={`${styles.uploadedImg}`} />
+                                            <img src={URL.createObjectURL(item.file)} className={`${styles.uploadedImg}`} />
                                             <FontAwesomeIcon icon={faTrash} className={`${styles.previewImageDeleteIcon}`} onClick={() => removeImage(`${item.id}`)} />
 
                                         </div>
@@ -215,7 +175,7 @@ function EditProductModal(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => submitUpdateProductHandler()}>Xác nhận chỉnh sửa</Button>
+                <Button onClick={() => submitNewProductHandler()}>Thêm sản phẩm</Button>
 
             </Modal.Footer>
         </Modal>
@@ -231,4 +191,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProductModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProductModal);
