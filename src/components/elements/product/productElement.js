@@ -44,14 +44,14 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                                 return (
                                     <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000}>
 
-                                        <Image
+                                        <img
                                             alt="Mountains"
                                             src={process.env.NEXT_PUBLIC_APP_BACKEND_URL + img.path}
-                                            fill
-                                            sizes="100%"
-                                            placeholder="blur"
-                                            quality={10}
-                                            blurDataURL={`/logo/logo_vert.webp`}
+                                            // fill
+                                            // sizes="100%"
+                                            // placeholder="blur"
+                                            // quality={10}
+                                            // blurDataURL={`/logo/logo_vert.webp`}
                                             style={{
                                                 objectFit: 'cover', // cover, contain, none
                                             }}
