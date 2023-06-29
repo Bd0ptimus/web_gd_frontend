@@ -28,22 +28,43 @@ function ProductCpn({ data }) {
     const [filterListOpen, setFilterListOpen] = useState(false);
 
     const [priceRequestModal, setPriceRequestModal] = useState(false);
+    function list_to_tree(list) {
+        var map = {}, node, roots = [], i;
+
+        for (i = 0; i < list.length; i += 1) {
+            map[list[i].id] = i; // initialize the map
+            list[i].nodes = []; // initialize the children
+        }
+
+        for (i = 0; i < list.length; i += 1) {
+            node = list[i];
+            if (node.pid !== null) {
+                // if you have dangling branches check that map[node.parentId] exists
+                list[map[node.pid]].nodes.push(node);
+            } else {
+                roots.push(node);
+            }
+        }
+        return roots;
+    }
     useEffect(() => {
         setProductData(data.products.data.products.rows);
         setNumberProduct(data.totalProducts);
         if (data.categories.data.data.length == 0) {
-            let tree = [];
+            tree = [];
 
         } else {
-            var treeVal = data.categories.data.data, tree = function (data, root) {
-                return data.reduce(function (o, { id, pid, name, label, key }) {
-                    o[id] = o[id] || { id, pid, name, label, key };
-                    o[pid] = o[pid] || { id: pid };
-                    o[pid].nodes = o[pid].nodes || [];
-                    o[pid].nodes.push(o[id]);
-                    return o;
-                }, {})[root].nodes;
-            }(treeVal, null);
+            tree = list_to_tree(data.categories.data.data);
+
+            // var treeVal = data.categories.data.data, tree = function (data, root) {
+            //     return data.reduce(function (o, { id, pid, name, label, key }) {
+            //         o[id] = o[id] || { id, pid, name, label, key };
+            //         o[pid] = o[pid] || { id: pid };
+            //         o[pid].nodes = o[pid].nodes || [];
+            //         o[pid].nodes.push(o[id]);
+            //         return o;
+            //     }, {})[root].nodes;
+            // }(treeVal, null);
             tree.unshift({
                 id: null,
                 pid: null,
