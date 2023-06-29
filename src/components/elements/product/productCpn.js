@@ -44,16 +44,14 @@ function ProductCpn({ data }) {
                     return o;
                 }, {})[root].nodes;
             }(treeVal, null);
+            tree.unshift({
+                id: null,
+                pid: null,
+                name: 'Tất cả',
+                label: 'Tất cả',
+                key: null,
+            })
         }
-
-
-        tree.unshift({
-            id: null,
-            pid: null,
-            name: 'Tất cả',
-            label: 'Tất cả',
-            key: null,
-        })
         setTreeData(tree);
         const input = document.querySelector("input[class=rstm-search]");
         input.setAttribute("placeholder", "Nhóm sản phẩm");
