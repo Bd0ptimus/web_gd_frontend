@@ -111,7 +111,7 @@ function EditProductModal(props) {
         let fileKeptArr = [];
         listFile.forEach((item) => {
             // fileKeptArr = [...fileKeptArr, item.file];
-            data.append(`fileKept`, item.file);
+            data.append(`fileKept[]`, item.file);
 
         });
         console.log('====>fileKeptArr : ', fileKeptArr);

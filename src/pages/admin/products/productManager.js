@@ -89,14 +89,14 @@ function ProductsManager({ data, JWT }) {
                             {product.Product_Attachments.map((item) => (
                                 <Carousel.Item key={item.id} style={{ width: 200, height: 200 }} interval={4000}>
                                     {/* <img src={process.env.NEXT_PUBLIC_APP_BACKEND_URL + item.path} style={{ width: 200, height: 200 }} alt="slides" /> */}
-                                    <Image
-                                        alt="Mountains"
+                                    <img
+                                        alt="Products"
                                         src={process.env.NEXT_PUBLIC_APP_BACKEND_URL + item.path}
-                                        fill
-                                        sizes="100%"
-                                        placeholder="blur"
-                                        quality={10}
-                                        blurDataURL={`/logo/logo_vert.webp`}
+                                        // fill
+                                        // sizes="100%"
+                                        // placeholder="blur"
+                                        // quality={10}
+                                        // blurDataURL={`/logo/logo_vert.webp`}
                                         style={{
                                             objectFit: 'cover', // cover, contain, none
                                         }}
