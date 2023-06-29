@@ -10,7 +10,7 @@ import Compressor from 'compressorjs';
 import imageCompression from 'browser-image-compression';
 
 import ProductsApi from '@/api/products';
-import styles from '@/pages/admin/products/product.module.scss';
+import styles from '@/styles/admin/products/product.module.scss';
 function AddProductModal(props) {
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState(0);

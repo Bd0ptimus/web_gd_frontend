@@ -13,7 +13,6 @@ import 'react-simple-tree-menu/dist/main.css';
 
 import mainStyles from '../../index.module.scss';
 import ProductsApi from '@/api/products';
-import styles from './productCategory.module.scss';
 import EditCategoryModal from '@/components/sections/editCategoryModal';
 import AddCategoryModal from '@/components/sections/addCategoryModal';
 // import './test.css'
