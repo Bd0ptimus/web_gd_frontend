@@ -50,6 +50,7 @@ function ProductCpn({ data }) {
     useEffect(() => {
         setProductData(data.products.data.products.rows);
         setNumberProduct(data.totalProducts);
+        let tree = []
         if (data.categories.data.data.length == 0) {
             tree = [];
 
