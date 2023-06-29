@@ -1,0 +1,184 @@
+@import '../../../styles/main.module.scss';
+
+$padding-intro-text : 10px;
+$intro-text-height : 400px;
+
+.mainIntro {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(90deg, #05224a, #0a67e9);
+
+    .introSec {
+        margin: 10px 0px;
+    }
+
+    .imgSec {
+        width: 90%;
+        height: auto;
+        border-radius: 0px;
+    }
+
+    .introHeading {
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0px;
+    }
+
+    .introText {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        margin: $padding-intro-text;
+        width: auto;
+
+        .fontIcon {
+            padding-top: $padding-intro-text;
+        }
+
+        .sendRequestBtn {
+            background-color: $orange-main;
+            border: solid 1px $orange-main;
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+
+            h5 {
+                margin: 0px;
+                font-size: 25px;
+
+            }
+
+            &:hover {
+                background-color: white;
+                color: $orange-main;
+                transition: .5s;
+            }
+        }
+
+
+    }
+
+    .introColumn {
+        position: relative;
+        height: auto;
+
+        .introColumnSec {
+            height: $intro-text-height;
+            @include vertical-align-center;
+            background-color: rgba(0, 0, 0, 0);
+
+        }
+    }
+
+
+}
+
+
+
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .mainIntro {
+        padding: $component-bound-space-pc;
+
+        .introSec {
+            display: flex;
+
+            .introColumn {
+                width: 50%;
+
+                .sendRequestSec {
+                    justify-content: left;
+                }
+
+            }
+        }
+
+    }
+
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .mainIntro {
+        padding: $component-bound-space-pc;
+
+        .introSec {
+            display: flex;
+
+            .introColumn {
+                width: 50%;
+
+                .sendRequestSec {
+                    justify-content: left;
+
+                }
+
+            }
+        }
+    }
+
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .mainIntro {
+        padding: $component-bound-space-mb;
+
+        .introSec {
+            display: block;
+
+            .introColumn {
+                width: 100%;
+                display: flex;
+
+                .introColumnSec {
+                    width: 65%;
+                }
+
+                .sendRequestSec {
+                    justify-content: center;
+
+                }
+
+            }
+
+            .introTextSec {
+                height: calc($intro-text-height + 100px);
+            }
+        }
+    }
+
+}
+
+
+@media screen and (max-width: 450px) {
+    .mainIntro {
+        padding: $component-bound-space-mb;
+
+        .introSec {
+            display: block;
+
+            .introColumn {
+                width: 100%;
+                display: flex;
+
+                .introColumnSec {
+                    width: 100%;
+                }
+
+                .sendRequestSec {
+                    justify-content: center;
+
+                }
+
+            }
+
+            .introTextSec {
+                height: calc($intro-text-height + 100px);
+            }
+        }
+    }
+
+}

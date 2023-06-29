@@ -1,0 +1,41 @@
+@import '../../../styles/main.module.scss';
+
+.mainContainer {
+    width: 100%;
+    height: auto;
+
+    .elements {
+        width: 120px;
+        height: 120px;
+        margin: 10px;
+        padding: 10px;
+
+    }
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .mainContainer {
+        display: flex;
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .mainContainer {
+        display: flex;
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .mainContainer {
+        display: flex;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .mainContainer {
+        display: block;
+    }
+}

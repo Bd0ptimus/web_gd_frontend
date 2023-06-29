@@ -1,0 +1,20 @@
+{
+    "auth.login": "Логин",
+    "auth.register": "Регистрация",
+    "auth.forgotPassword": "Забыли пароль",
+    "auth.acceptAgreement": "Нажимая кнопку 'Регистрация', я принимаю условия Пользовательского соглашения и Политики конфиденциальности",
+    "userParams.name": "Имя",
+    "userParams.email": "Email",
+    "userParams.password": "Пароль",
+    "userParams.phone": "Номер телефона",
+    "menu.product": "Цены",
+    "menu.about": "О компании",
+    "menu.contacts": "Контакты",
+    "menu.service": "Услуги",
+    "intro.mainText1": "Образовательный сервис Zaochnik: экстренная помощь студентам в написании работ!",
+    "intro.mainText2": "2700 экспертов ежегодно помогают 2 542 696 студентам.",
+    "intro.imageText1": "Круглосуточная поддержка 24/7",
+    "intro.imageText2": "Контроль качества услуг",
+    "intro.imageText3": "Бесплатные корректировки",
+    "intro.heading": "HTK-Asia, импортер и продавец российских компонентов и запчастей."
+}

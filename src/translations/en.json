@@ -1,0 +1,20 @@
+{
+    "auth.login": "Login",
+    "auth.register": "Register",
+    "auth.forgotPassword": "Forgot password",
+    "auth.acceptAgreement": "By clicking the 'Register' button, I accept the User Agreement and Privacy Policy",
+    "userParams.name": "Name",
+    "userParams.email": "Email",
+    "userParams.password": "Password",
+    "userParams.phone": "Phone number",
+    "menu.product": "Products",
+    "menu.about": "About us",
+    "menu.contacts": "Contacts",
+    "menu.service": "Service",
+    "intro.mainText1": "Educational service Zaochnik: urgent help for students in writing papers! ",
+    "intro.mainText2": "2700 experts annually assist 2,542,696 students.",
+    "intro.imageText1": "24/7 support",
+    "intro.imageText2": "Service quality control",
+    "intro.imageText3": "Free modifications",
+    "intro.heading": "HTK-Asia, an importer and seller of Russian components and parts."
+}

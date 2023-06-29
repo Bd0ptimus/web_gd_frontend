@@ -1,0 +1,47 @@
+$color-primary: #1D71B9;
+$white-bg: #FAFAFA;
+$white-up: #FFFFFF;
+$gray-selected: #F5F5F5;
+$gray-up: rgba(139, 117, 117, 0.5);
+$gray-text : #888888;
+$blue-secondary : #CBE4EE;
+$blue-main: #009CCC;
+$blue-hover: #044074;
+$blue-selected: #EAF7FB;
+$gold-main : #E6C169;
+$orange-main: #F06E3A;
+
+
+
+$component-bound-space-pc: 20px;
+$component-bound-space-mb: 15px;
+
+
+$header-height-pc : 96px;
+$header-height-mb : 96px;
+
+$header-top-sec-pc : 80px;
+$header-bot-sec-pc : 50px;
+
+
+.test {
+    background-color: #044074;
+}
+
+@mixin vertical-align-center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 750px;
+    margin: auto;
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {}

@@ -1,0 +1,111 @@
+@import '../../styles/main.module.scss';
+
+
+@mixin textTemplate {
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.footerMain {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    margin-top: 0px;
+
+
+
+    .footerContent {
+        width: 100%;
+    }
+
+    .childContent {
+        display: flex;
+        @include textTemplate;
+
+        margin: 3px;
+        font-size: 14px;
+        font-weight: 300;
+
+        span {
+            text-align: left;
+        }
+
+        .icon {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+
+            margin-right: 5px;
+        }
+    }
+}
+
+.copyRight {
+    font-size: 18px;
+    font-weight: 400;
+    padding: 10px 0;
+    @include textTemplate;
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .footerMain {
+        padding: 0px 80px 10px;
+
+        .footerContent {
+            display: flex;
+
+            .contentCol {
+                width: 50%;
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .footerMain {
+        padding: 0px 80px 10px;
+
+        .footerContent {
+            display: flex;
+
+            .contentCol {
+                width: 50%;
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .footerMain {
+        padding: $component-bound-space-mb ;
+
+        .footerContent {
+            display: flex;
+
+            .contentCol {
+                width: 50%;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .footerMain {
+        padding: $component-bound-space-mb ;
+
+        .footerContent {
+            display: block;
+
+            .contentCol {
+                width: 100%;
+            }
+        }
+    }
+}

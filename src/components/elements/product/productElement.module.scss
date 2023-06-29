@@ -1,0 +1,65 @@
+@import '../../../styles/main.module.scss';
+
+.productElement {
+    width: 250px;
+    background-color: white;
+    margin: 10px;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 10px #555;
+
+    }
+
+    .cartIcon {
+        background-color: $orange-main;
+        color: white;
+        padding: 10px 20px;
+        height: 35px;
+    }
+
+    .productPrice {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .productName {
+        font-size: 18px;
+        color: $color-primary;
+        text-align: left;
+    }
+
+    .productCategory {
+        font-size: 15px;
+        color: $gray-text;
+        text-align: right;
+
+    }
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .productElement {
+        width: 250px;
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .productElement {
+        width: 250px;
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .productElement {
+        width: 200px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .productElement {
+        width: 90%;
+    }
+}

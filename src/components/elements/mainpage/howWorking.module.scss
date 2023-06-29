@@ -1,0 +1,58 @@
+@import '../../../styles/main.module.scss';
+
+.howWorkingMain {
+    display: block;
+
+    .titleHeader {
+        color: $color-primary;
+        font-weight: bold;
+    }
+
+    .header {
+        font-size: 30px;
+        margin: 30px 0px;
+    }
+
+    .title {
+        font-size: 25px;
+    }
+
+
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .howWorkingMain {
+        margin: 0px 60px;
+
+        padding: $component-bound-space-pc;
+    }
+
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .howWorkingMain {
+        margin: 0px 60px;
+
+        padding: $component-bound-space-pc;
+    }
+
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .howWorkingMain {
+        margin: 0px 30px;
+
+        padding: $component-bound-space-mb;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .howWorkingMain {
+        margin: 0px;
+        padding: $component-bound-space-mb;
+    }
+
+}

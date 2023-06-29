@@ -1,0 +1,136 @@
+@import '../../../styles/main.module.scss';
+
+
+.orderMain {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(90deg, #05224a, #0a67e9);
+
+    h3 {
+        font-size: 40px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    }
+
+    .inputForm {
+
+        min-width: 300px;
+        max-width: 900px;
+
+        input,
+        textarea {
+            width: 100%;
+            background-color: white;
+            margin: 5px 0px;
+            border: solid 2px $color-primary;
+            color: black;
+        }
+
+        input {
+            height: 40px;
+        }
+
+        textarea {
+            min-height: 100px;
+
+        }
+
+        button {
+            width: 200px;
+            background-color: $orange-main;
+            color: white;
+            padding: 10px 20px;
+            // border-radius: 20px;
+            border: solid 2px $orange-main;
+
+            &:hover {
+
+                background-color: white;
+                color: $orange-main;
+                transition: .6s;
+
+            }
+        }
+    }
+
+
+}
+
+.wave {
+    width: 100%;
+    background: url('../../../../public/logo/main/assets/wave.png') center center no-repeat;
+    background-size: cover;
+    height: 200px;
+    position: absolute;
+    transform: translateY(-99%);
+
+    .imgSec {
+        width: 100%;
+
+    }
+
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .imgSec {
+        margin-left: 80px;
+    }
+
+    .orderMain {
+        padding: $component-bound-space-pc ;
+
+        .inputForm {
+            width: 50%;
+        }
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .imgSec {
+        margin-left: 80px;
+    }
+
+    .orderMain {
+        padding: $component-bound-space-pc;
+
+        .inputForm {
+            width: 50%;
+        }
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .imgSec {
+        margin-left: 0px;
+    }
+
+    .orderMain {
+        padding: $component-bound-space-mb;
+
+        .inputForm {
+            width: 60%;
+        }
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .imgSec {
+        justify-content: center !important;
+    }
+
+    .orderMain {
+        padding: $component-bound-space-mb;
+
+        .inputForm {
+            width: 95%;
+        }
+    }
+}
+
+.orderMain {
+    padding-bottom: 250px;
+}

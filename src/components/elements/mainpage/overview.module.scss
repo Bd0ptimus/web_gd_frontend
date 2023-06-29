@@ -1,0 +1,75 @@
+@import '../../../styles/main.module.scss';
+
+.overviewMain {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background-color: $orange-main;
+
+    .overviewSec {
+        margin: 10px;
+        padding: 10px;
+        max-width: 300px;
+
+        .icon {
+            font-size: 50px;
+            margin: 10px 0px;
+            color: white;
+        }
+
+        .text {
+            margin: 10px 0px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .overviewMain {
+        display: flex;
+
+        .overviewSec {
+            display: block;
+
+        }
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .overviewMain {
+        display: flex;
+
+        .overviewSec {
+            display: block;
+
+        }
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .overviewMain {
+        display: flex;
+
+        .overviewSec {
+            display: block;
+
+        }
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .overviewMain {
+        display: block;
+
+        .overviewSec {
+            display: flex;
+            margin: 30px auto;
+        }
+    }
+}
