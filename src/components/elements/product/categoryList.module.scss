@@ -1,0 +1,17 @@
+.logo {
+    height: 30px;
+    width: auto;
+}
+
+.listSec {
+    width: auto;
+    padding: 15px;
+
+    h5 {
+        margin: 0px 20px;
+        font-weight: 400;
+        max-width: calc(100vw - 200px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

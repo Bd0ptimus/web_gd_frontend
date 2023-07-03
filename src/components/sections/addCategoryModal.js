@@ -1,19 +1,28 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Modal, Button, Row, Col, Form, Dropdown, ButtonGroup, DropdownButton } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import imageCompression from 'browser-image-compression';
+import {
+    faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ProductsApi from '@/api/products';
+import styles from '@/styles/admin/products/product.module.scss';
 
 function AddCategoryModal(props) {
     const [parentCate, setParentCate] = useState(null);
     const [listCates, setListCates] = useState([]);
     const [selectedCateName, setSelectedCateName] = useState('');
+    const [listFile, setListFile] = useState([]);
+    const fileTypeAllow = ["image/gif", "image/jpeg", "image/png"];
 
 
     useEffect(() => {
         setParentCate(null);
         setSelectedCateName('');
         setListCates(props.listCates);
+        setListFile([]);
         // console.log('in use effect EditCategoryModal', JSON.stringify(props.listCates.filter(cate => cate.id === props.selectedCate.pid)[0].name));
     }, [props])
 
@@ -28,15 +37,61 @@ function AddCategoryModal(props) {
         // console.log('check selectedCate : ', selectedCateName);
     }
 
+    function removeImage() {
+        setListFile([]);
+    }
+    async function handleChange(e) {
+        // console.log(e.target.files);
+        setListFile([]);
+        let arr = [];
+        if (fileTypeAllow.includes(e.target.files[0].type)) {
+            let compressedFile = await imageCompression(e.target.files[0], {
+                maxSizeMB: 0.3,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+            });
+            arr = [{
+                file: compressedFile,
+            }];
+        } else {
+            props.errorAlert('Định dạng file không được hỗ trợ');
+        }
+        setListFile(arr);
+        // console.log(listFile);
+    }
+
 
     async function submitNewCategoryHandler() {
-        ProductsApi.addCategory({
-            name: selectedCateName,
-            pid: parentCate ? parentCate.id : null,
-        }, props.JWT).then((response) => {
-            // console.log('response : ', response);
+        // ProductsApi.addCategory({
+        //     name: selectedCateName,
+        //     pid: parentCate ? parentCate.id : null,
+        // }, props.JWT).then((response) => {
+        //     // console.log('response : ', response);
+        //     if (response.data.errCode == 0) {
+        //         props.successAlert('Thêm sản phẩm thành công');
+        //         props.reloadPage();
+        //         props.onHide();
+        //     } else {
+        //         props.errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
+        //     }
+        // }).catch((e) => {
+        //     props.errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
+        //     console.log(e)
+
+        // });
+
+        const data = new FormData();
+
+        listFile.forEach((item) => {
+            data.append(`fileSelected`, item.file);
+        })
+        data.append(`name`, selectedCateName);
+        data.append(`pid`, parentCate ? Number(parentCate.id) : JSON.parse(null));
+
+        ProductsApi.addCategory(data, props.JWT).then((response) => {
+            console.log('response : ', response);
             if (response.data.errCode == 0) {
-                props.successAlert('Thêm sản phẩm thành công');
+                props.successAlert('Thêm nhóm sản phẩm thành công');
                 props.reloadPage();
                 props.onHide();
             } else {
@@ -47,6 +102,7 @@ function AddCategoryModal(props) {
             console.log(e)
 
         });
+
     }
 
 
@@ -84,6 +140,24 @@ function AddCategoryModal(props) {
                                 })
                             }
                         </DropdownButton>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <label className="mx-3">Chọn logo: </label>
+                        <input type="file" onChange={(e) => handleChange(e)} />
+
+                        <div className={`d-flex justify-content-center`} style={{ flexWrap: 'wrap' }}>
+                            {
+                                listFile.map((item, index) => {
+                                    return (
+                                        <div className={`${styles.previewImgSec}`} key={index}>
+                                            <img src={URL.createObjectURL(item.file)} className={`${styles.uploadedImg}`} />
+                                            <FontAwesomeIcon icon={faTrash} className={`${styles.previewImageDeleteIcon}`} onClick={() => removeImage()} />
+
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
                     </Form.Group>
 
                 </Form>

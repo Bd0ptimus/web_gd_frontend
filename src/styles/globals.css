@@ -90,6 +90,26 @@
   border-radius: 0px !important;
 }
 
+.rstm-tree-item{
+  display: flex;
+
+
+}
+.rstm-tree-item>span{
+  overflow: hidden;
+
+}
+.rstm-tree-item>span>p{
+  text-overflow: ellipsis;
+
+}
+.rstm-tree-item>span>img{
+  display:none;
+}
+
+.rstm-search{
+  display: none;
+}
 /* .rstm-tree-item-group{
   list-style-type: none;
   padding: 0px;

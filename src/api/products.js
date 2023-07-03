@@ -11,7 +11,7 @@ const productsApi = {
 
         const headers = {
 
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             'Authorization': 'Bearer ' + JWT,
         }
         return axios.put(`/api/product/update-product-category`, body, {
@@ -40,7 +40,7 @@ const productsApi = {
 
         const headers = {
 
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             'Authorization': 'Bearer ' + JWT,
         }
         return axios.post(`/api/product/create-product-category`, body, {

@@ -1,28 +1,34 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Modal, Button, Row, Col, Form, Dropdown, ButtonGroup, DropdownButton } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import {
+    faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import imageCompression from 'browser-image-compression';
 
 import ProductsApi from '@/api/products';
+import styles from '@/styles/admin/products/product.module.scss';
 
 function EditCategoryModal(props) {
     const [parentCate, setParentCate] = useState({});
     const [listCates, setListCates] = useState([]);
     const [selectedCate, setSelectedCate] = useState({});
     const [selectedCateName, setSelectedCateName] = useState('');
+    const [listFile, setListFile] = useState([]);
+    const [newFileSelect, setNewFileSelect] = useState([]);
+    const [fileKept, setFileKept] = useState(true);
 
+    const fileTypeAllow = ["image/gif", "image/jpeg", "image/png"];
 
     useEffect(() => {
         setSelectedCateName(props.selectedCate.name);
         setSelectedCate(props.selectedCate);
         setListCates(props.listCates);
         setParentCate(props.listCates.filter(cate => cate.id == selectedCate.pid)[0]);
-        // console.log('setSelectedCate : ', JSON.stringify(selectedCate));
-        // console.log('setListCates : ', JSON.stringify(listCates));
-        // console.log('setParentCate : ', JSON.stringify(parentCate));
-        // console.log('selectedCateName : ', selectedCateName);
-
-
-        // console.log('in use effect EditCategoryModal', JSON.stringify(props.listCates.filter(cate => cate.id === props.selectedCate.pid)[0].name));
+        setListFile([process.env.NEXT_PUBLIC_APP_BACKEND_URL + props.selectedCate.logoPath]);
+        setNewFileSelect([]);
+        setFileKept(true);
     }, [props, selectedCate])
     function dropDownHandler(value) {
         listCates.pid = value;
@@ -35,17 +41,69 @@ function EditCategoryModal(props) {
         // console.log('check selectedCate : ', selectedCateName);
     }
 
+    function removeImage() {
+        setFileKept(false);
+        setListFile([]);
+        setNewFileSelect([]);
+    }
 
+    async function handleChange(e) {
+        // console.log(e.target.files);
+        setListFile([]);
+        let arr = [];
+        if (fileTypeAllow.includes(e.target.files[0].type)) {
+            let compressedFile = await imageCompression(e.target.files[0], {
+                maxSizeMB: 0.3,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+            });
+            arr = [{
+                file: compressedFile,
+            }];
+            setListFile([URL.createObjectURL(compressedFile)]);
+            setFileKept(false);
+
+        } else {
+            props.errorAlert('Định dạng file không được hỗ trợ');
+        }
+        setNewFileSelect(arr);
+        // console.log(listFile);
+    }
 
     async function submitChangeData() {
-        ProductsApi.updateCategories({
-            name: selectedCateName,
-            pid: parentCate ? parentCate.id : null,
-            id: selectedCate.id
-        }, props.JWT).then((response) => {
+        // ProductsApi.updateCategories({
+        //     name: selectedCateName,
+        //     pid: parentCate ? parentCate.id : null,
+        //     id: selectedCate.id
+        // }, props.JWT).then((response) => {
+        //     console.log('response : ', response);
+        //     if (response.data.errCode == 0) {
+        //         props.successAlert('Thay đổi thành công');
+        //         props.reloadPage();
+        //         props.onHide();
+        //     } else {
+        //         props.errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
+        //     }
+        // }).catch((e) => {
+        //     props.errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
+        //     console.log(e)
+
+        // });
+
+        const data = new FormData();
+
+        data.append(`fileKept`, fileKept);
+        newFileSelect.forEach((item) => {
+            data.append(`fileSelected`, item.file);
+        })
+        data.append(`name`, selectedCateName);
+        data.append(`pid`, parentCate ? Number(parentCate.id) : JSON.parse(null));
+        data.append(`id`, selectedCate.id);
+
+        ProductsApi.updateCategories(data, props.JWT).then((response) => {
             console.log('response : ', response);
             if (response.data.errCode == 0) {
-                props.successAlert('Thay đổi thành công');
+                props.successAlert('Sửa nhóm sản phẩm thành công');
                 props.reloadPage();
                 props.onHide();
             } else {
@@ -100,6 +158,8 @@ function EditCategoryModal(props) {
                             {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                             <Dropdown.Item href="#/action-2" >Another action</Dropdown.Item>
                             <Dropdown.Item href="#/action-3" >Something else</Dropdown.Item> */}
+                            <Dropdown.Item eventKey="null" >Không lựa chọn nhóm trực thuộc</Dropdown.Item>
+
                             {
                                 listCates.map((item, index) => {
                                     let selectedAttr = {};
@@ -112,6 +172,19 @@ function EditCategoryModal(props) {
                                 })
                             }
                         </DropdownButton>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <label className="mx-3">Chọn logo: </label>
+                        <input type="file" onChange={(e) => handleChange(e)} />
+
+                        <div className={`d-flex justify-content-center`} style={{ flexWrap: 'wrap' }}>
+                            <div className={`${styles.previewImgSec}`} >
+                                <img src={listFile[0]} className={`${styles.uploadedImg}`} />
+                                <FontAwesomeIcon icon={faTrash} className={`${styles.previewImageDeleteIcon}`} onClick={() => removeImage()} />
+
+                            </div>
+                        </div>
                     </Form.Group>
 
                 </Form>

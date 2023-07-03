@@ -72,11 +72,12 @@ export async function getServerSideProps() {
         item.label = item.name;
         item.key = item.id;
     });
+
     data.products = products.data;
     data.categories = categories.data;
     data.totalProducts = products.data.data.products.count;
 
-    console.log(products.data);
+    console.log(categories.data);
     return { props: { data } }
 }
 

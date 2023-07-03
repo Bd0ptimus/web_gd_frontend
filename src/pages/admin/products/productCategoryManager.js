@@ -10,12 +10,21 @@ import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import 'react-simple-tree-menu/dist/main.css';
 
+import {
+    Tree,
+    TreeItem,
+    TreeItemLayout,
+    TreeOpenChangeData,
+    TreeOpenChangeEvent,
+} from "@fluentui/react-components/unstable";
+
 
 import mainStyles from '../../index.module.scss';
 import ProductsApi from '@/api/products';
 import EditCategoryModal from '@/components/sections/editCategoryModal';
 import AddCategoryModal from '@/components/sections/addCategoryModal';
-// import './test.css'
+import * as Utils from '@/utils';
+import CategoryList from '@/components/elements/product/categoryList';
 
 function ProductCategoryManager({ data }) {
     const [treeData, setTreeData] = useState([]);
@@ -25,25 +34,6 @@ function ProductCategoryManager({ data }) {
     const [selectedCate, setSelectedCate] = useState({});
     const router = useRouter()
 
-    function list_to_tree(list) {
-        var map = {}, node, roots = [], i;
-
-        for (i = 0; i < list.length; i += 1) {
-            map[list[i].id] = i; // initialize the map
-            list[i].nodes = []; // initialize the children
-        }
-
-        for (i = 0; i < list.length; i += 1) {
-            node = list[i];
-            if (node.pid !== null) {
-                // if you have dangling branches check that map[node.parentId] exists
-                list[map[node.pid]].nodes.push(node);
-            } else {
-                roots.push(node);
-            }
-        }
-        return roots;
-    }
 
     useEffect(() => {
         console.log('check data : ', data.categories.data.data);
@@ -51,20 +41,12 @@ function ProductCategoryManager({ data }) {
         if (data.categories.data.data.length == 0) {
             tree = [];
         } else {
-            // var treeVal = data.categories.data.data, tree = function (data, root) {
-            //     return data.reduce(function (o, { id, pid, name, label, key }) {
-            //         o[id] = o[id] || { id, pid, name, label, key };
-            //         o[pid] = o[pid] || { id: pid };
-            //         o[pid].nodes = o[pid].nodes || [];
-            //         o[pid].nodes.push(o[id]);
-            //         return o;
-            //     }, {})[root].nodes;
-            // }(treeVal, null);
-            // console.log(tree);
-            tree = list_to_tree(data.categories.data.data);
+
+            tree = Utils.listToTree(data.categories.data.data);
         }
 
         setTreeData(tree);
+        console.log(tree);
     }, [data])
 
 
@@ -84,6 +66,12 @@ function ProductCategoryManager({ data }) {
         router.push("/admin/products/productCategoryManager");
     }
 
+
+    function categoryChoose(userData) {
+        setSelectedCate({ id: userData.id, name: userData.name, pid: userData.pid, logoPath: userData.logoPath });
+        setModalShow(true);
+    }
+
     return (
         <>
             <div>
@@ -97,17 +85,22 @@ function ProductCategoryManager({ data }) {
             <div>
                 <HeaderCpn></HeaderCpn>
                 <div className={`${mainStyles.bodySec}`}>
+
+
+
+
                     <div style={{ margin: 20 }} className={`d-flex justify-content-center`}>
                         <Button onClick={() => setModalAddShow(true)}>Thêm nhóm sản phẩm</Button>
 
                     </div>
 
                     <div>
-                        <TreeMenu data={treeData} onClickItem={({ key, label, id, pid }) => {
-                            console.log('onclick in tree :', label);
-                            setSelectedCate({ id: id, name: label, pid: pid });
+                        {/* <TreeMenu data={treeData} onClickItem={({ key, name, id, pid }) => {
+                            console.log('onclick in tree :', name);
+                            setSelectedCate({ id: id, name: name, pid: pid });
                             setModalShow(true);// user defined prop
-                        }} />
+                        }} /> */}
+                        <CategoryList tree={treeData} categoryChoose={categoryChoose} />
 
 
                     </div>
