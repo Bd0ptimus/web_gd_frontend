@@ -107,14 +107,7 @@ function ProductsManager({ data, JWT }) {
                         </Carousel>
                     </div>
 
-                    {/* <Image
-                        src={product.Product_Attachments[0] ? process.env.NEXT_PUBLIC_APP_BACKEND_URL + product.Product_Attachments[0].path : "/logo/logo.webp"}
-                        width={100}
-                        height={100}
-                        className={`w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round`}
-                        alt="Logo"
-                    /> */}
-                    {/* <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={`https://primefaces.org/cdn/primereact/images/product/${product.name}`} alt={product.name} /> */}
+
                     <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div className="flex flex-column align-items-center sm:align-items-start gap-3">
                             <div className="text-2xl font-bold text-900">{product.name}</div>
@@ -127,8 +120,7 @@ function ProductsManager({ data, JWT }) {
                             </div>
                         </div>
                         <div className="flex flex-column align-items-center sm:align-items-start gap-3">
-                            {/* <div className="text-2xl font-bold text-900">{product.name}</div> */}
-                            {/* <PrimeReact.Rating value={product.rating} readOnly cancel={false}></PrimeReact.Rating> */}
+
                             <div className="block align-items-center gap-3">
                                 <h6 style={{ margin: 0, }}>Mô tả : </h6>
                                 <span className="font-semibold">{product.des}</span>
@@ -211,18 +203,9 @@ export async function getServerSideProps() {
     let data = {};
     let products = await ProductsApi.getAllProducts();
     let categories = await ProductsApi.getAllCategories();
-
-    // console.log('test getServerSideProps in serverside props : ', JSON.stringify(products.data.data.data));
-    // categories.data.data.data.map((item, index) => {
-    //     item.label = item.name;
-    //     item.key = item.id;
-    // });
     data.products = products.data;
     data.categories = categories.data;
-
-    // console.log(data.categories.data.data);
     return { props: { data } }
-
 }
 
 function mapStateToProps(state) {

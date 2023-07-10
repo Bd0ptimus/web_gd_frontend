@@ -71,25 +71,6 @@ function EditCategoryModal(props) {
     }
 
     async function submitChangeData() {
-        // ProductsApi.updateCategories({
-        //     name: selectedCateName,
-        //     pid: parentCate ? parentCate.id : null,
-        //     id: selectedCate.id
-        // }, props.JWT).then((response) => {
-        //     console.log('response : ', response);
-        //     if (response.data.errCode == 0) {
-        //         props.successAlert('Thay đổi thành công');
-        //         props.reloadPage();
-        //         props.onHide();
-        //     } else {
-        //         props.errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
-        //     }
-        // }).catch((e) => {
-        //     props.errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
-        //     console.log(e)
-
-        // });
-
         const data = new FormData();
 
         data.append(`fileKept`, fileKept);
@@ -114,8 +95,6 @@ function EditCategoryModal(props) {
             console.log(e)
 
         });
-
-
     }
 
     async function deleteCategoryHandler() {
