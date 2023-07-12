@@ -13,7 +13,7 @@ import mainStyles from '../../index.module.scss';
 import HeaderCpn from "@/components/layouts/headerCpn";
 import FooterCpn from "@/components/layouts/footerCpn";
 import blogsApi from '@/api/blogs';
-function CreateBlog({ data, JWT }) {
+function EditBlog({ data, JWT }) {
     const [blogTitle, setBlogTitle] = useState('');
     const editorRef = useRef(null);
     const router = useRouter()
@@ -111,7 +111,7 @@ function CreateBlog({ data, JWT }) {
                                 />
                             </Form.Group>
                             <div className="d-flex justify-content-center m-3">
-                                <Button variant="secondary" onClick={submitBlog}>Lưu bài viết</Button>
+                                <Button variant="secondary" onClick={submitBlog}>Log editor content</Button>
 
                             </div>
 
@@ -140,4 +140,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateBlog);
+export default connect(mapStateToProps, mapDispatchToProps)(EditBlog);

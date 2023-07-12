@@ -1,51 +1,120 @@
-import React, { useRef } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link';
+import HeaderCpn from "@/components/layouts/headerCpn";
+import FooterCpn from "@/components/layouts/footerCpn";
+import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router';
+import { Button } from 'react-bootstrap';
+import { DataView } from 'primereact/dataview';
+import { Tag } from 'primereact/tag';
+import { Button as PrimeReactButton } from 'primereact/button';
+import {
+    faPenToSquare,
+    faPlus,
+    faList,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import 'primeflex/primeflex.css';
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import { Carousel, Dropdown } from "react-bootstrap";
+import { connect } from 'react-redux';
+import moment from 'moment';
 
-function mceEditor() {
-    const editorRef = useRef(null);
-    const log = () => {
-        if (editorRef.current) {
-            console.log(editorRef.current.getContent());
-        }
+import mainStyles from '../../index.module.scss';
+import blogsApi from '@/api/blogs';
+
+function AdminBlogs({ data }) {
+
+    const [requestData, setRequestData] = useState([]);
+    useEffect(() => {
+        // console.log('check data blogs : ', data.blogs.data.blogs);
+        setRequestData(data.blogs ? data.blogs.data.blogs : []);
+    }, [data])
+
+
+    const itemTemplate = (request) => {
+        // console.log('--->check product cate name: ', product.Product_Category);
+        return (
+            <div className="col-12">
+                <div className="flex flex-column l:flex-row l:align-items-start p-4 gap-2">
+                    <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div className="flex flex-column align-items-center sm:align-items-start gap-1">
+                            <div className="text-xl font-bold text-900">{request.title}</div>
+                            <div className="text-l font-bold text-900">{request.routeSlug}</div>
+
+                            <div className="text-l font-bold text-500">{moment(request.createdAt).format('HH:mm DD-MM-YYYY')}</div>
+
+
+                        </div>
+                        <div className="flex flex-column align-items-center sm:align-items-start gap-3">
+
+                        </div>
+                        <div className="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+
+                            <div className={`d-block justify-content-end`}>
+                                <div className={`d-flex justify-content-end m-1`}>
+
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                            <FontAwesomeIcon icon={faList} />
+
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item ><Link style={{ textDecoration: 'none', color: 'black', }} href={"/admin/blogs/edit/" + request.routeSlug}>Chỉnh sửa</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link style={{ textDecoration: 'none', color: 'black', }} href={"/blogs/" + request.routeSlug}>Xem bài viết</Link></Dropdown.Item>
+                                            <Dropdown.Item href="#/action-2" style={{ color: 'red', }}>Xóa</Dropdown.Item>
+
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     };
     return (
         <>
-            <Editor apiKey='3qzpfrz5r80f4sbgrtgsva36ytd2igqg3nt5i0wxr4ovsjsz'
-                onInit={(evt, editor) => editorRef.current = editor}
-                initialValue="<p>This is the initial content of the editor.</p>"
-                init={{
-                    height: 800,
-                    // menubar: false,
-                    plugins: [
-                        "advlist",
-                        "anchor",
-                        "autolink",
-                        "charmap",
-                        "code",
-                        "fullscreen",
-                        "help",
-                        "image",
-                        "insertdatetime",
-                        "link",
-                        "lists",
-                        "media",
-                        "preview",
-                        "searchreplace",
-                        "table",
-                        "visualblocks",
-                        "powerpaste"
-                    ],
-                    toolbar:
-                        "undo redo | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                    skin: "snow", //Add these two options
-                    icons: "thin",
-                    file_picker_types: 'file image media',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                }}
-            />
-            <button onClick={log}>Log editor content</button>
+            <div>
+                <Head>
+                    <title>Quản lý Blog </title>
+                    <meta name="description" content="Generated by create next app" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+            </div>
+            <div>
+                <HeaderCpn></HeaderCpn>
+                <div className={`${mainStyles.bodySec}`} >
+                    <div className={`d-flex justify-content-center`} style={{ margin: 20 }}>
+                        <PrimeReactButton className="p-button-rounded" style={{ backgroundColor: '#1db937', border: '0px' }}>
+                            <FontAwesomeIcon icon={faPlus} /> <Link style={{ textDecoration: 'none', color: 'white', }} href="/admin/blogs/createBlog">Thêm bài viết</Link>
+                        </PrimeReactButton>
+                    </div>
+                    <div className="card">
+                        <DataView value={requestData} itemTemplate={itemTemplate} paginator rows={10} />
+                    </div>
+                </div>
+                <ToastContainer />
+
+                <FooterCpn></FooterCpn>
+            </div>
         </>
     );
 }
 
-export default mceEditor;
+export async function getServerSideProps() {
+    let data = {};
+    let blogs = await blogsApi.getAllBlogs();
+    data.blogs = blogs.data;
+    // console.log(requests.data);
+    return { props: { data } }
+}
+
+export default AdminBlogs;

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 :root {
     --primary: #f1f1f1;
     --secondary: rgba(31, 209, 253, 0.4);
@@ -36,7 +37,7 @@
     max-width: 100vw;
     overflow-x: hidden;
     background-color: #FAFAFA !important;
-    font-family: arial,sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     height:auto;
   }
   
@@ -110,25 +111,14 @@
 .rstm-search{
   display: none;
 }
-/* .rstm-tree-item-group{
-  list-style-type: none;
-  padding: 0px;
+
+.blogMainSec img{
+  width:100%  !important;
+  height:auto;
+  max-width: 100% !important;
+}
+.fk6fouc{
+  font-family: 'Roboto', sans-serif !important;
 }
 
-.rstm-tree-item{
-  display: flex;
-  justify-content:start;
-  padding : 10px;
-  font-size: 18px;
-  font-weight: bold;
-  margin : 5px;
-  border: solid 1px black;
-
-}
-
-.rstm-tree-item .rstm-toggle-icon{
-  padding : 0px 10px;
-  margin : 0px 5px;
-
-} */
   

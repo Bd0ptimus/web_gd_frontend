@@ -7,6 +7,7 @@ import mainStyles from '../index.module.scss';
 import HeaderCpn from "@/components/layouts/headerCpn";
 import FooterCpn from "@/components/layouts/footerCpn";
 import blogsApi from '@/api/blogs';
+import styles from './blog.module.scss';
 function Blog({ data }) {
     const router = useRouter();
     const [blogTitle, setBlogTitle] = useState('');
@@ -35,14 +36,18 @@ function Blog({ data }) {
             <div>
                 <HeaderCpn></HeaderCpn>
                 <div className={`${mainStyles.bodySec}`} >
-                    <div className={`d-flex justify-content-start`}>
-                        <h3>{blogTitle}</h3>
+                    <div className={`${styles.blogMain} blogMainSec`}>
+                        <div className={`d-flex justify-content-start`}>
+                            <h1>{blogTitle}</h1>
+                        </div>
+                        <div className={`d-flex justify-content-end`}>
+                            <h6>{timeCreated}</h6>
+                        </div>
+                        <div className={`m-3`} dangerouslySetInnerHTML={{ __html: blogContent }}>
+                        </div>
+
                     </div>
-                    <div className={`d-flex justify-content-end`}>
-                        <h6>{timeCreated}</h6>
-                    </div>
-                    <div dangerouslySetInnerHTML={{ __html: blogContent }}>
-                    </div>
+
                 </div>
 
                 <FooterCpn></FooterCpn>

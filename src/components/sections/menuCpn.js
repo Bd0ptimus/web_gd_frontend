@@ -35,7 +35,7 @@ function MenuCpn({ userLoggedIn }) {
     }
 
     return (
-        <div className={`${styles.menuMain}  justify-content-end`}>
+        <div className={`${styles.menuMain}  justify-content-start`}>
             {
 
                 MENUS.map((menu, index) => {
@@ -50,7 +50,7 @@ function MenuCpn({ userLoggedIn }) {
 
                                     </div>
 
-                                    <div className={` justify-content-center`} style={{ display: getMenuOpen(menu.id) ? 'block' : 'none', backgroundColor: 'white' }}>
+                                    <div className={` justify-content-center`} style={{ display: getMenuOpen(menu.id) ? 'block' : 'none', backgroundColor: 'white', }}>
                                         {
                                             menu.childs.map((child, i) => {
                                                 return (<div className={`d-flex justify-content-center`}>

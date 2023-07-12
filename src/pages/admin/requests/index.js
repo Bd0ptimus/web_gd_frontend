@@ -173,11 +173,7 @@ export async function getServerSideProps() {
     let requests = await requestsApi.getAllRequests();
     console.log('requests : ', requests.data.data.requests);
     data.requests = requests.data;
-    // data.categories = categories.data;
-
-
     return { props: { data } }
-
 }
 
 function mapStateToProps(state) {

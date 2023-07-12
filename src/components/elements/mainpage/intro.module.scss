@@ -60,6 +60,46 @@ $intro-text-height : 400px;
 
     }
 
+    .introContainerV2 {
+        height: 100px;
+        position: relative;
+
+        .introSmSecV2 {
+            // @include vertical-align-center;
+            width: 100%;
+        }
+
+
+
+        .iconSecV2 {
+            position: relative;
+
+            // @include vertical-align-center;
+            .primaryIcon {
+                font-size: 60px;
+                color: white;
+                position: absolute;
+                top: 40%;
+
+            }
+        }
+
+        .textSecV2 {
+            height: 100%;
+            position: relative;
+            // @include vertical-align-center;
+
+            .introTextV2 {
+                color: white;
+                font-size: 20px;
+                position: absolute;
+                top: 55%;
+            }
+        }
+    }
+
+
+
     .introColumn {
         position: relative;
         height: auto;
@@ -95,6 +135,18 @@ $intro-text-height : 400px;
             }
         }
 
+        .introContainerV2 {
+            width: 30%;
+
+            .iconSecV2 {
+                width: 20%;
+            }
+
+            .textSecV2 {
+                width: 80%;
+            }
+        }
+
     }
 
 }
@@ -115,6 +167,18 @@ $intro-text-height : 400px;
 
                 }
 
+            }
+        }
+
+        .introContainerV2 {
+            width: 30%;
+
+            .iconSecV2 {
+                width: 20%;
+            }
+
+            .textSecV2 {
+                width: 80%;
             }
         }
     }
@@ -148,6 +212,18 @@ $intro-text-height : 400px;
                 height: calc($intro-text-height + 100px);
             }
         }
+
+        .introContainerV2 {
+            width: 50%;
+
+            .iconSecV2 {
+                width: 25%;
+            }
+
+            .textSecV2 {
+                width: 75%;
+            }
+        }
     }
 
 }
@@ -177,6 +253,18 @@ $intro-text-height : 400px;
 
             .introTextSec {
                 height: calc($intro-text-height + 100px);
+            }
+        }
+
+        .introContainerV2 {
+            width: 100%;
+
+            .iconSecV2 {
+                width: 30%;
+            }
+
+            .textSecV2 {
+                width: 70%;
             }
         }
     }

@@ -7,17 +7,26 @@ import { Editor } from '@tinymce/tinymce-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
+import moment from 'moment';
 
 
-import mainStyles from '../../index.module.scss';
+import mainStyles from '../../../index.module.scss';
 import HeaderCpn from "@/components/layouts/headerCpn";
 import FooterCpn from "@/components/layouts/footerCpn";
 import blogsApi from '@/api/blogs';
-function CreateBlog({ data, JWT }) {
-    const [blogTitle, setBlogTitle] = useState('');
+function EditBlog({ data, JWT }) {
     const editorRef = useRef(null);
     const router = useRouter()
+    const [blogTitle, setBlogTitle] = useState('');
+    const [blogContent, setBlogContent] = useState('');
+    const [blogId, setBlogId] = useState(null);
 
+    useEffect(() => {
+        setBlogTitle(data.blog.data.blog.title);
+        setBlogContent(data.blog.data.blog.content);
+        setBlogId(data.blog.data.blog.id);
+        console.log(data.blog.data.blog);
+    }, [data]);
 
     function errorAlert(message) {
         toast.warning(`${message}`, {
@@ -34,16 +43,15 @@ function CreateBlog({ data, JWT }) {
     const submitBlog = async () => {
         const data = new FormData();
 
-        data.append(`title`, blogTitle);
+        // data.append(`title`, blogTitle);
         data.append(`content`, editorRef.current.getContent());
+        data.append(`blogId`, blogId);
 
-        blogsApi.createBlogs(data, JWT).then((response) => {
+        blogsApi.updateBlogs(data, JWT).then((response) => {
             console.log('response : ', response);
             if (response.data.errCode == 0) {
-                successAlert('Thêm blog thành công');
-                router.replace("/admin/blogs");
-
-
+                successAlert('Chỉnh sửa bài viết thành công');
+                // router.replace("/admin/blogs");
             } else {
                 errorAlert('Đã có lỗi xảy ra, vui lòng thử lại');
             }
@@ -68,17 +76,17 @@ function CreateBlog({ data, JWT }) {
                 <HeaderCpn></HeaderCpn>
                 <div className={`${mainStyles.bodySec}`} >
                     <div className={`d-flex justify-content-center`} style={{ margin: 20 }}>
-                        <h4>Tạo blog</h4>
+                        <h4>Chỉnh sửa bài viết</h4>
                     </div>
                     <div className="card">
                         <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Control type="text" placeholder="Tiêu đề blog" value={blogTitle} onChange={(e) => setBlogTitle(e.target.value)} />
+                                <Form.Control type="text" placeholder="Tiêu đề blog" value={blogTitle} disabled />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Editor apiKey='3qzpfrz5r80f4sbgrtgsva36ytd2igqg3nt5i0wxr4ovsjsz'
                                     onInit={(evt, editor) => editorRef.current = editor}
-                                    initialValue=""
+                                    initialValue={blogContent}
                                     init={{
                                         height: 800,
                                         // menubar: false,
@@ -111,10 +119,8 @@ function CreateBlog({ data, JWT }) {
                                 />
                             </Form.Group>
                             <div className="d-flex justify-content-center m-3">
-                                <Button variant="secondary" onClick={submitBlog}>Lưu bài viết</Button>
-
+                                <Button variant="secondary" onClick={submitBlog}>Xác nhận</Button>
                             </div>
-
                         </Form>
                     </div>
                 </div>
@@ -126,8 +132,11 @@ function CreateBlog({ data, JWT }) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     let data = {};
+    let blogData = await blogsApi.getBlogs(context.query.slug);
+    console.log('check block data : ', blogData.data);
+    data.blog = blogData.data;
     return { props: { data } }
 }
 
@@ -140,4 +149,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateBlog);
+export default connect(mapStateToProps, mapDispatchToProps)(EditBlog);

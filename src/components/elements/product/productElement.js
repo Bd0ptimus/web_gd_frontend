@@ -10,21 +10,22 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from './productElement.module.scss';
+import autoAuth from '@/utils/autoAuth';
 
 function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
     // console.log(urls);
     return (
         <div className={`${styles.productElement} d-block justify-content-center`}>
             <div style={{ width: '100%', height: 70, marginTop: 5, marginBottom: 5 }} className={`d-block justify-content-center `}>
-                <p style={{ margin: 2, }} className={`${styles.productName}`}> {name}</p>
-                <p style={{ margin: 2, }} className={`${styles.productCategory}`}>  {cate}</p>
+                <p style={{ margin: 2, textAlign: 'center' }} className={`${styles.productName}`}> {name}</p>
+                <p style={{ margin: 2, textAlign: 'center' }} className={`${styles.productCategory}`}>  {cate}</p>
             </div>
             <div style={{ width: '100%', height: 200, marginTop: 5, marginBottom: 5 }} className={`d-block justify-content-center`}>
                 <Carousel>
                     {
                         urls.length == 0
                             ?
-                            <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000}>
+                            <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000} >
 
                                 <img
                                     alt="Mountains"
@@ -35,14 +36,16 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                                     // quality={10}
                                     // blurDataURL={`/logo/logo_vert.webp`}
                                     style={{
-                                        objectFit: 'cover', // cover, contain, none
+                                        objectFit: 'cover',
+                                        width: '100%',
+                                        height: 'auto',
                                     }}
                                 />
                             </Carousel.Item>
 
                             : urls.map((img, index) => {
                                 return (
-                                    <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000}>
+                                    <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000} >
 
                                         <img
                                             alt="Mountains"
@@ -53,7 +56,9 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                                             // quality={10}
                                             // blurDataURL={`/logo/logo_vert.webp`}
                                             style={{
-                                                objectFit: 'cover', // cover, contain, none
+                                                objectFit: 'cover',
+                                                width: '100%',
+                                                height: '100%',
                                             }}
                                         />
                                     </Carousel.Item>
@@ -66,10 +71,10 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                 </Carousel>
             </div>
             <div style={{ width: '100%', height: 20, marginTop: 10, marginBottom: 10 }} className={`d-flex justify-content-center ${styles.productPrice}`}>
-                <p style={{ margin: 0, }}> Giá lẻ : {price ? price.toLocaleString("en-US") : 0} VND</p>
+                <p style={{ margin: 0, color: '#009CCC', }}> Giá lẻ : {price ? price.toLocaleString("en-US") : 0} VND</p>
             </div>
             <div style={{ width: '100%', height: 20, marginTop: 10, marginBottom: 10 }} className={`d-flex justify-content-center ${styles.productPrice}`}>
-                <p style={{ margin: 0, }}> Giá sỉ : {wholeSalePrice ? wholeSalePrice.toLocaleString("en-US") : 0} VND</p>
+                <p style={{ margin: 0, color: '#888888', }}> Giá sỉ : {wholeSalePrice ? wholeSalePrice.toLocaleString("en-US") : 0} VND</p>
             </div>
             {/* <div style={{ width: '100%', height: 40, marginTop: 10, marginBottom: 10 }} className={`d-flex justify-content-center`}>
                 <div className={`d-flex justify-content-center ${styles.cartIcon}`}>

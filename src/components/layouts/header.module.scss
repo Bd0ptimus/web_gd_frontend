@@ -2,7 +2,7 @@
 
 
 @mixin menu-mb-setup {
-    margin-top: calc($header-height-mb - 10px);
+    margin-top: calc($header-height-mb + 30px);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -18,6 +18,12 @@
     left: 0px;
     background-color: $white-up;
     border-bottom: 1px solid $blue-secondary ;
+
+    .headerSubTop {
+        width: 100%;
+        height: $header-sub-top-pc;
+
+    }
 
     .headerMainTop {
         height: $header-top-sec-pc;
@@ -53,13 +59,16 @@
     }
 
     .midSec {
+        width: 30%;
+
         .infoSec {
-            height: 25px;
+            height: 60px;
             @include vertical-align-center;
 
             .infoText {
-                font-size: 20px;
-                color: $gray-text;
+                font-size: 15px;
+                color: $blue-main;
+                margin: 0px;
             }
 
             .fontIcon {
@@ -71,7 +80,7 @@
     }
 
     .rightSec {
-        width: 70%;
+        width: 30%;
 
         .infoSec {
             cursor: pointer;

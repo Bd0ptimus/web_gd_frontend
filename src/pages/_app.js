@@ -6,7 +6,10 @@ import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 
 import reduxStore, { persistor } from '../redux';
 import IntlProviderWrapper from '@/components/system/IntlProviderWrapper';
+
+
 export default function App({ Component, pageProps }) {
+
 
     return (
         <FluentProvider theme={teamsLightTheme}>

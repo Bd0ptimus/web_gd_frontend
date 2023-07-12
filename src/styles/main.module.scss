@@ -20,7 +20,8 @@ $component-bound-space-mb: 15px;
 $header-height-pc : 96px;
 $header-height-mb : 96px;
 
-$header-top-sec-pc : 80px;
+$header-sub-top-pc : 35px;
+$header-top-sec-pc : calc(50px + $header-sub-top-pc);
 $header-bot-sec-pc : 50px;
 
 

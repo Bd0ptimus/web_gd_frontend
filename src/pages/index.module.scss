@@ -1,5 +1,36 @@
 @import '../styles/main.module.scss';
 
-.bodySec {
-    padding-top: calc($header-height-pc - 15px);
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+
+    .bodySec {
+        padding-top: calc($header-top-sec-pc + 30px);
+    }
+
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+
+    .bodySec {
+        padding-top: calc($header-top-sec-pc + 30px);
+    }
+
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+
+    .bodySec {
+        padding-top: calc($header-height-mb + 30px);
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+
+    .bodySec {
+        padding-top: calc($header-height-mb + 30px);
+    }
+
 }
