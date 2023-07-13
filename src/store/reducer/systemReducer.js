@@ -18,18 +18,21 @@ const systemReducer = (state = initState, action) => {
                 ...state, language: action.langId,
             };
         case actionTypes.USER_LOGIN_SUCCESS:
+            console.log('in actionTypes.USER_LOGIN_SUCCESS');
+
             return {
                 ...state,
-                userLoggedIn: true,
+                userLoggedIn: action.userLoggedIn,
                 userId: action.userId,
                 userName: action.userName,
                 userEmail: action.userEmail,
                 userJWT: action.userJWT
             };
         case actionTypes.USER_LOGOUT:
+            console.log('in actionTypes.USER_LOGOUT');
             return {
                 ...state,
-                userLoggedIn: true,
+                userLoggedIn: action.userLoggedIn,
                 userId: action.userId,
                 userName: action.userName,
                 userEmail: action.userEmail,

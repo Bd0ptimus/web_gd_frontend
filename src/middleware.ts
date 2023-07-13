@@ -6,9 +6,8 @@ import autoAuth from './utils/autoAuth';
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin/login')) {
     console.log('start with admin/login')
-
     const isLoggedIn = request.cookies.get('isLoggedIn') ? request.cookies.get('isLoggedIn').value : null;
-    if (isLoggedIn) {
+    if (isLoggedIn == 'true') {
       return NextResponse.redirect(new URL('/admin/products/productCategoryManager', request.url)); // Redirects the user back to /login after logging
     } else {
       return NextResponse.next();
@@ -16,7 +15,7 @@ export function middleware(request: NextRequest) {
   }
 
   const isLoggedIn = request.cookies.get('isLoggedIn') ? request.cookies.get('isLoggedIn').value : null;
-  if (isLoggedIn) {
+  if (isLoggedIn == 'true') {
     return NextResponse.next(); // Redirects the user back to /login after logging
   } else {
     return NextResponse.rewrite(new URL('/admin/login', request.url));

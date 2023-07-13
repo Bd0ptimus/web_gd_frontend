@@ -2,11 +2,12 @@
 
 
 @mixin menu-mb-setup {
-    margin-top: calc($header-height-mb + 30px);
+    // margin-top: calc($header-height-mb + 30px);
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 6000;
+    z-index: 8000;
+    overflow-y: scroll;
     background-color: white;
 }
 
@@ -111,6 +112,48 @@
     }
 }
 
+.usernameLoginSec {
+    width: 100%;
+    padding: 10px;
+    // max-width: 130px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    color: $blue-main;
+    font-size: 18px;
+    margin: 0px;
+
+    p {
+        margin: 0px 5px;
+
+    }
+}
+
+.userControlPanel {
+    background-color: $white-up;
+    display: none;
+
+    ul {
+        list-style-type: none;
+        padding: 0px;
+
+        li {
+            color: $blue-main;
+            padding: 10px;
+
+            &:hover {
+                background-color: $blue-secondary;
+            }
+
+            .controlPanelIcon {
+                margin: 0px 5px;
+            }
+        }
+    }
+
+}
+
 @media screen and (min-width : 1020px) and (max-width: 10000px) {
     .headerMain {
         padding: 0px $component-bound-space-pc;
@@ -194,7 +237,7 @@
         }
 
         .midSec {
-            display: flex;
+            display: none;
         }
 
         .rightSec {

@@ -166,7 +166,7 @@
 
 @media screen and (max-width: 450px) {
     .productPage {
-        padding: 10px 10px;
+        padding: 1px 10px 10px;
         display: block;
 
         .categorySec {
@@ -204,11 +204,11 @@
             .filterCategoryListMb {
                 background-color: white;
                 position: fixed;
-                z-index: 5000;
+                z-index: 7000;
                 width: 100%;
                 left: 0px;
-                top: 160px;
-                height: calc(100vh - 160px);
+                top: 0px;
+                height: 100vh;
 
                 // max-height: calc(100vh - 160px);
                 overflow-y: scroll;

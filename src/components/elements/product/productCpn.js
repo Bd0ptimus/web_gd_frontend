@@ -6,6 +6,7 @@ import 'react-simple-tree-menu/dist/main.css';
 import {
     faFileExcel,
     faList,
+    faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PaginationControl } from 'react-bootstrap-pagination-control';
@@ -111,6 +112,9 @@ function ProductCpn({ data }) {
                     </div>
 
                     <div className={`${styles.filterCategoryListMb}`} style={{ display: filterListOpen ? 'block' : 'none' }}>
+                        <div className={`d-flex justify-content-end`}>
+                            <FontAwesomeIcon icon={faXmark} size="2xl" style={{ fontSize: 40, }} onClick={() => setFilterListOpen(!filterListOpen)} />
+                        </div>
                         <TreeMenu data={treeData} onClickItem={({ key, label, id, pid }) => {
                             console.log('onclick in tree :', label);
                             setSelectedCate({ id: id, name: label, pid: pid });
