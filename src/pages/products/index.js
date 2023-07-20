@@ -27,7 +27,7 @@ function ProductMain({ data }) {
                 <HeaderCpn></HeaderCpn>
                 <div className={`${mainStyles.bodySec}`}>
 
-                    <ProductCpn data={data}></ProductCpn>
+                    <ProductCpn data={data} styleProps={{ position: 'fixed', }}></ProductCpn>
 
                 </div>
 

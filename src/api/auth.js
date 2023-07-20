@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function loginCall(email, password) {
+async function adminLoginCall(email, password) {
     const res = await axios.post(process.env.NEXT_PUBLIC_APP_AUTH_API_URL, { email: email, password: password });
     return {
         errCode: res.data.errCode,
@@ -14,7 +14,7 @@ async function autoLogin(JWT) {
     console.log('test JWT: ', ' - ', JWT);
     console.log('auto login ready : ');
 
-    let res = await axios.post('http://localhost:3000/api/auth/auto-login', { data: JWT }, {
+    let res = await axios.post(process.env.NEXT_PUBLIC_APP_AUTO_AUTH_API_URL, { data: JWT }, {
         headers: {
             'Authorization': 'Bearer ' + JWT,
             'Content-Type': 'application/json',
@@ -34,7 +34,21 @@ async function autoLogin(JWT) {
     }
 }
 
+async function userLogin(email, password) {
+    console.log('email : ', email, ' password : ', password);
+    let res = await axios.post(process.env.NEXT_PUBLIC_APP_BACKEND_URL + '/api/auth/user-login', { email: email, password: password }, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        method: 'POST'
+
+    });
+
+    return res;
+}
 export default {
-    loginCall: loginCall,
+    adminLoginCall: adminLoginCall,
     autoLogin: autoLogin,
+    userLogin: userLogin,
 };

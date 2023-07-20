@@ -11,7 +11,8 @@ export const changeUserLoginState = (userData) => ({
     userId: userData.userId,
     userName: userData.userName,
     userEmail: userData.userEmail,
-    userJWT: userData.jwt
+    userJWT: userData.jwt,
+    userRole: userData.userRole,
 });
 
 export const userLogout = () => ({
@@ -20,5 +21,6 @@ export const userLogout = () => ({
     userId: '',
     userName: '',
     userEmail: '',
-    userJWT: ''
+    userJWT: '',
+    userRole: null,
 });

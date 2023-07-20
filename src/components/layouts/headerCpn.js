@@ -19,7 +19,7 @@ import MenuCpn from '../sections/menuCpn';
 import MenuMbCpn from '../sections/menuMbCpn';
 import * as actions from "@/store/action";
 
-function HeaderCpn({ isLoggedIn, userName, userLogout }) {
+function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
     const [isMenuOpened, setMenuOpened] = useState(false);
     const [isUserControlPanelOpened, setUserControlPanelOpened] = useState(false);
     const router = useRouter()
@@ -43,21 +43,25 @@ function HeaderCpn({ isLoggedIn, userName, userLogout }) {
         setCookie('JWT', '', {
             maxAge: 60 * 60 * 24 * 30,
         })
+        setCookie('roleUser', null, {
+            maxAge: 60 * 60 * 24 * 30,
+        })
 
     }
 
     function usernameLoginSection(isLoggedIn) {
         if (isLoggedIn) {
             return (
-                <div className={`d-block justify-content-center`}>
-                    <div className={`${styles.usernameLoginSec} d-flex justify-content-end`} onClick={() => setUserControlPanelOpened(!isUserControlPanelOpened)}>
-                        <p>{userName}</p>  <FontAwesomeIcon icon={faCaretDown} />
+                <div className={`d-block justify-content-center ${styles.usernameHeader}`}>
+                    <div className={`${styles.usernameLoginSec} d-flex justify-content-start`} onClick={() => setUserControlPanelOpened(!isUserControlPanelOpened)}>
+                        <p>{userName}</p>
+                        {/* <FontAwesomeIcon icon={faCaretDown} /> */}
                     </div>
 
                     <div className={`${styles.userControlPanel}`} style={{ display: isUserControlPanelOpened ? 'block' : 'none' }}>
                         <ul>
-                            <li><FontAwesomeIcon icon={faCartShopping} className={`${styles.controlPanelIcon}`} />Đơn hàng</li>
-                            <li onClick={() => logoutHandler()} ><FontAwesomeIcon icon={faArrowRightFromBracket} className={`${styles.controlPanelIcon}`} />Đăng xuất </li>
+                            <li className={`d-flex justify-content-center`}><FontAwesomeIcon icon={faCartShopping} className={`${styles.controlPanelIcon}`} />Đơn hàng</li>
+                            <li className={`d-flex justify-content-center`} onClick={() => logoutHandler()} ><FontAwesomeIcon icon={faArrowRightFromBracket} className={`${styles.controlPanelIcon}`} />Đăng xuất </li>
                         </ul>
                     </div>
                 </div>
@@ -109,9 +113,9 @@ function HeaderCpn({ isLoggedIn, userName, userLogout }) {
                                 <p className={`${styles.infoText}`}> USD/RUB : 90,53 RUB </p>
                             </div>
                             <div className={`d-block`}>
-                                <p className={`${styles.infoText}`}> Giá cước tham khảo:</p>
-                                <p className={`${styles.infoText}`}> Theo cân : 15$/Kg</p>
-                                <p className={`${styles.infoText}`}> Bảo hiểm : 10% </p>
+                                <p className={`${styles.infoText}`}> Giá cước vận chuyển Nga-Việt:</p>
+                                <p className={`${styles.infoText}`}> 10$/Kg + 10% bảo hiểm</p>
+                                <p className={`${styles.infoText}`}> 30$/Kg (không bảo hiểm) </p>
 
                             </div>
                         </div>
@@ -147,6 +151,7 @@ function mapStateToProps(state) {
     return {
         isLoggedIn: state.system.userLoggedIn,
         userName: state.system.userName,
+        userRole: state.system.userRole
     };
 }
 

@@ -154,6 +154,15 @@
 
 }
 
+.usernameHeader {
+    max-width: 100%;
+    text-overflow: ellipsis;
+
+    p {
+        text-align: left;
+    }
+}
+
 @media screen and (min-width : 1020px) and (max-width: 10000px) {
     .headerMain {
         padding: 0px $component-bound-space-pc;

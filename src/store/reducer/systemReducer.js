@@ -8,7 +8,8 @@ const initState = {
     userId: "",
     userName: "",
     userEmail: "",
-    userJWT: ""
+    userJWT: "",
+    userRole: null,
 }
 const systemReducer = (state = initState, action) => {
 
@@ -18,7 +19,7 @@ const systemReducer = (state = initState, action) => {
                 ...state, language: action.langId,
             };
         case actionTypes.USER_LOGIN_SUCCESS:
-            console.log('in actionTypes.USER_LOGIN_SUCCESS');
+            console.log('in actionTypes.USER_LOGIN_SUCCESS : ', action);
 
             return {
                 ...state,
@@ -26,17 +27,20 @@ const systemReducer = (state = initState, action) => {
                 userId: action.userId,
                 userName: action.userName,
                 userEmail: action.userEmail,
-                userJWT: action.userJWT
+                userJWT: action.userJWT,
+                userRole: action.userRole,
             };
         case actionTypes.USER_LOGOUT:
-            console.log('in actionTypes.USER_LOGOUT');
+            console.log('in actionTypes.USER_LOGOUT : ', action);
             return {
                 ...state,
                 userLoggedIn: action.userLoggedIn,
                 userId: action.userId,
                 userName: action.userName,
                 userEmail: action.userEmail,
-                userJWT: action.userJWT
+                userJWT: action.userJWT,
+                userRole: action.userRole,
+
             };
         default:
             return state;

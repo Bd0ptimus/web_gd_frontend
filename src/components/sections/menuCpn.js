@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from './menu.module.scss';
 import { MENUS } from '../../data/menuList';
-
-function MenuCpn({ userLoggedIn }) {
+import * as Constants from '@/config/constants/Constants';
+function MenuCpn({ userLoggedIn, userRole }) {
     const [menu1, setMenu1] = useState(false);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ function MenuCpn({ userLoggedIn }) {
             {
 
                 MENUS.map((menu, index) => {
-                    if (userLoggedIn) {
+                    if (userLoggedIn && userRole == Constants.ROLE_ADMIN) {
                         if (menu.isParent) {
 
                             return (
@@ -95,7 +95,10 @@ function MenuCpn({ userLoggedIn }) {
 }
 
 function mapStateToProps(state) {
-    return { userLoggedIn: state.system.userLoggedIn };
+    return {
+        userLoggedIn: state.system.userLoggedIn,
+        userRole: state.system.userRole
+    };
 }
 
 function mapDispatchToProps(dispatch) {

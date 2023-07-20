@@ -41,3 +41,6 @@ export const REQUEST_STATUS_SLUG = [{
     tagColor: 'green',
 }
 ];
+
+export const ROLE_USER = 2;
+export const ROLE_ADMIN = 1;

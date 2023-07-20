@@ -12,15 +12,20 @@ import { setCookie } from 'cookies-next';
 import styles from './index.module.scss'
 import AuthApi from '../../../api/auth';
 import * as actions from "../../../store/action";
-
-function Login({ lang, changeLoginState }) {
+import * as Constants from '@/config/constants/Constants';
+function Login({ lang, changeLoginState, userRole }) {
     const [email, setEmail] = useState('');
     const [pw, setPw] = useState('');
     const [pwShowned, setPwShowned] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const router = useRouter()
     if (isLoggedIn) {
-        router.push("/admin/products/productCategoryManager");
+        if (userRole == Constants.ROLE_ADMIN) {
+            router.push("/admin/products/productCategoryManager");
+
+        } else {
+            router.push("/");
+        }
         return
     }
 
@@ -29,8 +34,40 @@ function Login({ lang, changeLoginState }) {
     }
 
 
-    function handleResponse(res) {
-        console.log(res);
+    function handleResponseAdminLogin(res) {
+        // console.log(res);
+        if (res.errCode != 0) {
+            // toast.warning(`${res.message}`, {
+            //     position: toast.POSITION.TOP_RIGHT
+            // })
+            handleUserLogin();
+        } else {
+            toast.success(`${res.message}`, {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            const userData = res.userData.user;
+            changeLoginState({
+                userId: userData.id,
+                userName: userData.name,
+                userEmail: userData.email,
+                jwt: res.jwt,
+                userRole: Constants.ROLE_ADMIN,
+            });
+            setCookie('isLoggedIn', true, {
+                maxAge: 60 * 60 * 24 * 30,
+            })
+            setCookie('JWT', res.jwt, {
+                maxAge: 60 * 60 * 24 * 30,
+            });
+            setCookie('roleUser', Constants.ROLE_ADMIN, {
+                maxAge: 60 * 60 * 24 * 30,
+            })
+            setIsLoggedIn(true);
+        }
+    }
+
+    function handleResponseUserLogin(res) {
+        console.log('handleResponseUserLogin : ', res);
         if (res.errCode != 0) {
             toast.warning(`${res.message}`, {
                 position: toast.POSITION.TOP_RIGHT
@@ -42,18 +79,26 @@ function Login({ lang, changeLoginState }) {
             const userData = res.userData.user;
             changeLoginState({
                 userId: userData.id,
-                userName: userData.name,
+                userName: userData.email,
                 userEmail: userData.email,
-                jwt: res.jwt
+                jwt: res.jwt,
+                userRole: Constants.ROLE_USER,
             });
             setCookie('isLoggedIn', true, {
                 maxAge: 60 * 60 * 24 * 30,
             })
             setCookie('JWT', res.jwt, {
                 maxAge: 60 * 60 * 24 * 30,
+            });
+            setCookie('roleUser', Constants.ROLE_USER, {
+                maxAge: 60 * 60 * 24 * 30,
             })
             setIsLoggedIn(true);
         }
+    }
+
+    function handleUserLogin() {
+        AuthApi.userLogin(email, pw).then((p) => handleResponseUserLogin(p.data)).catch((e) => console.log('error in user login : ', e))
     }
 
     function submitHandler() {
@@ -62,7 +107,7 @@ function Login({ lang, changeLoginState }) {
                 position: toast.POSITION.TOP_RIGHT
             })
         } else {
-            AuthApi.loginCall(email, pw).then((p) => handleResponse(p)).catch((e) => console.log(e))
+            AuthApi.adminLoginCall(email, pw).then((p) => handleResponseAdminLogin(p)).catch((e) => console.log('error in admin login : ', e))
         }
     }
 
@@ -104,7 +149,11 @@ function Login({ lang, changeLoginState }) {
 }
 
 function mapStateToProps(state) {
-    return { lang: state.system.language };
+    return {
+        lang: state.system.language,
+        userRole: state.system.userRole,
+
+    };
 }
 
 function mapDispatchToProps(dispatch) {

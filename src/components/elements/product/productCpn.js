@@ -7,6 +7,7 @@ import {
     faFileExcel,
     faList,
     faXmark,
+    faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PaginationControl } from 'react-bootstrap-pagination-control';
@@ -20,15 +21,15 @@ import styles from './index.module.scss';
 import ProductElement from '@/components/elements/product/productElement';
 import SendPriceRequestModal from '@/components/sections/sendPriceRequestModal';
 import * as Utils from '@/utils';
-
-function ProductCpn({ data }) {
+import SearchRequestOrderModal from '@/components/sections/searchRequestOrderModal';
+function ProductCpn({ data, styleProps }) {
     const [treeData, setTreeData] = useState([]);
     const [page, setPage] = useState(1)
     const [categoryChoose, setCategoryChoose] = useState(null);
     const [productData, setProductData] = useState([]);
     const [numberProduct, setNumberProduct] = useState(0);
     const [filterListOpen, setFilterListOpen] = useState(false);
-
+    const [searchModalOpen, setSearchModalOpen] = useState(false);
     const [priceRequestModal, setPriceRequestModal] = useState(false);
     useEffect(() => {
         setProductData(data.products.data.products.rows);
@@ -96,12 +97,22 @@ function ProductCpn({ data }) {
                             <h6 style={{ margin: 0, padding: 2, }}>Gửi yêu cầu báo giá</h6>
                         </div>
                     </div>
-                    <div className={`${styles.filterSec}`}>
+                    <div className={`${styles.sendRequest}`}>
+                        <div onClick={() => setSearchModalOpen(true)} className={`d-flex justify-content-start ${styles.sendRequestButton}`} >
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <h6 style={{ margin: 0, padding: 2, }}>Tra cứu tình trạng đơn hàng</h6>
+                        </div>
+                    </div>
+                    <div className={`${styles.filterSec}`} style={styleProps}>
                         <div className={`d-flex justify-content-center ${styles.filterElement} `} onClick={() => setFilterListOpen(!filterListOpen)}>
                             <FontAwesomeIcon icon={faList} />
                         </div>
                         <div className={`d-flex justify-content-center ${styles.filterElement}`} onClick={() => setPriceRequestModal(true)}>
                             <FontAwesomeIcon icon={faFileExcel} />
+                        </div>
+
+                        <div className={`d-flex justify-content-center ${styles.filterElement}`} onClick={() => setSearchModalOpen(true)}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </div>
                     </div>
                     <div className={`${styles.filterCategoryList}`}>
@@ -120,9 +131,8 @@ function ProductCpn({ data }) {
                             setSelectedCate({ id: id, name: label, pid: pid });
                         }} />
                     </div>
-
-
                 </div>
+
                 <div className={`${styles.productSec} d-block justify-content-center`}>
                     <div className={`${styles.productElementSec} d-flex justify-content-center`}>
                         {
@@ -157,6 +167,13 @@ function ProductCpn({ data }) {
                 errorAlert={(e) => errorAlert(e)}
                 successAlert={(e) => successAlert(e)}
 
+            />
+
+            <SearchRequestOrderModal
+                show={searchModalOpen}
+                onHide={() => setSearchModalOpen(false)}
+                errorAlert={(e) => errorAlert(e)}
+                successAlert={(e) => successAlert(e)}
             />
 
             <ToastContainer />

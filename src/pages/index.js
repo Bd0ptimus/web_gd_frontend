@@ -43,19 +43,8 @@ function Home({ children, lang, changeLanguage, userLogout, data }) {
             <div>
                 <HeaderCpn></HeaderCpn>
                 <div className={`${styles.bodySec}`}>
-                    {/* <button onClick={() => { changeLangHandler('vi') }}>VI</button>
-                    <button onClick={() => { changeLangHandler('en') }}>EN</button>
-                    <button onClick={() => { changeLangHandler('ru') }}>RU</button> */}
                     <IntroV2></IntroV2>
-                    {/* <Intro></Intro> */}
-                    <ProductCpn data={data}></ProductCpn>
-                    {/* <WorkingStep></WorkingStep> */}
-                    {/* <HowWorking></HowWorking>
-                    <Overview></Overview>
-                    <Partners></Partners>
-                    <Order></Order> */}
-                    {/* <button onClick={() => { logoutHandler() }}>EN</button> */}
-
+                    <ProductCpn data={data} ></ProductCpn>
                 </div>
 
                 <FooterCpn></FooterCpn>

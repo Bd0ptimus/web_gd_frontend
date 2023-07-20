@@ -18,7 +18,7 @@ const persistCommonConfig = {
 const systemPersistConfig = {
     ...persistCommonConfig,
     key: 'system',
-    whitelist: ['language', 'userLoggedIn', 'userId', 'userName', 'userEmail', 'userJWT']
+    whitelist: ['language', 'userLoggedIn', 'userId', 'userName', 'userEmail', 'userJWT', 'userRole']
 };
 
 const rootReducer = combineReducers({
