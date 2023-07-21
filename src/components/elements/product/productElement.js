@@ -20,12 +20,12 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                 <p style={{ margin: 2, textAlign: 'center' }} className={`${styles.productName}`}> {name}</p>
                 <p style={{ margin: 2, textAlign: 'center' }} className={`${styles.productCategory}`}>  {cate}</p>
             </div>
-            <div style={{ width: '100%', height: 200, marginTop: 5, marginBottom: 5 }} className={`d-block justify-content-center`}>
+            <div style={{ width: '100%', height: 250, marginTop: 5, marginBottom: 5 }} className={`d-block justify-content-center`}>
                 <Carousel>
                     {
                         urls.length == 0
                             ?
-                            <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000} >
+                            <Carousel.Item style={{ width: '100%', height: 250 }} interval={4000} >
 
                                 <img
                                     alt="Mountains"
@@ -45,7 +45,7 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
 
                             : urls.map((img, index) => {
                                 return (
-                                    <Carousel.Item style={{ width: '100%', height: 200 }} interval={4000} >
+                                    <Carousel.Item style={{ width: '100%', height: 250 }} interval={4000} >
 
                                         <img
                                             alt="Mountains"
@@ -58,7 +58,7 @@ function ProductElement({ name, cate, urls, price, wholeSalePrice }) {
                                             style={{
                                                 objectFit: 'cover',
                                                 width: '100%',
-                                                height: '100%',
+                                                height: 'auto',
                                             }}
                                         />
                                     </Carousel.Item>

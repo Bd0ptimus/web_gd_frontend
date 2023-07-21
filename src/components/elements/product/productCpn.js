@@ -5,6 +5,7 @@ import TreeMenu from 'react-simple-tree-menu'
 import 'react-simple-tree-menu/dist/main.css';
 import {
     faFileExcel,
+    faFileArrowUp,
     faList,
     faXmark,
     faMagnifyingGlass,
@@ -93,7 +94,7 @@ function ProductCpn({ data, styleProps }) {
                 <div className={`${styles.categorySec}`}>
                     <div className={`${styles.sendRequest}`}>
                         <div onClick={() => setPriceRequestModal(true)} className={`d-flex justify-content-start ${styles.sendRequestButton}`} >
-                            <FontAwesomeIcon icon={faFileExcel} />
+                            <FontAwesomeIcon icon={faFileArrowUp} />
                             <h6 style={{ margin: 0, padding: 2, }}>Gửi yêu cầu báo giá</h6>
                         </div>
                     </div>
@@ -108,7 +109,7 @@ function ProductCpn({ data, styleProps }) {
                             <FontAwesomeIcon icon={faList} />
                         </div>
                         <div className={`d-flex justify-content-center ${styles.filterElement}`} onClick={() => setPriceRequestModal(true)}>
-                            <FontAwesomeIcon icon={faFileExcel} />
+                            <FontAwesomeIcon icon={faFileArrowUp} />
                         </div>
 
                         <div className={`d-flex justify-content-center ${styles.filterElement}`} onClick={() => setSearchModalOpen(true)}>
