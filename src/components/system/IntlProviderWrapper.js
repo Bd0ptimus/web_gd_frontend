@@ -8,6 +8,7 @@ import VI from '../../translations/vi.json';
 import RU from '../../translations/ru.json';
 import * as actions from "../../store/action";
 import * as Constants from '../../config/constants/Constants';
+import {NextUIProvider} from '@nextui-org/react'
 
 
 function IntlProviderWrapper({ children, lang, changeLanguage }) {
@@ -49,7 +50,10 @@ function IntlProviderWrapper({ children, lang, changeLanguage }) {
 
     return (
         <IntlProvider messages={messages} locale="vi" defaultLocale="vi" >
-            {children}
+            {/* <NextUIProvider> */}
+                {children}
+            {/* </NextUIProvider> */}
+
         </IntlProvider>
 
     );

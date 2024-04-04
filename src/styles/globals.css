@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
     --primary: #f1f1f1;
     --secondary: rgba(31, 209, 253, 0.4);

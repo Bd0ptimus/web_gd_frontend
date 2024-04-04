@@ -44,3 +44,8 @@ export const REQUEST_STATUS_SLUG = [{
 
 export const ROLE_USER = 2;
 export const ROLE_ADMIN = 1;
+
+export const PRODUCTS_KIZ_STATUS = {
+    COMPLETED: 'completed',
+    PENDING: 'pending'
+}
