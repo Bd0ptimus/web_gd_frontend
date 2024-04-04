@@ -39,6 +39,7 @@ function Home({ children }) {
     const [currentScannedCode, setCurrentScannedCode] = useState('');
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [products, setProducts] = useState([]);
+    const [loadingNewProducts, setLoadingNewProducts] = useState(true);
     useEffect(() => {
         setProducts([
             {
@@ -146,6 +147,16 @@ function Home({ children }) {
         closeScanBoxHandler()
     }
 
+    const testObject = () => {
+        setLoadingNewProducts(false)
+        setSelectedProductId(5)
+        onResultGet({
+            text: 'abc'
+        })
+        setLoadingNewProducts(true)
+
+    }
+
     const columns = [
         { name: "Trạng thái", uid: "status" },
         { name: "№ задания", uid: "number" },
@@ -242,6 +253,9 @@ function Home({ children }) {
                         <div>
                             <Button variant="bordered"  startContent={<FontAwesomeIcon icon={faUpload} />}>  Tải file Excel lên</Button>
                         </div>
+                        <div>
+                            <Button variant="bordered" onClick={() => testObject()}>  Test </Button>
+                        </div>
                     </div>
                     {/* { (!isMobileOrTablet && startScanBox) && (
                         <div className="py-4" >
@@ -300,11 +314,14 @@ function Home({ children }) {
                                     colorText = '#c81e37';
                                     backgroundColorText = '#f4f0f1';
                                 }
-                                return (
-                                    <TableRow style={{backgroundColor: `${backgroundColorText}`, color: `${colorText}`}} key={item.id}>
-                                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-                                    </TableRow>
-                                )
+                                if (loadingNewProducts) {
+                                    return (
+                                        <TableRow style={{backgroundColor: `${backgroundColorText}`, color: `${colorText}`}} key={item.id}>
+                                            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                                        </TableRow>
+                                    )
+                                }
+
                             }}
                         </TableBody>
                     </Table>
