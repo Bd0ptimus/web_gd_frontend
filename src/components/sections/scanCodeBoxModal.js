@@ -4,14 +4,22 @@ import { Scanner } from '@yudiel/react-qr-scanner';
 import Box from "@mui/material/Box";
 
 function ScanCodeBoxModal(props) {
+    const [startScan, setStartScan] = useState(false);
+    useEffect(() => {
+        setStartScan(props.startScanBox)
+    }, [props.startScanBox])
 
+    useEffect(() => {
+        console.log('startScan scan : ', startScan)
+    }, [startScan])
     const scanResultHandler = (text, result) => {
-        if (props.startScanBox) {
-            props.onResultGet({
-                text,
-                object: result
-            })
-        }
+        text =  text.replace(//g, ' ').trim().slice(0, 31)
+        console.log('text : ', text)
+        props.onResultGet({
+            text,
+            object: result
+        })
+        setStartScan(false)
     }
     
 
@@ -29,18 +37,15 @@ function ScanCodeBoxModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {props.startScanBox && (
-                    <Box 
+                <Box 
                     // sx={{ margin: "auto", textAlign: "center", width: 600 }}
                     >
                         <Scanner
                             onResult={(text, result) =>scanResultHandler(text, result)}
                             onError={(error) => console.log(error?.message)}
-                            enabled={props.startScanBox}
-                            stopDecoding={props.startScanBox}
+                            enabled={startScan}
                             />
-                    </Box>
-                )}
+                </Box>
             </Modal.Body>
         </Modal>
     );

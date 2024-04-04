@@ -55,7 +55,8 @@
     "sass": "^1.63.4",
     "styled-components": "^5.3.11",
     "sweetpagination": "^1.0.15",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@formatjs/cli": "^6.1.3",
