@@ -38,6 +38,7 @@ import { Scanner } from '@yudiel/react-qr-scanner';
 import Box from "@mui/material/Box";
 import * as Constants from '@/config/constants/Constants';
 import * as XLSX from "xlsx";
+import FooterCpn from '@/components/layouts/footerCpn';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -355,7 +356,7 @@ function Home({ children }) {
                 </Head>
             </div>
             <div>
-                <div className="container py-4">
+                <div className="container py-4" style={{minHeight: '85vh'}}>
                     <div className="py-4">
                         <Card className="max-w-[400px]">
                             {/* <Divider /> */}
@@ -515,8 +516,8 @@ function Home({ children }) {
                         </TableBody>
                     </Table>
                     <ToastContainer />
-
                 </div>
+                <FooterCpn/>
             </div>
         </>
     )

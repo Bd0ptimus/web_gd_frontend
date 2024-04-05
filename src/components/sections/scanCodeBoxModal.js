@@ -14,7 +14,6 @@ function ScanCodeBoxModal(props) {
     }, [startScan])
     const scanResultHandler = (text, result) => {
         text =  text.replace(//g, ' ').trim().slice(0, 31)
-        console.log('text : ', text)
         props.onResultGet({
             text,
             object: result
@@ -38,7 +37,7 @@ function ScanCodeBoxModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <Box 
-                    // sx={{ margin: "auto", textAlign: "center", width: 600 }}
+                    sx={{ margin: "auto", textAlign: "center", width: 400 }}
                     >
                         <Scanner
                             onResult={(text, result) =>scanResultHandler(text, result)}
