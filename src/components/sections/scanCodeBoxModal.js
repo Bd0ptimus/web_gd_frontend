@@ -37,7 +37,7 @@ function ScanCodeBoxModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <Box 
-                    sx={{ margin: "auto", textAlign: "center", width: 220 }}
+                    sx={{ margin: "auto", textAlign: "center", width: 250 }}
                     >
                         <Scanner
                             onResult={(text, result) =>scanResultHandler(text, result)}
