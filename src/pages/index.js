@@ -4,9 +4,6 @@ import { Inter } from 'next/font/google';
 import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faUpload,
@@ -14,7 +11,8 @@ import {
     faCircleCheck,
     faCircleXmark,
     faDownload, 
-    faTrash
+    faTrash,
+    faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
@@ -32,15 +30,17 @@ import { Table,
     Button,
     Divider,
     CardBody,
-    CardFooter,
+    Input,
     Link } from "@nextui-org/react";
 import { Scanner } from '@yudiel/react-qr-scanner';
 import Box from "@mui/material/Box";
 import * as Constants from '@/config/constants/Constants';
 import * as XLSX from "xlsx";
 import FooterCpn from '@/components/layouts/footerCpn';
-
+import ToastCpn from '@/components/layouts/toastCpn';
+import SearchFileCpn from '@/components/layouts/searchFileCpn';
 const inter = Inter({ subsets: ['latin'] })
+import {createNewFile, getFileById} from '@/helpers/commonFunction'
 
 function Home({ children }) {
     const [startScanBox, setStartScanBox] = useState(false);
@@ -54,53 +54,52 @@ function Home({ children }) {
 
     useEffect(() => {
         // setProducts([
-        //     {
-        //         id: 1,
-        //         number: "1565420132",
-        //         sticker: "19139551056",
-        //         kiz: null,
-        //         status: 'completed'
-        //     },
-        //     {
-        //         id: 2,
-        //         number: "1565552093",
-        //         sticker: "19139766546",
-        //         kiz: null,
-        //         status: 'pending'
+            // {
+            //     id: 1,
+            //     number: "1565420132",
+            //     sticker: "19139551056",
+            //     kiz: null,
+            //     status: 'completed'
+            // },
+            // {
+            //     id: 2,
+            //     number: "1565552093",
+            //     sticker: "19139766546",
+            //     kiz: null,
+            //     status: 'pending'
     
-        //     },
-        //     {
-        //         id: 3,
-        //         number: "1565041132",
-        //         sticker: "19138829717",
-        //         kiz: null,
-        //         status: 'pending'
+            // },
+            // {
+            //     id: 3,
+            //     number: "1565041132",
+            //     sticker: "19138829717",
+            //     kiz: null,
+            //     status: 'pending'
     
-        //     },
-        //     {
-        //         id: 4,
-        //         number: "1563749990",
-        //         sticker: "19135806281",
-        //         kiz: null,
-        //         status: 'pending'
+            // },
+            // {
+            //     id: 4,
+            //     number: "1563749990",
+            //     sticker: "19135806281",
+            //     kiz: null,
+            //     status: 'pending'
     
-        //     },
-        //     {
-        //         id: 5,
-        //         number: "1565972295",
-        //         sticker: "19140425282",
-        //         kiz: null,
-        //         status: 'pending'
+            // },
+            // {
+            //     id: 5,
+            //     number: "1565972295",
+            //     sticker: "19140425282",
+            //     kiz: null,
+            //     status: 'pending'
     
-        //     },
-        //     {
-        //         id: 6,
-        //         number: "1566311887",
-        //         sticker: "19141102525",
-        //         kiz: null,
-        //         status: 'pending'
-    
-        //     },
+            // },
+            // {
+            //     id: 6,
+            //     number: "1566311887",
+            //     sticker: "19141102525",
+            //     kiz: null,
+            //     status: 'pending'
+            // },
         // ])
     }, [])
 
@@ -167,17 +166,13 @@ function Home({ children }) {
         const incomingText = resultObject.text ?? ''
         closeScanBoxHandler()
         if (incomingText == currentScannedCode) {
-            toast.warning(`Mã Kiz này đã được sử dụng. Vui lòng chọn mã khác`, {
-                position: toast.POSITION.TOP_RIGHT
-            });
+            ToastCpn.toastWarning(`Mã Kiz này đã được sử dụng. Vui lòng chọn mã khác`)
             return
         }
 
         let findExistedKiz = products.filter(product => product.kiz == incomingText)
         if (findExistedKiz.length > 0) {
-            toast.warning(`Mã Kiz này đã được sử dụng. Vui lòng chọn mã khác`, {
-                position: toast.POSITION.TOP_RIGHT
-            });
+            ToastCpn.toastWarning(`Mã Kiz này đã được sử dụng. Vui lòng chọn mã khác`)
             return
         }
         setCurrentScannedCode(resultObject.text ?? '')
@@ -204,7 +199,7 @@ function Home({ children }) {
                     reject(error);
                 };
             });
-            promise.then((d) => {
+            promise.then(async (d) => {
                 let productsImported = []
                 d.forEach((item, index) => {
                     const product = {}
@@ -223,12 +218,16 @@ function Home({ children }) {
                     }
                     productsImported.push(product)
                 })
-                setProducts(productsImported)
-            });
+                if (productsImported.length == 0) {
+                    ToastCpn.toastWarning(`File trống, vui lòng kiểm tra lại`)
+                    return
+                }
+                const createRes = await createNewFile(productsImported)
+                if (createRes == 0) {
+                    ToastCpn.toastWarning(`File không được chấp nhận. Hãy đảm bảo file tải lên là excel. Đảm bảo thông tin trong file bao gồm các cột № задания, Стикер và КИЗ.`)
+                }            });
         } catch (e) {
-            toast.warning(`File không được chấp nhận`, {
-                position: toast.POSITION.TOP_RIGHT
-            });
+            ToastCpn.toastWarning(`File không được chấp nhận`)
         }
     };
 
@@ -352,14 +351,12 @@ function Home({ children }) {
                     <title>Hỗ trợ quét mã kiz </title>
                     <meta name="description" content="Generated by create next app" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="icon" href="/favicon.ico" />
                 </Head>
             </div>
             <div>
                 <div className="container py-4" style={{minHeight: '85vh'}}>
                     <div className="py-4">
                         <Card className="max-w-[400px]">
-                            {/* <Divider /> */}
                             <CardBody>
                                 <p className="text-xl text-default-500">App hỗ trợ quét mã КИЗ</p>
                                 <p>Hướng dẫn sử dụng: </p>
@@ -369,18 +366,9 @@ function Home({ children }) {
                                 <p>4. Tải file đã điền КИЗ về máy tính </p>
                                 <p>5. Up file Excel đã điền КИЗ lên sàn</p>
                             </CardBody>
-                            {/* <Divider />
-                            <CardFooter>
-                                <Link
-                                    isExternal
-                                    showAnchorIcon
-                                    href="https://github.com/nextui-org/nextui"
-                                >
-                                    Visit source code on GitHub.
-                                </Link>
-                            </CardFooter> */}
                         </Card>
                     </div>
+                    <SearchFileCpn/>
                     <div className="py-4">
                         <div  className="d-flex justify-content-between">
                             <Button
@@ -404,30 +392,7 @@ function Home({ children }) {
                             onChange={handleFileChange}
                             style={{ display: 'none' }}
                         />
-                        {/* <div>
-                            <Button variant="bordered" onClick={() => testObject()}>  Test </Button>
-                        </div> */}
                     </div>
-                    {/* { (!isMobileOrTablet && startScanBox) && (
-                        <div className="py-4" >
-                            <div className="d-flex justify-content-end">
-                                <Button isIconOnly 
-                                color="danger" 
-                                aria-label="close-scan"
-                                onClick={() => closeScanBoxHandler()}>                            
-                                    <FontAwesomeIcon icon={faXmark} />
-                                </Button>
-                            </div>
-                            <Box sx={{ margin: "auto", textAlign: "center", width: 300 }}>
-                                <Scanner
-                                    onResult={(text, result) => console.log(text, result)}
-                                    onError={(error) => console.log(error?.message)}
-                                    enabled={startScanBox}
-                                />
-                            </Box>
-                        </div>
-                    )} */}
-
                     <ScanCodeBoxModal
                         show={modalScanShow}
                         onHide = {() => closeScanBoxHandler()}
@@ -515,7 +480,7 @@ function Home({ children }) {
                             }
                         </TableBody>
                     </Table>
-                    <ToastContainer />
+                    <ToastCpn/>
                 </div>
                 <FooterCpn/>
             </div>
