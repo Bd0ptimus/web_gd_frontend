@@ -58,6 +58,7 @@ function FileDetail({ data }) {
     useEffect(() => {
         const interval  = setInterval(async () => {
             data = await getFileById(data.fileId)
+            setProducts(data.products)
         }, 10000);
         return () => clearInterval(interval);
     }, []);
@@ -431,6 +432,9 @@ function FileDetail({ data }) {
 export async function getServerSideProps(context) {
     let data = {};
     const fileId = context.query.fileId
+    if (isNaN(Number(fileId)) || Number(fileId) == 0) {
+        return { props: { data } }
+    }
     data = await getFileById(fileId)
     return { props: { data } }
 }
