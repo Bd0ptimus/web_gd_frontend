@@ -41,7 +41,8 @@ import ToastCpn from '@/components/layouts/toastCpn';
 import SearchFileCpn from '@/components/layouts/searchFileCpn';
 import filesApi from "@/api/file";
 import { useRouter } from 'next/router';
-import {createNewFile, getFileById} from '@/helpers/commonFunction'
+import {createNewFile, getFileById} from '@/helpers/commonFunction';
+// import ScanCodeBoxV2Modal from '@/components/sections/scanCodeBoxV2Modal';
 function FileDetail({ data }) {
     const [startScanBox, setStartScanBox] = useState(false);
     const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
@@ -331,6 +332,13 @@ function FileDetail({ data }) {
                         onResultGet={(e) => onResultGet(e)}
                         startScanBox={startScanBox}
                     />
+
+                    {/* <ScanCodeBoxV2Modal
+                        show={modalScanShow}
+                        onHide={() => closeScanBoxHandler()}
+                        onResultGet={(e) => onResultGet(e)}
+                        startScanBox={startScanBox}
+                    /> */}
 
                     <Table aria-label="Example table with custom cells"
                         color="default"
