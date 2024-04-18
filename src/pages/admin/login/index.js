@@ -13,21 +13,15 @@ import styles from './index.module.scss'
 import AuthApi from '../../../api/auth';
 import * as actions from "../../../store/action";
 import * as Constants from '@/config/constants/Constants';
+import useAxiosRequest from '@/helpers/axiosRequest';
+import HeaderCpn from '@/components/layouts/headerCpn';
 function Login({ lang, changeLoginState, userRole }) {
+    const axiosRequest = useAxiosRequest();
     const [email, setEmail] = useState('');
     const [pw, setPw] = useState('');
     const [pwShowned, setPwShowned] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const router = useRouter()
-    if (isLoggedIn) {
-        if (userRole == Constants.ROLE_ADMIN) {
-            router.push("/admin/products/productCategoryManager");
-
-        } else {
-            router.push("/");
-        }
-        return
-    }
 
     function showPwHandler() {
         setPwShowned(!pwShowned);
@@ -63,27 +57,30 @@ function Login({ lang, changeLoginState, userRole }) {
                 maxAge: 60 * 60 * 24 * 30,
             })
             setIsLoggedIn(true);
+            router.replace(`/`);
+
         }
     }
 
     function handleResponseUserLogin(res) {
-        console.log('handleResponseUserLogin : ', res);
         if (res.errCode != 0) {
             toast.warning(`${res.message}`, {
                 position: toast.POSITION.TOP_RIGHT
             })
         } else {
-            toast.success(`${res.message}`, {
+            toast.success(`Đăng nhập thành công`, {
                 position: toast.POSITION.TOP_RIGHT
             });
             const userData = res.userData.user;
-            changeLoginState({
+            const dataToPersist = {
                 userId: userData.id,
-                userName: userData.email,
+                userName: userData.name,
                 userEmail: userData.email,
                 jwt: res.jwt,
-                userRole: Constants.ROLE_USER,
-            });
+                userRole: userData.role,
+                expireDate: userData.expireDate
+            }
+            changeLoginState(dataToPersist);
             setCookie('isLoggedIn', true, {
                 maxAge: 60 * 60 * 24 * 30,
             })
@@ -94,6 +91,7 @@ function Login({ lang, changeLoginState, userRole }) {
                 maxAge: 60 * 60 * 24 * 30,
             })
             setIsLoggedIn(true);
+            router.replace(`/`);
         }
     }
 
@@ -101,33 +99,51 @@ function Login({ lang, changeLoginState, userRole }) {
         AuthApi.userLogin(email, pw).then((p) => handleResponseUserLogin(p.data)).catch((e) => console.log('error in user login : ', e))
     }
 
-    function submitHandler() {
+    async function submitHandler() {
         if (email == '' || pw == '') {
             toast.warning("Vui lòng nhập đầy đủ thông tin!", {
                 position: toast.POSITION.TOP_RIGHT
             })
         } else {
-            AuthApi.adminLoginCall(email, pw).then((p) => handleResponseAdminLogin(p)).catch((e) => console.log('error in admin login : ', e))
+            const res = await axiosRequest.axiosPost('/api/auth/login' , { email: email, password: pw })
+            const data = {
+                errCode: res.errCode,
+                message: res.message,
+                userData: res.data.user,
+                jwt: res.data.jwt
+            }
+            handleResponseUserLogin(data)
+            // AuthApi.adminLoginCall(email, pw).then((p) => handleResponseAdminLogin(p)).catch((e) => console.log('error in admin login : ', e))
         }
     }
 
     return (
         <div className={`d-flex justify-content-center ${styles.loginMain}`}>
             <div className={`d-block justify-content-center  ${styles.formSec}`}>
-                <div className={`d-flex justify-content-center`}>
-                    <Image
-                        src="/logo/logo_vert.webp"
-                        width={200}
-                        height={200}
-                        alt="Logo"
-                    />
+                <div className={`d-block justify-content-center`}>
+                    <div className={`d-flex justify-content-center mt-5 mb-3`}>
+                        <Image
+                            src="/logo/znak.png"
+                            width={300}
+                            height={300}
+                            alt="Logo"
+                        />
+                    </div>
+                    <div className={`d-flex justify-content-center mt-3 mb-5`}>
+                        <Image
+                            src="/logo/wb.png"
+                            width={300}
+                            height={300}
+                            alt="Logo"
+                        />
+                    </div>
                 </div>
                 <h6><FormattedMessage id="auth.login"></FormattedMessage></h6>
-                <div className={`form-floating ${styles.inputSec}`}>
+                <div className={`form-floating ${styles.inputSec} my-3`}>
                     <input onChange={(e) => { setEmail(e.target.value) }} type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
                     <label><FormattedMessage id="userParams.email"></FormattedMessage></label>
                 </div>
-                <div className={`form-floating ${styles.inputSec}`}>
+                <div className={`form-floating ${styles.inputSec} my-3`}>
                     <input onChange={(e) => { setPw(e.target.value) }} type={!pwShowned ? `password` : `text`} className="form-control" id="floatingPassword" placeholder="Password" />
                     <label ><FormattedMessage id="userParams.password"></FormattedMessage></label>
                 </div>
@@ -163,13 +179,16 @@ function mapDispatchToProps(dispatch) {
 }
 
 // export async function getServerSideProps(context) {
-//     // Apply the middleware to this route
-//     return isLoggedInMiddleware(async () => {
-//         // This code will only execute if isLoggedIn is true
-//         return {
-//             props: {},
-//         };
-//     })(context.req, context.res);
+    // Apply the middleware to this route
+    // return isLoggedInMiddleware(async () => {
+    //     // This code will only execute if isLoggedIn is true
+    //     return {
+    //         props: {},
+    //     };
+    // })(context.req, context.res);
+    // return {
+    //     props: {},
+    // };
 // }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

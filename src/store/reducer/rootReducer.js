@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { persistReducer, persistStore } from 'redux-persist';
 // import createwebStorage from "redux-persist/lib/storage/createwebStorage";
@@ -18,7 +18,7 @@ const persistCommonConfig = {
 const systemPersistConfig = {
     ...persistCommonConfig,
     key: 'system',
-    whitelist: ['language', 'userLoggedIn', 'userId', 'userName', 'userEmail', 'userJWT', 'userRole']
+    whitelist: ['language', 'userLoggedIn', 'userId', 'userName', 'userEmail', 'userJWT', 'userRole', 'expireDate']
 };
 
 const rootReducer = combineReducers({

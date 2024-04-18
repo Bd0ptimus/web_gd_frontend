@@ -1,6 +1,8 @@
-$color-primary: #1D71B9;
-$white-bg: #FAFAFA;
+$color-primary: #6C11C9;
+$color-primary-border: #6d11c928;
+$white-bg: #F8F8F8;
 $white-up: #FFFFFF;
+$gray-bg: #F7F7FA;
 $gray-selected: #F5F5F5;
 $gray-up: rgba(139, 117, 117, 0.5);
 $gray-text : #888888;
@@ -21,8 +23,8 @@ $header-height-pc : 96px;
 $header-height-mb : 96px;
 
 $header-sub-top-pc : 35px;
-$header-top-sec-pc : calc(50px + $header-sub-top-pc);
-$header-bot-sec-pc : 50px;
+$header-top-sec-pc : calc(10px + $header-sub-top-pc);
+$header-bot-sec-pc : 10px;
 
 
 .test {

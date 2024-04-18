@@ -1,5 +1,13 @@
 @import '../../styles/main.module.scss';
 
+@mixin menuPcLink {
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    padding: 2.5px 8px;
+    color: $color-primary;
+}
+
 .menuMain {
     // overflow-x: scroll;
     flex-wrap: wrap;
@@ -7,23 +15,32 @@
     @include vertical-align-center;
 
     .menuElement {
-        margin: 0px 20px;
+        margin: 0px 5px;
         z-index: 7000;
 
         & :hover {
-            // border-radius: 10px;
-            color: $white-up;
-            background-color: $blue-hover;
+            background-color: $white-bg;
             transition: .3s;
+            border-radius: 10px;
         }
     }
 
+    .subMenuGroup {
+        background-color: $gray-bg;
+        border-radius: 5px;
+        border: solid 0.2px $color-primary-border;
+        .subMenuLink {
+            @include menuPcLink;
+            & :hover {
+                background: $white-up;
+                transition: .3s;
+                border-radius: 10px;
+            }
+        } 
+    }
+
     .menuLink {
-        text-decoration: none;
-        text-align: center;
-        font-size: 18px;
-        padding: 2.5px 8px;
-        color: $color-primary;
+        @include menuPcLink;
     }
 }
 

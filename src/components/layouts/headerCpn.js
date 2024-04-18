@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -22,7 +22,15 @@ import * as actions from "@/store/action";
 function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
     const [isMenuOpened, setMenuOpened] = useState(false);
     const [isUserControlPanelOpened, setUserControlPanelOpened] = useState(false);
+    const [enableHeader, setEnableHeader] = useState(false)
     const router = useRouter()
+    useEffect(() => {
+        if (router.pathname === '/admin/login') {
+          setEnableHeader(false);
+        } else {
+          setEnableHeader(true);
+        }
+    }, [router.pathname]);
 
     const handleOpenMenu = () => {
         setMenuOpened(!isMenuOpened);
@@ -30,11 +38,9 @@ function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
 
     function logoClickHandler() {
         router.replace("/");
-
     }
 
     function logoutHandler() {
-        console.log('logoutHandler');
         userLogout();
 
         setCookie('isLoggedIn', false, {
@@ -46,6 +52,7 @@ function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
         setCookie('roleUser', null, {
             maxAge: 60 * 60 * 24 * 30,
         })
+        router.replace("/admin/login");
 
     }
 
@@ -76,14 +83,14 @@ function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
         }
     }
 
-    return (
+    return enableHeader && (
         <div>
             <div className={`${styles.headerMain} d-block justify-content-center`}>
                 <div className={`${styles.headerSubTop} d-flex justify-content-between`}>
                     <div className={`${styles.rightSec} ${styles.headerSec}  d-flex justify-content-center`} style={{ width: '100%', }}>
                         <div className={`${styles.infoSec}  d-flex justify-content-start`}>
                             <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={` ${styles.fontIcon}`} />
-                            <MenuCpn></MenuCpn>
+                            <MenuCpn logout={() => logoutHandler()}></MenuCpn>
 
                         </div>
                     </div>
@@ -91,57 +98,25 @@ function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
                 <div className={`${styles.headerMainTop} d-flex justify-content-between`}>
                     <div className={`${styles.leftSec} ${styles.headerSec} d-flex justify-content-start`}>
                         <div className={`${styles.infoSec}  d-flex justify-content-start`}>
-                            {/* <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={` ${styles.fontIcon}`} /> */}
-
-                            <Image
-                                onClick={() => logoClickHandler()}
-                                src="/logo/logo.webp"
-                                width={500}
-                                height={500}
-                                className={`${styles.logo}`}
-                                alt="Logo"
-                            />
-
-                        </div>
-                    </div>
-
-                    <div className={`${styles.midSec} ${styles.headerSec}  justify-content-center`}>
-                        <div className={`${styles.infoSec}  d-flex justify-content-around`}>
-                            <div className={`d-block`}>
-                                <p className={`${styles.infoText}`}> Tỷ giá:</p>
-                                <p className={`${styles.infoText}`}> USD/VND : 23,672.50 VND</p>
-                                <p className={`${styles.infoText}`}> USD/RUB : 90,53 RUB </p>
-                            </div>
-                            <div className={`d-block`}>
-                                <p className={`${styles.infoText}`}> Giá cước vận chuyển Nga-Việt:</p>
-                                <p className={`${styles.infoText}`}> 10$/Kg + 10% bảo hiểm</p>
-                                <p className={`${styles.infoText}`}> 30$/Kg (không bảo hiểm) </p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={`${styles.rightSec} ${styles.headerSec}  d-flex justify-content-center`}>
-                        <div className={`${styles.infoSec}  d-flex justify-content-end`}>
-
-                            {
-                                usernameLoginSection(isLoggedIn)
-                            }
+                            <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={`mt-1 ${styles.fontIcon}`} />
+                            <p className={`${styles.appName} mt-2`}>App Hỗ Trợ Quét КИЗ</p>
+                            {/* <Image
+                                        onClick={() => logoClickHandler()}
+                                        src="/logo/logo.webp"
+                                        width={500}
+                                        height={500}
+                                        className={`${styles.logo}`}
+                                        alt="Logo"
+                                    /> */}
 
                         </div>
-
                     </div>
                 </div>
-
-                {/* <div className={`${styles.headerMainSec} d-flex justify-content-start`}>
-                    <MenuPcCpn></MenuPcCpn>
-                </div> */}
-
             </div >
             <div style={{ display: isMenuOpened ? 'block' : 'none' }} className={`${styles.mbMenuSec}`}>
-                <MenuMbCpn closeMenu={handleOpenMenu}></MenuMbCpn>
-
+                <MenuMbCpn logout={() => logoutHandler()} closeMenu={handleOpenMenu}></MenuMbCpn>
             </div>
+
         </div>
 
     );

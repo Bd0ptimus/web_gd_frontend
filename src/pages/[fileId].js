@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google';
 import { connect } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect  } from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,7 +12,10 @@ import {
     faCircleXmark,
     faDownload, 
     faTrash,
-    faMagnifyingGlass
+    faMagnifyingGlass,
+    faPenToSquare,
+    faPlay,
+    faStop
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
@@ -32,17 +35,19 @@ import { Table,
     CardBody,
     Input,
     Link } from "@nextui-org/react";
+import { useRouter } from 'next/router';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import Box from "@mui/material/Box";
-import * as Constants from '@/config/constants/Constants';
 import * as XLSX from "xlsx";
-import FooterCpn from '@/components/layouts/footerCpn';
+
+import * as Constants from '@/config/constants/Constants';
 import ToastCpn from '@/components/layouts/toastCpn';
 import SearchFileCpn from '@/components/layouts/searchFileCpn';
-import filesApi from "@/api/file";
-import { useRouter } from 'next/router';
-import {createNewFile, getFileById} from '@/helpers/commonFunction';
-// import ScanCodeBoxV2Modal from '@/components/sections/scanCodeBoxV2Modal';
+import useCommonFunction from '@/helpers/commonFunction';
+import {ssrAxiosGet} from '@/helpers/ssrAxiosRequest';
+import useAxiosRequest from '@/helpers/axiosRequest';
+import Instruction from '@/components/sections/instruction';
+import UpdateKizModal from '@/components/sections/updateKizModal';
 function FileDetail({ data }) {
     const [startScanBox, setStartScanBox] = useState(false);
     const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
@@ -53,15 +58,24 @@ function FileDetail({ data }) {
     const [deleteKizOfProduct, setDeleteKizOfProduct] = useState(null);
     const fileInputRef = useRef(null);
     const [fileId, setFileId] = useState(null);
-    const router = useRouter();
+    const [openManualKiz, setOpenManualKiz] = useState(false);
+    const [productSelectedForUpdateKizManual, setProductSelectedForUpdateKizManual] = useState({})
+    
+    const [startFastProcess, setStartFastProcess] = useState(false);
+    const inputStickerInFastProcessRef = useRef(null);
+    const [scanType, setScanType] = useState('');
 
+    const router = useRouter();
+    const commonFunction = useCommonFunction();
+    const axiosRequest = useAxiosRequest();
     useEffect(() => {
         const interval  = setInterval(async () => {
-            data = await getFileById(data.fileId)
+            // data = await getFileById(fileId)
+            data = await commonFunction.getFileById(fileId)
             setProducts(data.products)
         }, 10000);
         return () => clearInterval(interval);
-    }, []);
+    }, [fileId]);
     useEffect(() => {
         setProducts(data.products)
         setFileId(data.fileId)
@@ -75,6 +89,39 @@ function FileDetail({ data }) {
         deleteProductKiz()
     }, [deleteKizOfProduct])
 
+    useEffect(() => {
+        // reFocusIntoInput();
+    }, [startFastProcess])
+
+    // useEffect (() => {
+
+    //     if (!modalScanShow && !openManualKiz && startFastProcess && inputStickerInFastProcessRef.current) {
+    //         setTimeout(() => {
+    //             inputStickerInFastProcessRef.current.focus();
+    //         }, 1000); 
+    //     }
+    // }, [modalScanShow, openManualKiz])
+
+    useEffect(() => {
+        reFocusIntoInput();
+        // return () => clearInterval(interval);
+    }, []);
+
+    function reFocusIntoInput () {
+        const interval  = setInterval(async () => {
+            // data = await getFileById(fileId)
+            if ( document.activeElement.tagName != 'INPUT' && !modalScanShow && !openManualKiz && inputStickerInFastProcessRef.current) {
+                setTimeout(() => {
+                    if (!inputStickerInFastProcessRef.current) {return}
+                    inputStickerInFastProcessRef.current.focus();
+                    if (inputStickerInFastProcessRef.current.value == '') {
+                        inputStickerInFastProcessRef.current.value = ''
+                    }
+                }, 1000); 
+            }
+        }, 400);
+    }
+
     const updateProductsKiz = () => {
         let seletedProductDetail = products.filter((item) => item.id == selectedProductId)[0]
         const newSetProducts = products.map((item) => {
@@ -86,13 +133,17 @@ function FileDetail({ data }) {
         })
         if (newSetProducts.length > 0) {
             setProducts(newSetProducts)
-            filesApi.updateFile({
+            axiosRequest.axiosPut(`/api/file/update-file`, {
                 id: fileId,
                 products: products
             })
         }
-
         setSelectedProductId(null)
+        setTimeout(() => {
+            if (inputStickerInFastProcessRef.current) {
+                inputStickerInFastProcessRef.current.value = '';
+            }
+        }, 1000); 
     }
 
     const deleteProductKiz = () => {
@@ -106,7 +157,7 @@ function FileDetail({ data }) {
         })
         if (newSetProducts.length > 0) {
             setProducts(newSetProducts)
-            filesApi.updateFile({
+            axiosRequest.axiosPut(`/api/file/update-file`, {
                 id: fileId,
                 products: products
             })
@@ -125,10 +176,24 @@ function FileDetail({ data }) {
         }
     };
 
-    const openScanBoxHandler = (productId) => {
+    const openScanBoxHandlerWithDM = (productId) => {
+        setScanType(Constants.SCAN_TYPE.DM)
         setStartScanBox(true)
         setModalScanShow(true)
         setSelectedProductId(productId)
+    }
+
+    const openScanBoxHandlerWithQR = (productId) => {
+        setScanType(Constants.SCAN_TYPE.QR)
+        setStartScanBox(true)
+        setModalScanShow(true)
+        setSelectedProductId(productId)
+    }
+
+    const openScanBoxHandlerForSticker = () => {
+        setScanType(Constants.SCAN_TYPE.QR)
+        setStartScanBox(true)
+        setModalScanShow(true)
     }
 
     const closeScanBoxHandler = () => {
@@ -136,7 +201,38 @@ function FileDetail({ data }) {
         setModalScanShow(false)
     }
 
+    const handlerSearchStickerInput = (e) => {
+        if (e.key == 'Enter') {
+            const productFound = products.find(product => product.sticker == e.target.value)
+            if (!productFound) {
+                ToastCpn.toastWarning(`Không tìm thấy mã Sticker nào`)
+                return
+            }
+
+            ToastCpn.toastSuccess(`Tiếp tục nhập Kiz`)
+
+            openUpdateKizModal(productFound.id)
+        }
+
+    }
+
     const onResultGet = (resultObject) => {
+        if (scanType == Constants.SCAN_TYPE.QR) {
+            const productFound = products.find(product => product.sticker === resultObject.text)
+            closeScanBoxHandler()
+            if (!productFound) {
+                ToastCpn.toastWarning(`Không tìm thấy mã Sticker nào`)
+                return
+            }
+
+            ToastCpn.toastSuccess(`Tiếp tục nhập Kiz`)
+
+            setTimeout(() => {
+                openUpdateKizModal(productFound.id)
+
+            }, 1000);
+            return
+        }
         const incomingText = resultObject.text ?? ''
         closeScanBoxHandler()
         if (incomingText == currentScannedCode) {
@@ -150,13 +246,48 @@ function FileDetail({ data }) {
             return
         }
         setCurrentScannedCode(resultObject.text ?? '')
+        closeUpdateKizModal()
+        ToastCpn.toastSuccess(`Nhập mã Kiz thành công`)
+
     }
 
+    const onResultGetFromManualKizInput = (resultObject) => {
+        const incomingText = resultObject.text ?? ''
+        closeScanBoxHandler()
+        if (incomingText == currentScannedCode) {
+            ToastCpn.toastWarning(`Mã Kiz này đã được sử dụng. Vui lòng chọn mã khác`)
+            return
+        }
+
+        let findExistedKiz = products.filter(product => product.kiz == incomingText)
+        if (findExistedKiz.length > 0) {
+            ToastCpn.toastWarning(`Mã Kiz này đã được sử dụng. Vui lòng chọn mã khác`)
+            return
+        }
+        setCurrentScannedCode(resultObject.text ?? '')
+        ToastCpn.toastSuccess(`Nhập mã Kiz thành công`)
+
+    }
+
+    const openUpdateKizModal = (productId) => {
+        setSelectedProductId(productId)
+        const currentProduct = products.find(product => product.id === productId)
+        setProductSelectedForUpdateKizManual(currentProduct)
+        setOpenManualKiz(true)
+    }
+
+    const closeUpdateKizModal = () => {
+        setOpenManualKiz(false)
+
+    }
 
     const readExcel = (file) => {
         try {
             const promise = new Promise((resolve, reject) => {
                 const fileReader = new FileReader();
+                if (!file instanceof Blob) {
+                    reject('file reader is not blob');
+                } 
                 fileReader.readAsArrayBuffer(file);
                 fileReader.onload = (e) => {
                     const bufferArray = e.target.result;
@@ -166,7 +297,6 @@ function FileDetail({ data }) {
                     const wsname = wb.SheetNames[0];
                     const ws = wb.Sheets[wsname];
                     const data = XLSX.utils.sheet_to_json(ws);
-                    console.log(data);
                     resolve(data);
                 };
                 fileReader.onerror = (error) => {
@@ -196,7 +326,8 @@ function FileDetail({ data }) {
                     ToastCpn.toastWarning(`File trống, vui lòng kiểm tra lại`)
                     return
                 }
-                const createRes = await createNewFile(productsImported)
+                const createRes = await commonFunction.createNewFile(productsImported)
+                // const createRes = await createNewFile(productsImported)
                 if (createRes == 0) {
                     ToastCpn.toastWarning(`File không được chấp nhận. Hãy đảm bảo file tải lên là excel. Đảm bảo thông tin trong file bao gồm các cột № задания, Стикер và КИЗ.`)
                 }
@@ -241,6 +372,21 @@ function FileDetail({ data }) {
         setDeleteKizOfProduct(productId)
     }
 
+    const searchStickerHandler = (e) => {
+        if (e.key === 'Enter') {
+            const stickerValue = e.key.value
+            const stickerProductSelected = products.find(product => product.sticker === stickerValue)
+            if (stickerProductSelected == null || stickerProductSelected == '') {
+                ToastCpn.toastWarning(`Không tìm thấy sticker nào`)
+                return
+            }
+
+            setSelectedProductId(stickerProductSelected.id)
+            setProductSelectedForUpdateKizManual(stickerProductSelected)
+            setOpenManualKiz(true)
+        }
+    }
+
     const testObject = () => {
         setLoadingNewProducts(false)
         setSelectedProductId(5)
@@ -268,7 +414,7 @@ function FileDetail({ data }) {
 
     return (
         <>
-            <div>
+            <div className={`mt-5`}>
                 <Head>
                     <title>Hỗ trợ quét mã kiz </title>
                     <meta name="description" content="Generated by create next app" />
@@ -277,19 +423,7 @@ function FileDetail({ data }) {
             </div>
             <div>
                 <div className="container py-4" style={{ minHeight: '85vh' }}>
-                    <div className="py-4">
-                        <Card className="max-w-[400px]">
-                            <CardBody>
-                                <p className="text-xl text-default-500">App hỗ trợ quét mã КИЗ</p>
-                                <p>Hướng dẫn sử dụng: </p>
-                                <p>1. Tải file Excel mẫu từ sàn WB về máy tính </p>
-                                <p>2. Up file excel lên app </p>
-                                <p>3. Sử dụng app để quét mã КИЗ cho sản phẩm </p>
-                                <p>4. Tải file đã điền КИЗ về máy tính </p>
-                                <p>5. Up file Excel đã điền КИЗ lên sàn</p>
-                            </CardBody>
-                        </Card>
-                    </div>
+                    <Instruction/>
                     <SearchFileCpn />
                     <div className="py-4">
                         <div className="d-flex justify-content-center">
@@ -333,6 +467,55 @@ function FileDetail({ data }) {
                         onResultGet={(e) => onResultGet(e)}
                         startScanBox={startScanBox}
                     />
+                    <UpdateKizModal show = {openManualKiz}
+                        onResultGet={(e) => onResultGetFromManualKizInput(e)}
+                        onHide={() => closeUpdateKizModal()}
+                        data = {productSelectedForUpdateKizManual}
+                        openScanBox={(e) => openScanBoxHandlerWithDM(e)}
+                    />
+                    <div className="d-flex justify-content-center my-2">
+                        {
+                            !startFastProcess ? (
+                                <Button
+                                    variant="bordered"
+                                    startContent={<FontAwesomeIcon icon={faPlay} />}
+                                    onClick={() => setStartFastProcess(true)}
+                                >
+                                    Bắt đầu quét nhanh
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant="bordered"
+                                    startContent={<FontAwesomeIcon icon={faStop} />}
+                                    onClick={() => setStartFastProcess(false)}
+                                >
+                                    Dừng quét nhanh
+                                </Button>
+                            )
+                        }
+                    </div>
+
+
+                    {
+                        startFastProcess && (
+                            <div className='d-flex justify-content-center my-4'>
+                                <div style={{ width: 200 }}>
+                                    <Input
+                                        size="xs"
+                                        type="text"
+                                        label="Mã Стикер"
+                                        ref={inputStickerInFastProcessRef}
+                                        autoFocus
+                                        onKeyDown = {(e) => handlerSearchStickerInput(e)}
+                                    />
+                                </div>
+
+                                <Button variant="bordered" startContent={<FontAwesomeIcon icon={faQrcode} />} onClick={()=> openScanBoxHandlerForSticker()}> Quét mã Стикер</Button>
+
+                            </div>
+                        )
+                    }
+                   
 
                     {/* <ScanCodeBoxV2Modal
                         show={modalScanShow}
@@ -396,23 +579,31 @@ function FileDetail({ data }) {
                                             <TableCell>
                                                 <div className="d-flex justify-content-between">
                                                     <p className="text-bold text-sm capitalize">{item.kiz}</p>
-                                                    {item.kiz != null && item.kiz.length > 0 ? (
-                                                        <Button
-                                                            variant="bordered"
-                                                            startContent={<FontAwesomeIcon icon={faTrash} />}
-                                                            onClick={() => deleteKiz(item.id)}
-                                                            style={{ color: "#c81e37" }}
-                                                        >
-                                                            Xóa Kiz
-                                                        </Button>
-                                                    ) : (<></>)}
+                                                    <div className="d-flex justify-content-end">
+                                                        {item.kiz != null && item.kiz.length > 0 ? (
+                                                            <Button
+                                                                variant="bordered"
+                                                                startContent={<FontAwesomeIcon icon={faTrash} />}
+                                                                onClick={() => deleteKiz(item.id)}
+                                                                style={{ color: "#c81e37" }}
+                                                            >
+                                                                Xóa Kiz
+                                                            </Button>
+                                                        ) : (<></>)}
+                                                        <Button variant="bordered" startContent={<FontAwesomeIcon icon={faPenToSquare} />} onClick={() => openUpdateKizModal(item.id)}> Viết KIZ</Button>
+                                                    </div>
+                                                    
+
+                                                        {/* <Tooltip color="success" content="Nhập Kiz thủ công" onClick = {() => openUpdateKizModal(item.id)}>
+                                                            <FontAwesomeIcon icon={faPenToSquare} style={{fontSize:20, cursor:'pointer'}}/>
+                                                        </Tooltip> */}
 
                                                 </div>
 
                                             </TableCell>
                                             <TableCell>
                                                 <div className="relative flex items-center gap-2">
-                                                    <Button variant="bordered" startContent={<FontAwesomeIcon icon={faQrcode} />} onClick={() => openScanBoxHandler(item.id)}> Quét mã KIZ</Button>
+                                                    <Button variant="bordered" startContent={<FontAwesomeIcon icon={faQrcode} />} onClick={() => openScanBoxHandlerWithDM(item.id)}> Quét mã KIZ</Button>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -423,7 +614,6 @@ function FileDetail({ data }) {
                     </Table>
                     <ToastCpn />
                 </div>
-                <FooterCpn />
             </div>
         </>
     )
@@ -435,7 +625,27 @@ export async function getServerSideProps(context) {
     if (isNaN(Number(fileId)) || Number(fileId) == 0) {
         return { props: { data } }
     }
-    data = await getFileById(fileId)
+    data = await ssrAxiosGet(context, `/api/file/get-file/${fileId}`);
+    const fileData = data;
+    const { res } = context;
+    if (fileData == null) {
+        res.writeHead(302, { Location: '/error404' });
+        res.end();
+        return null
+    }
+    if (fileData.errCode != 0) {
+        res.writeHead(302, { Location: '/error404' });
+        res.end();
+        return null
+    }
+
+    if (fileData.data.file.data == undefined) {
+        res.writeHead(302, { Location: '/error404' });
+        res.end();
+        return null
+    }
+    data.products = fileData.data.file.data;
+    data.fileId = fileId
     return { props: { data } }
 }
 

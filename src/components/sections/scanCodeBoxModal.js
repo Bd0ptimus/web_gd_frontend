@@ -10,7 +10,6 @@ function ScanCodeBoxModal(props) {
     }, [props.startScanBox])
 
     useEffect(() => {
-        console.log('startScan scan : ', startScan)
     }, [startScan])
     const scanResultHandler = (text, result) => {
         text =  text.replace(//g, ' ').trim().slice(0, 31)
@@ -32,7 +31,7 @@ function ScanCodeBoxModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Quét mã KIZ
+                    Quét mã
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

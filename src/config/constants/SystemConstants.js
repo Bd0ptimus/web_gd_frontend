@@ -42,10 +42,19 @@ export const REQUEST_STATUS_SLUG = [{
 }
 ];
 
-export const ROLE_USER = 2;
-export const ROLE_ADMIN = 1;
+export const ROLE_USER = 'user';
+export const ROLE_ADMIN = 'admin';
 
 export const PRODUCTS_KIZ_STATUS = {
     COMPLETED: 'completed',
     PENDING: 'pending'
+}
+
+export const RESPONSE_ERR_TYPE = {
+    TOKEN_INVALID: 'token_invalid'
+}
+
+export const SCAN_TYPE = {
+    QR: 'qr',
+    DM: 'dm' //data matrix
 }

@@ -10,8 +10,9 @@ import React, { Component, useState } from 'react';
 import ToastCpn from "./toastCpn";
 import filesApi from "@/api/file";
 import { useRouter } from 'next/router';
-
+import useAxiosRequest from '@/helpers/axiosRequest'
 function SearchFileCpn(props) {
+    const axiosRequest = useAxiosRequest()
     const router = useRouter()
     const [fileNumber, setFileNumber] = useState(null)
 
@@ -20,8 +21,8 @@ function SearchFileCpn(props) {
             ToastCpn.toastWarning('Hãy nhập mã số file');
             return
         }
-        const fileResponse = await filesApi.getFile(fileNumber);
-        if (fileResponse.status == 200 && fileResponse.data.errCode == 0) {
+        const fileResponse = await axiosRequest.axiosGet(`/api/file/get-file/${fileNumber}`);
+        if (fileResponse.status == 200 && fileResponse.errCode == 0) {
             router.replace(`/${fileNumber}`);
         } else {
             ToastCpn.toastWarning('không tìm thấy file với mã số : ' + fileNumber);

@@ -11,32 +11,38 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from './menu.module.scss';
 import { MENUS } from '../../data/menuList';
 import * as Constants from '@/config/constants/Constants';
-function MenuCpn({ userLoggedIn, userRole }) {
+function MenuCpn({ userLoggedIn, userRole, expireDate, userName, logout }) {
     const [menu1, setMenu1] = useState(false);
-
+    const [menuAccount, setMenuAccount] = useState(false);
+    const [expireString, setExpireString] = useState('');
     useEffect(() => {
-
-    }, MENUS)
+        const date = new Date(expireDate);
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+        const year = date.getFullYear();
+        const formattedDate = `${day}/${month}/${year}`;
+        setExpireString(formattedDate)
+    })
 
     function setMenuOpen(index) {
         switch (index) {
-            case 1:
-                setMenu1(!menu1);
+            case 'account':
+                setMenuAccount(!menuAccount);
                 break;
         }
     }
 
     function getMenuOpen(index) {
         switch (index) {
-            case 1:
-                return menu1;
+            case 'account':
+                return menuAccount;
                 break;
         }
     }
 
     return (
-        <div className={`${styles.menuMain}  justify-content-start`}>
-            {
+        <div className={`${styles.menuMain}  justify-content-end`}>
+            {/* {
 
                 MENUS.map((menu, index) => {
                     if (userLoggedIn && userRole == Constants.ROLE_ADMIN) {
@@ -89,7 +95,64 @@ function MenuCpn({ userLoggedIn, userRole }) {
 
 
                 })
+            } */}
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`}>
+                    <Link href='/' className={`${styles.menuLink}`}>
+                        <p className={`m-1`}>Quét КИЗ</p>
+                    </Link>
+                </div>
+            </div>
+            {
+                userRole === Constants.ROLE_ADMIN && (
+                    <>
+                        <div className={`d-block justify-content-center`}>
+                            <div className={`${styles.menuElement} d-flex justify-content-center`}>
+                                <Link href='/admin/account' className={`${styles.menuLink}`}>
+                                    <p className={`m-1`}>Quản lý tài khoản</p>
+                                </Link>
+                            </div>
+                        </div>
+                    </>
+                )
             }
+            {
+                userRole === Constants.ROLE_USER && (
+                    <div className={`d-block justify-content-center`}>
+                        <div className={`${styles.menuElement} d-flex justify-content-center`}>
+                            <div className={`${styles.menuLink}`}>
+                                <p className={`m-1`}>Hết hạn ngày : {(expireString)}</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('account')} onMouseLeave={() => setMenuOpen('account')}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`}>
+                    <div className={`${styles.menuLink} d-flex justify-content-between`} >
+                        <p className={`m-1`}>Tài khoản : {userName}</p>
+                        <FontAwesomeIcon className={`mt-1`} icon={getMenuOpen('account') ? faCaretUp : faCaretDown} />
+                    </div>
+                </div>
+                {
+                    menuAccount === true && (
+                        <div className={`${styles.subMenuGroup} d-block justify-content-center`} >
+                            {
+                                userRole === Constants.ROLE_USER && (
+                                    <Link href='/extend' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                        <p className={`m-1 p-2 w-100`}>Gia Hạn</p>
+                                    </Link>
+                                )
+                            }
+                            <div className={`${styles.subMenuLink} d-flex justify-content-center`} onClick={() => logout()}>
+                                <p className={`m-1 p-2 w-100`}>Đăng Xuất</p>
+                            </div>
+                        </div>
+                    )
+                }
+            </div>
+            
         </div>
     );
 }
@@ -97,7 +160,9 @@ function MenuCpn({ userLoggedIn, userRole }) {
 function mapStateToProps(state) {
     return {
         userLoggedIn: state.system.userLoggedIn,
-        userRole: state.system.userRole
+        userRole: state.system.userRole,
+        expireDate: state.system.expireDate,
+        userName: state.system.userName
     };
 }
 

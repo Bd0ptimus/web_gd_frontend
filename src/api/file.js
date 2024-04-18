@@ -1,22 +1,22 @@
 import axios from '../axios'
-
+import axiosRequest from '@/helpers/axiosRequest';
 const filesApi = {
     getFile(id) {
-        return axios.get('/api/file/get-file/' + id);
+        return axiosRequest.get(`/api/file/get-file/${id}`)
     },
 
     createFile(data) {
-        return axios.post(`/api/file/create-file`, data, {
+        return axiosRequest.post(`/api/file/create-file`, data, {
             credentials: 'include',
             method: 'POST'
-        });
+        })
     }, 
 
     updateFile(data) {
-        return axios.put(`/api/file/update-file`, data, {
+        return axiosRequest.put(`/api/file/update-file`, data, {
             credentials: 'include',
             method: 'PUT'
-        });
+        })
     }
 }
 

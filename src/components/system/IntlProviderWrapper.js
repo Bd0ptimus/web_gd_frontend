@@ -17,7 +17,6 @@ function IntlProviderWrapper({ children, lang, changeLanguage }) {
         if (typeof window !== 'undefined') {
             let storageLang = JSON.parse(localStorage.getItem('persist:system')).language;
             setStorageLang(storageLang);
-            console.log('--->storage  : ', JSON.parse(localStorage.getItem('persist:system')).language);
             // changeLanguage(storageLang);
         }
 
@@ -45,8 +44,6 @@ function IntlProviderWrapper({ children, lang, changeLanguage }) {
         }
 
     }, [language]);
-    console.log('--> check messages : ', messages, ' -- language : ', language)
-
 
     return (
         <IntlProvider messages={messages} locale="vi" defaultLocale="vi" >

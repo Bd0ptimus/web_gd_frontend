@@ -7,10 +7,11 @@ import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 import reduxStore, { persistor } from '../redux';
 import IntlProviderWrapper from '@/components/system/IntlProviderWrapper';
 import {NextUIProvider} from '@nextui-org/react'
+import { wrapper } from '../store/store';
+import HeaderCpn from '@/components/layouts/headerCpn';
+import FooterCpn from '@/components/layouts/footerCpn';
 
-export default function App({ Component, pageProps }) {
-
-
+function App({ Component, pageProps }) {
     return (
         <FluentProvider theme={teamsLightTheme}>
             <Provider store={reduxStore}>
@@ -19,8 +20,11 @@ export default function App({ Component, pageProps }) {
                     <PersistGate persistor={persistor} >
                         {
                             () => (
-                                <NextUIProvider><Component {...pageProps} /></NextUIProvider>
-                                
+                                <NextUIProvider>
+                                    <HeaderCpn/>
+                                    <Component {...pageProps} />
+                                    <FooterCpn />
+                                </NextUIProvider>
                             )
                         }
                     </PersistGate>
@@ -30,3 +34,7 @@ export default function App({ Component, pageProps }) {
 
     );
 }
+export default App;
+
+
+// export default wrapper.withRedux(App);

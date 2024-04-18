@@ -11,6 +11,13 @@
     background-color: white;
 }
 
+.appName {
+    color: $color-primary;
+    font-size: 18px;
+    width: 100%;
+    font-weight: bold;
+}
+
 .headerMain {
     z-index: 6000;
     position: fixed;
@@ -39,7 +46,7 @@
     }
 
     .leftSec {
-        width: 30%;
+        width: 90%;
 
         .infoSec {
             height: 100%;
@@ -60,7 +67,7 @@
     }
 
     .midSec {
-        width: 30%;
+        width: 0%;
 
         .infoSec {
             height: 60px;
@@ -81,8 +88,8 @@
     }
 
     .rightSec {
-        width: 30%;
-
+        width: 0%;
+        height: 50px;
         .infoSec {
             cursor: pointer;
             height: 30px;
@@ -108,7 +115,7 @@
     }
 
     .fontIcon {
-        color: $blue-main;
+        color: $color-primary;
     }
 }
 
@@ -193,6 +200,9 @@
 
     }
 
+    .headerSubTop {
+        display: block !important;
+    }
 
 }
 
@@ -227,7 +237,9 @@
         }
     }
 
-
+    .headerSubTop {
+        display: block !important;
+    }
 }
 
 
@@ -262,6 +274,10 @@
     .mbMenuSec {
         @include menu-mb-setup;
 
+    }
+
+    .headerSubTop {
+        display: none !important;
     }
 
 }
@@ -300,6 +316,10 @@
     .mbMenuSec {
         @include menu-mb-setup;
 
+    }
+
+    .headerSubTop {
+        display: none !important;
     }
 
 }
