@@ -1,35 +1,21 @@
-$color-primary: #6C11C9;
-$color-primary-border: #6d11c928;
-$white-bg: #F8F8F8;
+$color-primary: #01A7E3;
+$color-primary-border: #01A7E3;
+$blue-bg: #EFFAFF;
+$black-main: #292929;
+$white-bg: #FFFFFF;
 $white-up: #FFFFFF;
 $gray-bg: #F7F7FA;
+$gray-border: #DCDCDC;
 $gray-selected: #F5F5F5;
 $gray-up: rgba(139, 117, 117, 0.5);
-$gray-text : #888888;
-$blue-secondary : #CBE4EE;
-$blue-main: #009CCC;
+$gray-text : #464646;
+$gray-neutral: #656565;
+$blue-secondary : #DEF3FF;
+$blue-main: #01A7E3;
 $blue-hover: #044074;
 $blue-selected: #EAF7FB;
 $gold-main : #E6C169;
 $orange-main: #F06E3A;
-
-
-
-$component-bound-space-pc: 20px;
-$component-bound-space-mb: 15px;
-
-
-$header-height-pc : 96px;
-$header-height-mb : 96px;
-
-$header-sub-top-pc : 35px;
-$header-top-sec-pc : calc(10px + $header-sub-top-pc);
-$header-bot-sec-pc : 10px;
-
-
-.test {
-    background-color: #044074;
-}
 
 @mixin vertical-align-center {
     position: absolute;

@@ -1,5 +1,6 @@
 @import '../../styles/main.module.scss';
 
+$main-fontsize: 16px;
 
 @mixin textTemplate {
     // font-family: 'Poppins', sans-serif;
@@ -11,101 +12,109 @@
 
 .footerMain {
     width: 100%;
-    height: auto;
-    // background-color: $color-primary-border;
-    margin-top: 0px;
+    background-color: $white-bg;
+    // margin-top: 250px;
     // color: white;
 
-
-    .footerContent {
-        width: 100%;
+    .footerMainSec{
+        border-top: solid 1px $gray-border;
     }
 
-    .childContent {
-        display: flex;
-        @include textTemplate;
-
-        margin: 3px;
-        font-size: 16px;
-        font-weight: 300;
-
-        span {
-            text-align: left;
-        }
-
-        .icon {
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-
-            margin-right: 5px;
-        }
-    }
-}
-
-.copyRight {
-    font-size: 18px;
-    font-weight: 400;
-    padding: 10px 0;
-    @include textTemplate;
-}
-
-@media screen and (min-width : 1020px) and (max-width: 10000px) {
-    .footerMain {
-        padding: 0px 80px 10px;
-
-        .footerContent {
-            display: flex;
-
-            .contentCol {
-                width: 50%;
+    .footerCopyrightSec{
+        border-top: solid 1px $gray-border;
+        position: relative;
+        .copyrightContent {
+            @include vertical-align-center;
+            line-height: 24px;
+            height: 24px;
+            .copyrightText{
+                margin: 0px;
+                color: #7C7C7C;
             }
         }
     }
+
+    .footerText {
+        font-size: $main-fontsize;
+        margin: 0px;
+        line-height: 24px;
+    }
+
+    .mainContent {
+        max-width: 310px;
+    } 
+
+    .footerIcon {
+        color: $color-primary;
+    }
+
+    .footerLink {
+        color: $gray-text;
+        size: $main-fontsize;
+        text-decoration: none;
+    }
+
+}
+
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .footerMainSec{
+        height: 284px;
+    }
+
+    .footerCopyrightSec{
+        height: 60px;
+    }
+
 }
 
 
 @media screen and (min-width : 820px) and (max-width: 1020px) {
-    .footerMain {
-        padding: 0px 80px 10px;
+    .footerMainSec{
+        height: 350px;
+    }
 
-        .footerContent {
-            display: flex;
-
-            .contentCol {
-                width: 50%;
-            }
-        }
+    .footerCopyrightSec{
+        height: 60px;
     }
 }
 
 
 @media screen and (min-width : 450px) and (max-width: 820px) {
-    .footerMain {
-        padding: $component-bound-space-mb ;
-
-        .footerContent {
-            display: flex;
-
-            .contentCol {
-                width: 50%;
-            }
-        }
+    .footerMainSec{
+        height: 840px;
     }
+
+    .footerCopyrightSec{
+        height: 90px;
+    }
+    
+    .mainContentSec {
+        width: 100%;
+        // height: auto;
+    }
+    .mainContent {
+        width: 100%;
+        // height: auto;
+    } 
 }
 
 
 @media screen and (max-width: 450px) {
-    .footerMain {
-        padding: $component-bound-space-mb ;
-
-        .footerContent {
-            display: block;
-
-            .contentCol {
-                width: 100%;
-            }
-        }
+    .footerMainSec{
+        height: 820px;
     }
+
+    .footerCopyrightSec{
+        height: 90px;
+    }
+    
+    .mainContentSec {
+        width: 100%;
+        // height: auto;
+    }
+    .mainContent {
+        width: 100%;
+        // height: auto;
+    } 
 }

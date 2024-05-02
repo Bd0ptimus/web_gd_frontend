@@ -1,0 +1,104 @@
+@import '../../styles/main.module.scss';
+
+$main-fontsize: 16px;
+$main-text-height: 24px;
+
+.mainSec {
+    position: relative;
+    // overflow: hidden;
+}
+@mixin sectionScroll {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    width: 100%;
+    z-index: 1000 !important;
+    background-color: $white-up;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 10px;
+}
+.optionsCell {
+    border: solid 1px $gray-border;
+    border-radius: 10px;
+    display: inline-block;
+    width : 70px;
+    height: 36px;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin : 0px 6px;
+    cursor: pointer;
+}
+.optionSelected {
+    background-color: $color-primary;
+    color: $white-up;
+}
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .selectionSec {
+        display: flex;
+        height: 75px;
+        @include sectionScroll;
+        overflow-x: auto;
+        white-space: nowrap;
+
+    }
+
+    .optionsSec {
+        width:auto;
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .selectionSec {
+        display: flex;
+        height: 75px;
+        @include sectionScroll;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .optionsSec {
+        width:auto;
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .selectionSec {
+        display: flex;
+        flex-wrap: wrap;
+        height: 145px;
+        @include sectionScroll;
+        overflow-wrap: anywhere;
+        overflow-y: auto;
+        white-space: wrap;
+    }
+    .optionsSec {
+        width:33%;
+        height : 35px;
+    }
+    .optionsCell {
+        width: 90px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .selectionSec {
+        display: flex;
+        flex-wrap: wrap;
+        height: 145px;
+        @include sectionScroll;
+        overflow-wrap: anywhere;
+        overflow-y: auto;
+        white-space: wrap;
+    }
+    .optionsSec {
+        width:33%;
+        height : 35px;
+    }
+    .optionsCell {
+        width: 90px;
+    }
+}

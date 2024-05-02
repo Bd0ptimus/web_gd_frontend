@@ -1,5 +1,5 @@
 import actionTypes from '../action/actionTypes';
-import * as Constants from '../../config/constants/Constants';
+import * as Constants from '@/config/constants/Constants';
 
 
 const initState = {
@@ -10,7 +10,6 @@ const initState = {
     userEmail: "",
     userJWT: "",
     userRole: null,
-    expireDate: null
 }
 const systemReducer = (state = initState, action) => {
 
@@ -30,7 +29,6 @@ const systemReducer = (state = initState, action) => {
                 userEmail: action.userEmail,
                 userJWT: action.userJWT,
                 userRole: action.userRole,
-                expireDate: action.expireDate
             };
         case actionTypes.USER_LOGOUT:
             console.log('in actionTypes.USER_LOGOUT : ', action);
@@ -42,7 +40,6 @@ const systemReducer = (state = initState, action) => {
                 userEmail: action.userEmail,
                 userJWT: action.userJWT,
                 userRole: action.userRole,
-                expireDate: action.expireDate,
             };
         default:
             return state;

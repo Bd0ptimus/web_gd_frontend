@@ -29,37 +29,35 @@ function Login({ lang, changeLoginState, userRole }) {
 
 
     function handleResponseAdminLogin(res) {
-        // console.log(res);
         if (res.errCode != 0) {
-            // toast.warning(`${res.message}`, {
-            //     position: toast.POSITION.TOP_RIGHT
-            // })
-            handleUserLogin();
-        } else {
-            toast.success(`${res.message}`, {
+            toast.warning(`Email hoặc mật khẩu không đúng, vui lòng kiểm tra lại`, {
                 position: toast.POSITION.TOP_RIGHT
-            });
-            const userData = res.userData.user;
-            changeLoginState({
-                userId: userData.id,
-                userName: userData.name,
-                userEmail: userData.email,
-                jwt: res.jwt,
-                userRole: Constants.ROLE_ADMIN,
-            });
-            setCookie('isLoggedIn', true, {
-                maxAge: 60 * 60 * 24 * 30,
             })
-            setCookie('JWT', res.jwt, {
-                maxAge: 60 * 60 * 24 * 30,
-            });
-            setCookie('roleUser', Constants.ROLE_ADMIN, {
-                maxAge: 60 * 60 * 24 * 30,
-            })
-            setIsLoggedIn(true);
-            router.replace(`/`);
-
+            return
         }
+        toast.success(`Đăng nhập thành công`, {
+            position: toast.POSITION.TOP_RIGHT
+        });
+        const userData = res.userData;
+        console.log('--->user Data : ', userData)
+        changeLoginState({
+            userId: userData.id,
+            userName: userData.name,
+            userEmail: userData.email,
+            jwt: res.jwt,
+            userRole: Constants.ROLE_ADMIN,
+        });
+        setCookie('isLoggedIn', true, {
+            maxAge: 60 * 60 * 24 * 30,
+        })
+        setCookie('JWT', res.jwt, {
+            maxAge: 60 * 60 * 24 * 30,
+        });
+        setCookie('roleUser', Constants.ROLE_ADMIN, {
+            maxAge: 60 * 60 * 24 * 30,
+        })
+        setIsLoggedIn(true);
+        router.replace(`/`);
     }
 
     function handleResponseUserLogin(res) {
@@ -78,7 +76,6 @@ function Login({ lang, changeLoginState, userRole }) {
                 userEmail: userData.email,
                 jwt: res.jwt,
                 userRole: userData.role,
-                expireDate: userData.expireDate
             }
             changeLoginState(dataToPersist);
             setCookie('isLoggedIn', true, {
@@ -109,10 +106,11 @@ function Login({ lang, changeLoginState, userRole }) {
             const data = {
                 errCode: res.errCode,
                 message: res.message,
-                userData: res.data.user,
-                jwt: res.data.jwt
+                userData: res.data ? res.data.user : {},
+                jwt: res.data ? res.data.access_token : ''
             }
-            handleResponseUserLogin(data)
+            console.log('data : ', data)
+            handleResponseAdminLogin(data)
             // AuthApi.adminLoginCall(email, pw).then((p) => handleResponseAdminLogin(p)).catch((e) => console.log('error in admin login : ', e))
         }
     }
@@ -123,15 +121,7 @@ function Login({ lang, changeLoginState, userRole }) {
                 <div className={`d-block justify-content-center`}>
                     <div className={`d-flex justify-content-center mt-5 mb-3`}>
                         <Image
-                            src="/logo/znak.png"
-                            width={300}
-                            height={300}
-                            alt="Logo"
-                        />
-                    </div>
-                    <div className={`d-flex justify-content-center mt-3 mb-5`}>
-                        <Image
-                            src="/logo/wb.png"
+                            src="/logo/logo.png"
                             width={300}
                             height={300}
                             alt="Logo"

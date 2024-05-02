@@ -18,20 +18,27 @@ import styles from './header.module.scss';
 import MenuCpn from '../sections/menuCpn';
 import MenuMbCpn from '../sections/menuMbCpn';
 import * as actions from "@/store/action";
+import {logoutProcessOnCookie} from '@/helpers/commonFunction';
 
-function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
+function HeaderCpn({ userName, userLogout, userRole }) {
     const [isMenuOpened, setMenuOpened] = useState(false);
     const [isUserControlPanelOpened, setUserControlPanelOpened] = useState(false);
-    const [enableHeader, setEnableHeader] = useState(false)
+    const [enableHeader, setEnableHeader] = useState(true)
+    const [mainPath, setMainPath] = useState('')
     const router = useRouter()
-    useEffect(() => {
-        if (router.pathname === '/admin/login') {
-          setEnableHeader(false);
-        } else {
-          setEnableHeader(true);
-        }
-    }, [router.pathname]);
+    // useEffect(() => {
+    //     if (router.pathname === '/admin/login') {
+    //       setEnableHeader(false);
+    //     } else {
+    //       setEnableHeader(true);
+    //     }
+    //     setMainPath(router.pathname.split('/')[1]);
+    // }, [router.pathname]);
 
+    useEffect(() => {
+        setMainPath(router.pathname.split('/')[1]);
+    }, [router.pathname]);
+    
     const handleOpenMenu = () => {
         setMenuOpened(!isMenuOpened);
     }
@@ -42,73 +49,36 @@ function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
 
     function logoutHandler() {
         userLogout();
-
-        setCookie('isLoggedIn', false, {
-            maxAge: 60 * 60 * 24 * 30,
-        })
-        setCookie('JWT', '', {
-            maxAge: 60 * 60 * 24 * 30,
-        })
-        setCookie('roleUser', null, {
-            maxAge: 60 * 60 * 24 * 30,
-        })
+        logoutProcessOnCookie();
         router.replace("/admin/login");
-
-    }
-
-    function usernameLoginSection(isLoggedIn) {
-        if (isLoggedIn) {
-            return (
-                <div className={`d-block justify-content-center ${styles.usernameHeader}`}>
-                    <div className={`${styles.usernameLoginSec} d-flex justify-content-start`} onClick={() => setUserControlPanelOpened(!isUserControlPanelOpened)}>
-                        <p>{userName}</p>
-                        {/* <FontAwesomeIcon icon={faCaretDown} /> */}
-                    </div>
-
-                    <div className={`${styles.userControlPanel}`} style={{ display: isUserControlPanelOpened ? 'block' : 'none' }}>
-                        <ul>
-                            <li className={`d-flex justify-content-center`}><FontAwesomeIcon icon={faCartShopping} className={`${styles.controlPanelIcon}`} />Đơn hàng</li>
-                            <li className={`d-flex justify-content-center`} onClick={() => logoutHandler()} ><FontAwesomeIcon icon={faArrowRightFromBracket} className={`${styles.controlPanelIcon}`} />Đăng xuất </li>
-                        </ul>
-                    </div>
-                </div>
-
-            );
-        } else {
-            return (
-                <div className={`${styles.usernameLoginSec} d-flex justify-content-end`}>
-                    <Link href="/admin/login" style={{ textDecoration: 'none', }}>Đăng nhập</Link>
-                </div>
-            );
-        }
     }
 
     return enableHeader && (
         <div>
-            <div className={`${styles.headerMain} d-block justify-content-center`}>
-                <div className={`${styles.headerSubTop} d-flex justify-content-between`}>
-                    <div className={`${styles.rightSec} ${styles.headerSec}  d-flex justify-content-center`} style={{ width: '100%', }}>
-                        <div className={`${styles.infoSec}  d-flex justify-content-start`}>
-                            <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={` ${styles.fontIcon}`} />
-                            <MenuCpn logout={() => logoutHandler()}></MenuCpn>
-
-                        </div>
+            <div className={`${styles.headerMain} d-flex justify-content-center`}>
+                <div className={`${styles.leftSec} ${styles.headerSec}  d-flex justify-content-center`}>
+                    <div className={`${styles.infoSec}  d-flex justify-content-center`}>
+                        {/* <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={` ${styles.fontIcon}`} /> */}
+                        <Image
+                            onClick={() => logoClickHandler()}
+                            src="/logo/logo.png"
+                            width={200}
+                            height={48}
+                            className={`${styles.logo}`}
+                            alt="Logo"
+                        />
                     </div>
                 </div>
-                <div className={`${styles.headerMainTop} d-flex justify-content-between`}>
-                    <div className={`${styles.leftSec} ${styles.headerSec} d-flex justify-content-start`}>
-                        <div className={`${styles.infoSec}  d-flex justify-content-start`}>
-                            <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={`mt-1 ${styles.fontIcon}`} />
-                            <p className={`${styles.appName} mt-2`}>App Hỗ Trợ Quét КИЗ</p>
-                            {/* <Image
-                                        onClick={() => logoClickHandler()}
-                                        src="/logo/logo.webp"
-                                        width={500}
-                                        height={500}
-                                        className={`${styles.logo}`}
-                                        alt="Logo"
-                                    /> */}
+                <div className={`${styles.midSec} ${styles.headerSec} d-flex justify-content-start`}>
+                    <div className={`${styles.infoSec}  d-flex justify-content-end`}>
+                        <MenuCpn path={mainPath} logout={() => logoutHandler()}></MenuCpn>
+                    </div>
+                </div>
 
+                <div className={`${styles.rightSec} ${styles.headerSec}  d-flex justify-content-center`}>
+                    <div className={`${styles.infoSec}  d-flex justify-content-end`}  style={{width:'100%'}}>
+                        <div className={`mx-3 my-0 p-2 d-flex justify-content-center ${styles.mbAltIcon}`}>
+                            <FontAwesomeIcon onClick={() => { handleOpenMenu() }} icon={isMenuOpened ? faXmark : faBars} className={`mt-1 ${styles.fontIcon}`} />
                         </div>
                     </div>
                 </div>
@@ -124,7 +94,6 @@ function HeaderCpn({ isLoggedIn, userName, userLogout, userRole }) {
 
 function mapStateToProps(state) {
     return {
-        isLoggedIn: state.system.userLoggedIn,
         userName: state.system.userName,
         userRole: state.system.userRole
     };

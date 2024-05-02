@@ -1,0 +1,64 @@
+@import '../../styles/main.module.scss';
+
+.topSec {
+    border-bottom: dashed 2px $gray-border;
+}
+
+.infoSec {
+    background-color: $blue-bg;
+    color: $color-primary;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    overflow-x: wrap;
+    white-space: wrap;
+
+}
+
+.resultLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: $gray-neutral;
+}
+
+.resultContent {
+    font-size: 16px;
+    font-weight: 400;
+}
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .topSec {
+
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .topSec {
+        
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .infoSec {
+        height: 60px;
+    }
+}
+
+
+@media screen and (min-width : 300px) and (max-width: 450px) {
+    .infoSec {
+        height: 60px;
+        .textContent {
+            width: 65vw;
+        }
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .infoSec {
+        height: 60px;
+        .textContent {
+            width: 60vw;
+        }
+    }
+}

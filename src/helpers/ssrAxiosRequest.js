@@ -35,12 +35,14 @@ export async function ssrAxiosGet(context, path, addOn = {}) {
     addOn.headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + jwt,
+
     }
     // const response = await axios.get(path, header);
     try {
         const response = await axios.get(path, addOn)
         return refactorResponse(response);
     } catch (e) {
+        console.log('error : ', e)
         checkTokenIsInvalid(context, e)
         return null
     }

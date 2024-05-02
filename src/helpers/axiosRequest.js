@@ -3,12 +3,28 @@ import { useSelector } from 'react-redux';
 import Router from 'next/router';
 
 const refactorResponse = (rawData) => {
-    return rawData.data
+    try {
+        if (rawData) {
+            return rawData.data
+        }
+    } catch (e) {
+        console.error('error in axios request refactorResponse: ', e)
+        throw new Error("Stopping the function!");
+
+    }
+
+    return null
 }
 const checkTokenIsInvalid = (rawData) => {
-    if (rawData.status == 401) {
-        Router.push(`/admin/login`);
+    try {
+        if (rawData && rawData.status == 401) {
+            Router.push(`/admin/login`);
+        }
+    } catch (e) {
+        console.error('error in axios request checkTokenIsInvalid: ', e)
+        throw new Error("Stopping the function!");
     }
+    
 }
 const useAxiosRequest = () => {
     const jwt = useSelector((state) => state.system.userJWT); 
@@ -45,6 +61,7 @@ const useAxiosRequest = () => {
             let response = {}
             try {
                 response =  await axios.post(path, data, addOn)
+
             }catch (e) {
                 response = e.response
             }

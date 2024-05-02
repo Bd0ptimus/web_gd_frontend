@@ -1,42 +1,55 @@
 @import '../../styles/main.module.scss';
 
+$main-fontsize: 16px;
+$main-text-height: 24px;
 @mixin menuPcLink {
     text-decoration: none;
     text-align: center;
-    font-size: 18px;
-    padding: 2.5px 8px;
-    color: $color-primary;
+    font-size: $main-fontsize;
+    color: $gray-text;
+    & :hover {
+        color: $color-primary;
+        transition: .3s;
+        font-weight: 600;
+        border-bottom: solid 3px $color-primary;
+    }
+}
+
+.pageSelected {
+    text-align: center !important;
+    font-size: $main-fontsize !important;
+    color: $color-primary !important;
+    font-weight: 600 !important;
+    border-bottom: solid 3px $color-primary !important;
+    height: 27px;
 }
 
 .menuMain {
     // overflow-x: scroll;
     flex-wrap: wrap;
-    font-size: 18px;
+    font-size: $main-fontsize;
+    height: $main-text-height;
+    line-height: $main-text-height;
     @include vertical-align-center;
 
     .menuElement {
-        margin: 0px 5px;
+        margin: 0px 1px;
         z-index: 7000;
-
-        & :hover {
-            background-color: $white-bg;
-            transition: .3s;
-            border-radius: 10px;
-        }
+        height: $main-text-height;
     }
 
     .subMenuGroup {
         background-color: $gray-bg;
         border-radius: 5px;
         border: solid 0.2px $color-primary-border;
-        .subMenuLink {
-            @include menuPcLink;
-            & :hover {
-                background: $white-up;
-                transition: .3s;
-                border-radius: 10px;
-            }
-        } 
+        // .subMenuLink {
+        //     @include menuPcLink;
+        //     & :hover {
+        //         background: $white-up;
+        //         transition: .3s;
+        //         border-radius: 10px;
+        //     }
+        // } 
     }
 
     .menuLink {

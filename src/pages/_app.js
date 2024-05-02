@@ -16,7 +16,6 @@ function App({ Component, pageProps }) {
         <FluentProvider theme={teamsLightTheme}>
             <Provider store={reduxStore}>
                 <IntlProviderWrapper>
-
                     <PersistGate persistor={persistor} >
                         {
                             () => (

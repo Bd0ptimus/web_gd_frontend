@@ -8,5 +8,3 @@ export const wrapper = createWrapper(makeStore, {
     storeKey: 'yourUniqueStoreKey',
 });
 
-// const store = createStore(rootReducer);
-// export default store

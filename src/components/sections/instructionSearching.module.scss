@@ -1,0 +1,79 @@
+@import '../../styles/main.module.scss';
+
+$main-fontsize: 16px;
+$main-text-height: 24px;
+
+.cardSection {
+    background-color: $blue-bg;
+    box-shadow: none;
+}
+.numberStep {
+    width:24px;
+    height: 24px;
+    border-radius: 50%;
+    border: solid 1px $color-primary;
+    color: $color-primary;
+    font-size: 12px;
+    line-height: $main-text-height;
+}
+
+.textStep{
+    margin: 0px 5px;
+    font-size: $main-fontsize;
+    line-height: $main-text-height;
+}
+
+.horizontalArrow {
+    border-bottom: solid 2px $color-primary;
+    width: 20px;
+    height: 13px
+}
+
+.verticalArrow {
+    border-right: solid 2px $color-primary;
+    width: 13px;
+    height: 20px
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .pcSection {
+        display: flex;
+    }
+
+    .mbSection {
+        display: none;
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .pcSection {
+        display: flex;
+    }
+
+    .mbSection {
+        display: none;
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .pcSection {
+        display: flex;
+    }
+
+    .mbSection {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .pcSection {
+        display: none;
+    }
+
+    .mbSection {
+        display: block;
+    }
+}

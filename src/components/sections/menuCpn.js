@@ -7,22 +7,19 @@ import {
     faCaretUp
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from 'next/router';
 
 import styles from './menu.module.scss';
 import { MENUS } from '../../data/menuList';
 import * as Constants from '@/config/constants/Constants';
-function MenuCpn({ userLoggedIn, userRole, expireDate, userName, logout }) {
-    const [menu1, setMenu1] = useState(false);
+function MenuCpn({ path, userRole }) {
+    const router = useRouter();
     const [menuAccount, setMenuAccount] = useState(false);
-    const [expireString, setExpireString] = useState('');
+    const [currentPath, setCurrentPath] = useState('');
     useEffect(() => {
-        const date = new Date(expireDate);
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
-        const year = date.getFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
-        setExpireString(formattedDate)
-    })
+        setCurrentPath(path)
+    }, [path])
+
 
     function setMenuOpen(index) {
         switch (index) {
@@ -41,65 +38,46 @@ function MenuCpn({ userLoggedIn, userRole, expireDate, userName, logout }) {
     }
 
     return (
-        <div className={`${styles.menuMain}  justify-content-end`}>
-            {/* {
-
-                MENUS.map((menu, index) => {
-                    if (userLoggedIn && userRole == Constants.ROLE_ADMIN) {
-                        if (menu.isParent) {
-
-                            return (
-                                <div className={`${styles.menuElement} d-block justify-content-center`} key={menu.translationId}>
-                                    <div className={`${styles.menuLink}`} onClick={() => setMenuOpen(menu.id)}>
-                                        <FormattedMessage id={menu.translationId} />&nbsp;
-                                        <FontAwesomeIcon icon={getMenuOpen(menu.id) ? faCaretUp : faCaretDown} />
-
-                                    </div>
-
-                                    <div className={` justify-content-center`} style={{ display: getMenuOpen(menu.id) ? 'block' : 'none', backgroundColor: 'white', }}>
-                                        {
-                                            menu.childs.map((child, i) => {
-                                                return (<div className={`d-flex justify-content-center`}>
-                                                    <Link href={child.path} className={`${styles.menuLink}`}>
-                                                        <FormattedMessage id={child.translationId} />
-                                                    </Link>
-                                                </div>);
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            );
-                        } else {
-                            if (!menu.isSubmenu) {
-                                return (
-                                    <div className={`${styles.menuElement} d-flex justify-content-center`} key={menu.translationId}>
-                                        <Link href={menu.path} className={`${styles.menuLink}`}>
-                                            <FormattedMessage id={menu.translationId} />
-                                        </Link>
-                                    </div>);
-                            }
-
-                        }
-
-                    } else {
-                        if (!menu.forAdmin) {
-                            return (
-                                <div className={`${styles.menuElement} d-flex justify-content-center`} key={menu.translationId}>
-                                    <Link href={menu.path} className={`${styles.menuLink}`}>
-                                        <FormattedMessage id={menu.translationId} />
-                                    </Link>
-                                </div>
-                            );
-                        }
-                    }
-
-
-                })
-            } */}
+        <div className={`${styles.menuMain}  justify-content-center`}>
             <div className={`d-block justify-content-center`}>
-                <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                    <Link href='/' className={`${styles.menuLink}`}>
-                        <p className={`m-1`}>Quét КИЗ</p>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:105}}>
+                    <Link href='/' className={`${styles.menuLink} ${currentPath === '/' || currentPath === '' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Trang chủ</p>
+                    </Link>
+                </div>
+            </div>
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:105}}>
+                    <Link href='/' className={`${styles.menuLink} ${path === 'intro' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Giới thiệu</p>
+                    </Link>
+                </div>
+            </div>
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:100}}>
+                    <Link href='/' className={`${styles.menuLink} ${path === 'schedule' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Lịch học</p>
+                    </Link>
+                </div>
+            </div>
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
+                    <Link href='/' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Tin tức</p>
+                    </Link>
+                </div>
+            </div>
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:85}}>
+                    <Link href='/search' className={`${styles.menuLink} ${path === 'search' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Tra cứu</p>
+                    </Link>
+                </div>
+            </div>
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:85} }>
+                    <Link href='/' className={`${styles.menuLink} ${path === '/contact' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Liên hệ</p>
                     </Link>
                 </div>
             </div>
@@ -107,28 +85,16 @@ function MenuCpn({ userLoggedIn, userRole, expireDate, userName, logout }) {
                 userRole === Constants.ROLE_ADMIN && (
                     <>
                         <div className={`d-block justify-content-center`}>
-                            <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                                <Link href='/admin/account' className={`${styles.menuLink}`}>
-                                    <p className={`m-1`}>Quản lý tài khoản</p>
+                            <div className={`${styles.menuElement} d-flex justify-content-center`} style={{ width: 150 }}>
+                                <Link href='/admin/result' className={`${styles.menuLink} ${path === '/contact' ? styles.pageSelected : ''}`}>
+                                    <p className={`m-0`}>Quản lý kết quả thi</p>
                                 </Link>
                             </div>
                         </div>
                     </>
                 )
             }
-            {
-                userRole === Constants.ROLE_USER && (
-                    <div className={`d-block justify-content-center`}>
-                        <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                            <div className={`${styles.menuLink}`}>
-                                <p className={`m-1`}>Hết hạn ngày : {(expireString)}</p>
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
-
-            <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('account')} onMouseLeave={() => setMenuOpen('account')}>
+            {/* <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('account')} onMouseLeave={() => setMenuOpen('account')}>
                 <div className={`${styles.menuElement} d-flex justify-content-center`}>
                     <div className={`${styles.menuLink} d-flex justify-content-between`} >
                         <p className={`m-1`}>Tài khoản : {userName}</p>
@@ -151,7 +117,7 @@ function MenuCpn({ userLoggedIn, userRole, expireDate, userName, logout }) {
                         </div>
                     )
                 }
-            </div>
+            </div> */}
             
         </div>
     );
@@ -159,10 +125,7 @@ function MenuCpn({ userLoggedIn, userRole, expireDate, userName, logout }) {
 
 function mapStateToProps(state) {
     return {
-        userLoggedIn: state.system.userLoggedIn,
         userRole: state.system.userRole,
-        expireDate: state.system.expireDate,
-        userName: state.system.userName
     };
 }
 
@@ -170,5 +133,4 @@ function mapDispatchToProps(dispatch) {
     return {
     };
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(MenuCpn);
