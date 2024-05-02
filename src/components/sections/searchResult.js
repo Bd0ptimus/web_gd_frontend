@@ -5,6 +5,14 @@ import { BsInfoCircle  } from 'react-icons/bs';
 import styles from './searchResult.module.scss';
 
 function SearchResult (props) {
+    function caculateTotalScore(math, literature, english) {
+        typeof math === 'string' ? math = 0 : math = parseFloat(math);
+        typeof literature === 'string' ? literature = 0 : literature = parseFloat(literature);
+        typeof english === 'string' ? english = 0 : english = parseFloat(english);
+
+        return math + literature + english;
+    }
+
     return (
         <Modal
             show = {props.show}
@@ -29,7 +37,7 @@ function SearchResult (props) {
                                 Họ tên
                             </div>
                             <div className={`text-md-start text-end ${styles.resultContent}`}>
-                                Nguyễn nguyễn nguyễn
+                                {props.name}
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
@@ -37,7 +45,7 @@ function SearchResult (props) {
                                 Ngày sinh
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
-                                12/09/2000
+                                {props.birthday}
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
@@ -45,7 +53,7 @@ function SearchResult (props) {
                                 Phòng thi
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
-                                63
+                                {props.room}
                             </div>
                         </div>
                     </div>
@@ -57,23 +65,23 @@ function SearchResult (props) {
                                 Điểm toán
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
-                                1
+                                {props.math}
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
                             <div className={`text-start ${styles.resultLabel}`}>
-                                Điểm tiếng Việt
+                                Điểm Văn
                             </div>
                             <div className={`text-md-start text-end ${styles.resultContent}`}>
-                                2
+                                {props.literature}
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
                             <div className={`text-start ${styles.resultLabel}`}>
-                                Điểm tiếng Anh
+                                Điểm Tiếng Anh
                             </div>
                             <div className={`text-md-start text-end ${styles.resultContent}`}>
-                                63
+                                {props.english}
                             </div>
                         </div>
                     </div>
@@ -83,7 +91,7 @@ function SearchResult (props) {
                                 Tổng điểm
                             </div>
                             <div className={`text-md-start text-end ${styles.resultContent}`}>
-                                21
+                                { caculateTotalScore(props.math, props.literature, props.english) }
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
@@ -91,16 +99,16 @@ function SearchResult (props) {
                                 Chi tiết bài thi
                             </div>
                             <div className={`text-md-start text-end ${styles.resultContent}`}>
-                                2
+                                <a href={props.linkExam} target="_blank" rel="noreferrer"> Click để xem </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={`d-flex justify-content-start m-2 p-2 ${styles.infoSec}`}>
-                    <div className='text-start my-1' style={{width: 16, height: 16, marginRight: 10}}>                    
+                    <div className='text-start my-1' style={{width: 16, height: 16, marginRight: 10}}>
                         <BsInfoCircle />
                     </div>
-                    <div className={`text-start ${styles.textContent}`} style={{height: 16}}>                    
+                    <div className={`text-start ${styles.textContent}`} style={{height: 16}}>
                         Tổng = Điểm Toán + Điểm Văn + Điểm Anh
                     </div>
                 </div>
