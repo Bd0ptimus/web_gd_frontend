@@ -6,7 +6,9 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    margin: 30px 0px 0px !important;
+    background-color: $white-bg;
+    min-height: 100vh;
+    // margin: 30px 0px 0px !important;
     .menuElement {
         margin: 20px 0px;
         width: 100%;
@@ -17,6 +19,23 @@
             // background-color: $blue-hover;
             transition: .3s;
         }
+    }
+
+    .pageSelected {
+        color: $color-primary !important;
+    }
+
+    .logo {
+        margin: 0px;
+        width: auto;
+        height: 85px;
+
+    }
+
+    .devider{
+        border-bottom: solid 1px #EFEFEF;
+        height:2px;
+        margin: 0px 5px !important;
     }
 
     .infoHeader {
@@ -41,9 +60,9 @@
     .menuLink {
         text-decoration: none;
         text-align: center;
-        font-size: 18px;
-        padding: 2.5px 8px;
-        color: $color-primary;
+        font-size: 20px;
+        padding: 2.5px 0px;
+        color: $gray-neutral;
     }
 }
 

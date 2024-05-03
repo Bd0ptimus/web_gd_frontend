@@ -8,14 +8,16 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
   const jwt = request.cookies.get('JWT') ? request.cookies.get('JWT').value : null;
-
-  if (!jwt) {
-    return NextResponse.redirect(new URL('/admin/login', request.url));
-  } else {
-    console.log('bcd')
-
-    return NextResponse.next();
+  if (!request.nextUrl.pathname.startsWith('/admin/result') && !request.nextUrl.pathname.startsWith('/search')){
+    return NextResponse.redirect(new URL('/search', request.url));
   }
+  return NextResponse.next();
+  // if (!jwt) {
+  //   return NextResponse.redirect(new URL('/admin/login', request.url));
+  // } else {
+  //   return NextResponse.next();
+  // }
+  
   // const roleUser = request.cookies.get('roleUser') ? request.cookies.get('roleUser').value : null;
   // if (roleUser && Number(roleUser) == Constants.ROLE_USER) {
   //   return NextResponse.redirect(new URL('/', request.url));
@@ -41,6 +43,6 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  // matcher: '/:path*',
-  matcher: ["/admin/:path*"],
+  // matcher: ["/:path*"],
+  matcher: ["/", "/admin/:path*"],
 }

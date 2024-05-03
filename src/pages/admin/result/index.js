@@ -34,10 +34,12 @@ import {ssrAxiosGet} from '@/helpers/ssrAxiosRequest';
 import useAxiosRequest from '@/helpers/axiosRequest';
 import SelectionV1 from "@/components/elements/selectionV1";
 import SelectionV2 from "@/components/elements/selectionV2";
-import {formatTimeStampToCommonDate} from '@/helpers/commonFunction';
+import {formatTimeStampToCommonDate, round} from '@/helpers/commonFunction';
 import ToastCpn from '@/components/layouts/toastCpn';
 import UploadStudentInfoModal from "@/components/sections/uploadStudentInfoModal";
 import UploadStudentInfoErrorModal from "@/components/sections/uploadStudentInfoErrorModal";
+import useCommonFunction from "@/helpers/commonFunctionHook";
+import UpdateStudentInfoModal from "@/components/sections/updateStudentInfoModal";
 function ResultPage ({data}) {
     const [studentInfo, setStudentInfo] = useState([]);
     const [years, setYears] = useState([]);
@@ -53,8 +55,12 @@ function ResultPage ({data}) {
     const [uploadErrorYear, setUploadErrorYear] = useState(null);
     const [uploadErrorExam, setUploadErrorExam] = useState('');
     const [uploadErrorInfos, setUploadErrorInfos] = useState([]);
+    const [selectedYear, setSelectedYear] = useState();
+    const [updateStudentInfoModalOpen, setUpdateStudentInfoModalOpen] = useState(false);
+    const [selectedInfo, setSelectedInfo] = useState({});
 
     const axiosRequest = useAxiosRequest();
+    const commonFunction = useCommonFunction();
     const router = useRouter();
     const columns = [
         { name: "Họ tên", uid: "name" },
@@ -217,7 +223,6 @@ function ResultPage ({data}) {
     
     useEffect(() => {
         setStudentInfo(data.studentInfo.data)
-        console.log('data.studentInfo.data : ', data.studentInfo.data)
         handleImportData();
     }, [data.studentInfo.data])
 
@@ -346,7 +351,6 @@ function ResultPage ({data}) {
     }
 
     const onGetErrorFromUploadInfo = (e) => {
-        console.log('+++. onGetErrorFromUploadInfo: ', e)
         setUploadErrorYear(e.year)
         const exam = exams.find(item => item.value == e.exam)
         setUploadErrorExam(exam.content)
@@ -361,13 +365,14 @@ function ResultPage ({data}) {
                 data[op] = item.value
             })
         })
-
-        console.log('data handled : ', data)
-
         setImportDataMapped(data);
     }
 
-        
+    const editInfoHandler = (item) => {
+        setSelectedInfo(item)
+        setUpdateStudentInfoModalOpen(true)
+    }
+
     const topContent = React.useMemo(() => {
         return (
           <div className="flex flex-col gap-4">
@@ -490,7 +495,7 @@ function ResultPage ({data}) {
                                 const mathScore = Number(item.math) ?? 0;
                                 const literatureScore = Number(item.literature) ?? 0;
                                 const englishScore = Number(item.english) ?? 0;
-                                const totalScore = mathScore + literatureScore + englishScore;
+                                const totalScore = round(mathScore + literatureScore + englishScore, 1);
                                 let itemYear = '';
                                 let itemExam = '';
                                 if (item.examination_school_year && item.examination_school_year.school_years && item.examination_school_year.school_years.year) {
@@ -560,7 +565,7 @@ function ResultPage ({data}) {
                                         </TableCell>
                                         <TableCell>
                                             <div className="relative flex items-center gap-2">
-                                                <Button variant="bordered" startContent={<FontAwesomeIcon icon={faPenToSquare} />} onClick={() => openScanBoxHandlerWithDM(item.id)}> Sửa thông tin</Button>
+                                                <Button variant="bordered" startContent={<FontAwesomeIcon icon={faPenToSquare} />} onClick={() => editInfoHandler(item)}> Sửa thông tin</Button>
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -570,23 +575,34 @@ function ResultPage ({data}) {
                     </TableBody>
                 </Table>
                 <ToastCpn />
-                <UploadStudentInfoModal 
-                years={years}
-                exams={exams}
-                importDataMapped={importDataMapped}
-                show={uploadStudentInfoModalOpen}
-                onHide={() => setUploadStudentInfoModalOpen(false)}
-                onErrorGet={(e) => onGetErrorFromUploadInfo(e)}
-                onModalWarning={(e) => onModalWarning(e)}
-                onModalSuccess={(e) => onModalSuccess(e)}/>
+                <UploadStudentInfoModal
+                    years={years}
+                    exams={exams}
+                    importDataMapped={importDataMapped}
+                    show={uploadStudentInfoModalOpen}
+                    onHide={() => { setUploadStudentInfoModalOpen(false); commonFunction.reloadPage(); }}
+                    onErrorGet={(e) => onGetErrorFromUploadInfo(e)}
+                    onModalWarning={(e) => onModalWarning(e)}
+                    onModalSuccess={(e) => onModalSuccess(e)} />
                 <UploadStudentInfoErrorModal
-                year={uploadErrorYear}
-                exam={uploadErrorExam}
-                infos={uploadErrorInfos}
-                show={uploadStudentInfoErrorModalOpen}
-                onHide={() => setUploadStudentInfoErrorModalOpen(false)}
-                onModalWarning={(e) => onModalWarning(e)}
-                onModalSuccess={(e) => onModalSuccess(e)}/>
+                    year={uploadErrorYear}
+                    exam={uploadErrorExam}
+                    infos={uploadErrorInfos}
+                    show={uploadStudentInfoErrorModalOpen}
+                    onHide={() => { setUploadStudentInfoErrorModalOpen(false); commonFunction.reloadPage(); }}
+                    onModalWarning={(e) => onModalWarning(e)}
+                    onModalSuccess={(e) => onModalSuccess(e)} />
+                
+                <UpdateStudentInfoModal 
+                    years={years}
+                    exams={exams}
+                    data={selectedInfo}
+                    show={updateStudentInfoModalOpen}
+                    onHide={() => { setUpdateStudentInfoModalOpen(false);}}
+                    onSuccessGet={() =>  commonFunction.reloadPage()}
+                    onModalWarning={(e) => onModalWarning(e)}
+                    onModalSuccess={(e) => onModalSuccess(e)}
+                />
 
             </div>
             
@@ -604,10 +620,9 @@ export async function getServerSideProps(context) {
     const studentInfoUrl = `/api/student-information/list?${queryString}`;
     const studentInfo = await ssrAxiosGet(context, studentInfoUrl);
     const data = {
-        "studentInfo": studentInfo.data,
-        "filterData": filterData. data
+        "studentInfo": studentInfo.data ?? null,
+        "filterData": filterData. data ?? null
     }
-    console.log('---> data : ', data)
     return { props: { data } }
 }
 

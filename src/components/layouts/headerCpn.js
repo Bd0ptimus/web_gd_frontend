@@ -36,7 +36,12 @@ function HeaderCpn({ userName, userLogout, userRole }) {
     // }, [router.pathname]);
 
     useEffect(() => {
-        setMainPath(router.pathname.split('/')[1]);
+        let firstPath = router.pathname.split('/')[1];
+        if (firstPath == 'admin') {
+            firstPath += `/${router.pathname.split('/')[2]}`
+        }
+        setMainPath(firstPath);
+        setMenuOpened(false);
     }, [router.pathname]);
     
     const handleOpenMenu = () => {
@@ -84,7 +89,7 @@ function HeaderCpn({ userName, userLogout, userRole }) {
                 </div>
             </div >
             <div style={{ display: isMenuOpened ? 'block' : 'none' }} className={`${styles.mbMenuSec}`}>
-                <MenuMbCpn logout={() => logoutHandler()} closeMenu={handleOpenMenu}></MenuMbCpn>
+                <MenuMbCpn path={mainPath} onClose={() => { handleOpenMenu() }} />
             </div>
 
         </div>

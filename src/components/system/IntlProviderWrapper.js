@@ -16,7 +16,7 @@ function IntlProviderWrapper({ children, lang, changeLanguage, userLogout }) {
     const [storageLang, setStorageLang] = useState("");
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            let storageLang = JSON.parse(localStorage.getItem('persist:system')).language;
+            let storageLang = JSON.parse(localStorage.getItem('persist:system'))?.language;
             setStorageLang(storageLang);
             // changeLanguage(storageLang);
         }

@@ -123,7 +123,7 @@ function FooterCpn({userLoggedIn, userName, userLogout}) {
                             {
                                 userLoggedIn ? (
                                     <>
-                                        <div className={`d-flex justify-content-center my-3`}>
+                                        <div className={`d-flex justify-content-center my-3`} style={{fontSize:12}}>
                                             <p className='m-0'>Admin : {userName ?? ''}</p>&nbsp;/&nbsp;
                                             <Link href='/' className={`d-flex justify-content-start`} onClick={(e) => {
                                                 e.preventDefault();
@@ -137,7 +137,7 @@ function FooterCpn({userLoggedIn, userName, userLogout}) {
 
                                     
                                 ) : (
-                                        <div className={`d-flex justify-content-center my-3`}>
+                                        <div className={`d-flex justify-content-center my-3`} style={{fontSize:12}}>
                                             <p className='m-0'>Bạn là Admin? </p>&nbsp;/&nbsp;
 
                                             <Link href='/' className={`d-flex justify-content-start`} onClick={(e) => {

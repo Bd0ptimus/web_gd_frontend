@@ -22,3 +22,23 @@ export const formatTimeStampToCommonDate = (timestamp) => {
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
 }
+
+export const convertToCalendarDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+    const day = date.getDate();
+  
+    const calendarDate = {
+      year: year,
+      month: month,
+      day: day
+    };
+  
+    return calendarDate;
+}
+
+export function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}

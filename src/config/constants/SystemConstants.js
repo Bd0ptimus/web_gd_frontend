@@ -58,3 +58,8 @@ export const SCAN_TYPE = {
     QR: 'qr',
     DM: 'dm' //data matrix
 }
+
+export const RESPONSE_STATUS = {
+    SUCCESS: 'success',
+    ERROR: 'error'
+}

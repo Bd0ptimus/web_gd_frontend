@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { Component, useState, useEffect } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import {
-    faXmark,
+    faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AiOutlineHome, AiOutlineLock, AiOutlineMail, AiFillFacebook  } from 'react-icons/ai';
@@ -17,9 +18,12 @@ import styles from './menuMb.module.scss';
 import { MENUS } from '../../data/menuList';
 import FooterCpn from '@/components/layouts/footerCpn';
 import * as Constants from '@/config/constants/Constants';
-function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate }) {
+function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onClose, path}) {
     const [expireString, setExpireString] = useState('');
-
+    const [currentPath, setCurrentPath] = useState('');
+    useEffect(() => {
+        setCurrentPath(path)
+    }, [path])
     useEffect(() => {
         const date = new Date(expireDate);
         const day = date.getDate();
@@ -29,97 +33,44 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate }) {
         setExpireString(formattedDate)
     })
     return (
-        <div className={`${styles.menuMain} d-block justify-content-center`}>
-            {/* <FontAwesomeIcon onClick={() => { closeMenu() }} icon={faXmark} size="2xl" style={{ marginTop: 5, marginLeft: 5, }} /> */}
-
-            {/* {
-                MENUS.map((menu, index) => {
-                    if (userLoggedIn && userRole == Constants.ROLE_ADMIN) {
-                        if (!menu.isParent) {
-                            return (
-                                <div className={`${styles.menuElement} d-flex justify-content-center`} key={menu.translationId}>
-                                    <Link href={menu.path} className={`${styles.menuLink}`}>
-                                        <FormattedMessage id={menu.translationId} />
-                                    </Link>
-                                </div>
-                            );
-                        }
-
-                    } else {
-                        if (!menu.forAdmin) {
-                            return (
-                                <div className={`${styles.menuElement} d-flex justify-content-center`} key={menu.translationId}>
-                                    <Link href={menu.path} className={`${styles.menuLink}`}>
-                                        <FormattedMessage id={menu.translationId} />
-                                    </Link>
-                                </div>
-                            );
-                        }
-                    }
-
-
-                })
-            } */}
-            <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                <Link href='/' className={`${styles.menuLink}`}>
-                    <p className={`m-1`}>Quét КИЗ</p>
+        <div className={`${styles.menuMain} d-block justify-content-center p-4`}>
+            <div className={`d-flex justify-content-end`}>
+                <FontAwesomeIcon icon={faX} style={{color:'#656565'}} onClick={() => onClose()}/>
+            </div>
+            <div className={`d-flex justify-content-start mt-2 mb-5`}>
+            <Image
+                            onClick={() => logoClickHandler()}
+                            src="/logo/logo.png"
+                            width={200}
+                            height={85}
+                            className={`${styles.logo}`}
+                            alt="Logo"
+                        />
+            </div>
+            {/* <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                <Link href='/' className={`${styles.menuLink} ${currentPath === '/' || currentPath === '' ? styles.pageSelected : ''}`}>
+                    <p className={`mx-1 my-0`}>Trang chủ</p>
+                </Link>
+            </div>
+            <div className={`${styles.devider}`}></div> */}
+            <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                <Link href='/search' className={`${styles.menuLink} ${currentPath === 'search' ? styles.pageSelected : ''}`}>
+                    <p className={`mx-1 my-0`}>Tra cứu</p>
                 </Link>
             </div>
             {
                 userRole === Constants.ROLE_ADMIN && (
-                    <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                        <Link href='/admin/account' className={`${styles.menuLink}`}>
-                            <p className={`m-1`}>Quản lý tài khoản</p>
+                    <>
+                    <div className={`${styles.devider}`}></div>
+                    <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                        <Link href='/admin/result' className={`${styles.menuLink}  ${currentPath === 'admin/result' ? styles.pageSelected : ''}`}>
+                            <p className={`mx-1 my-0`}>Quản lý kết quả thi</p>
                         </Link>
                     </div>
+                    </>
+                    
                 )
             }
-            {
-                userRole === Constants.ROLE_USER && (
-                    <>
-                        <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                            <Link href='/' className={`${styles.menuLink}`}>
-                                <p className={`m-1`}>Hết hạn ngày : {(expireString)}</p>
-                            </Link>
-                        </div>
-                        <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                            <Link href='/extend' className={`${styles.menuLink}`}>
-                                <p className={`m-1`}>Gia Hạn</p>
-                            </Link>
-                        </div>
-                    </>                    
-                )
-            }
-            <div className={`${styles.menuElement} d-flex justify-content-center`}>
-                <div className={`${styles.menuLink}`} onClick={() => logout()}>
-                    <p className={`m-1`}>Đăng Xuất</p>
-                </div>
-            </div>
-            <hr></hr>
-            <div className={`d-block justify-content-center mb-3`}>
-                <div className={`${styles.infoText} d-flex justify-content-center`}>
-                    <span >
-                        <span className={`${styles.infoHeader}`}>Designed:</span > TrongNguyen
-                    </span>
-                </div>
-                <div className={`${styles.infoText} d-flex justify-content-center`}>
-                    <div className={`${styles.icon}`}>
-                        <AiOutlineMail />
-                    </div>
-                    <span>
-                        <span className={`${styles.infoHeader}`}>Email:</span> nvt.702@gmail.com
-                    </span>
-                </div>
-                <div className={`${styles.infoText} d-flex justify-content-center`}>
-                    <div className={`${styles.icon}`}>
-                        <AiFillFacebook />
-                    </div>
-                    <span>
-                        <span className={`${styles.infoHeader}`}>Facebook:</span> <Link href="https://www.facebook.com/nvt3591?mibextid=LQQJ4d">Trongnguyen</Link>
-
-                    </span>
-                </div>
-            </div>
         </div>
     );
 }

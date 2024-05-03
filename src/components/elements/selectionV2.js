@@ -7,9 +7,13 @@ import styles from './selectionV2.module.scss';
 function selectionV2 (props) {
     const [valueContent, setValueContent] = useState('');
     const [value, setValue] = useState('');
-
     const [select, setSelect] = useState(false);
     const ref = useRef(null);
+    useEffect(() => {
+        if (props.valueSelect) {
+            optionSelected(props.valueSelect)
+        }
+    }, [props.valueSelect])
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
             setSelect(false);
@@ -23,9 +27,9 @@ function selectionV2 (props) {
     const optionSelected = (optionValue) => {
         const optionSelectedDetail = props.options.find(item => item.value == optionValue)
         console.log('optionSelectedDetail : ', optionSelectedDetail, '--> options : ', props.options)
-        setValueContent(optionSelectedDetail.content)
-        setValue(optionSelectedDetail.value)
-        props.response(optionSelectedDetail.value)
+        setValueContent(optionSelectedDetail?.content)
+        setValue(optionSelectedDetail?.value)
+        props.response(optionSelectedDetail?.value)
         setTimeout (() => {
             setSelect(false)
         } , 500 );

@@ -31,7 +31,6 @@ const systemReducer = (state = initState, action) => {
                 userRole: action.userRole,
             };
         case actionTypes.USER_LOGOUT:
-            console.log('in actionTypes.USER_LOGOUT : ', action);
             return {
                 ...state,
                 userLoggedIn: action.userLoggedIn,

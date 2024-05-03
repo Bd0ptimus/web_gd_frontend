@@ -14,9 +14,10 @@ import moment from 'moment';
 import useAxiosRequest from '@/helpers/axiosRequest';
 import styles from './uploadStudentInfoErrorModal.module.scss';
 import {formatTimeStampToCommonDate} from '@/helpers/commonFunction';
-
+import * as Constants from '@/config/constants/Constants';
 function UploadStudentInfoErrorModal(props) {
     const [infos, setInfos] = useState([]);
+    const axiosRequest = useAxiosRequest();
 
     useEffect(() => {
         setupInfos()
@@ -27,19 +28,54 @@ function UploadStudentInfoErrorModal(props) {
         OVERRIDE_NEW: 'override_new'
     }
 
-    const infoChoosenHandler = (studentId, option) => {
-        console.log(' ---> option : ', option)
-        props.infos[studentId].choice = option
+    const infoChoosenHandler = (id, option) => {
+        props.infos[id].choice = option
         setupInfos()
+        updateInfoHandler(id, option)
     }
 
     const setupInfos = () => {
         const students = [];
         Object.values(props.infos).forEach(student => {
-            console.log('--> foreach : ', student)
             students.push(student)
         })
         setInfos(students)
+    }
+
+    const updateInfoHandler = async (id, option) => {
+        try {
+            const info = props.infos[id];
+            let optionIndex = ''
+    
+            switch(option) {
+                case infoChoiceOptions.KEEP_OLD:
+                    optionIndex = 'old';
+                    break;
+                case infoChoiceOptions.OVERRIDE_NEW:
+                    optionIndex = 'new';
+                    break;
+            }
+    
+            let dataUpdate = {}
+            const keys = Object.keys(info.data);
+            keys.forEach((key) => {
+                dataUpdate[key] = info.data[key][optionIndex];
+            })
+    
+            const response = await axiosRequest.axiosPost('/api/student-information/update', {
+                ...dataUpdate,
+                id: info.id
+            });
+
+            if (response.status == Constants.RESPONSE_STATUS.SUCCESS) {
+                props.onModalSuccess('Update dữ liệu thành công')
+            } else {
+                props.onModalWarning('Đã xảy ra lỗi, vui lòng thử lại')
+            }
+        } catch (e) {
+            console.error(e)
+            props.onModalWarning('Đã xảy ra lỗi, vui lòng thử lại')
+        }
     }
 
     return (
@@ -75,7 +111,7 @@ function UploadStudentInfoErrorModal(props) {
                     {
                         infos.map((item) => {
                             return (
-                                <div className={`my-3 p-0 d-block`}>
+                                <div className={`my-3 p-0 d-block`} key={item.id}>
                                     <hr/>
                                     <div className={`d-flex justify-content-start`}>
                                         <div className={`d-flex justify-content-center`}>
@@ -88,10 +124,10 @@ function UploadStudentInfoErrorModal(props) {
                                         </div>
                                     </div>
                                     <div className={`d-flex justify-content-end`}>
-                                        <Button size="sm" variant="flat" className={`m-2`} onClick={() => infoChoosenHandler(item.student_id, infoChoiceOptions.KEEP_OLD)}>
+                                        <Button size="sm" variant="flat" className={`m-2`} onClick={() => infoChoosenHandler(item.id, infoChoiceOptions.KEEP_OLD)}>
                                             Giữ lại dữ liệu cũ
                                         </Button>
-                                        <Button color="success" size="sm" variant="flat"  className={`m-2`} onClick={() => infoChoosenHandler(item.student_id, infoChoiceOptions.OVERRIDE_NEW)}>
+                                        <Button color="success" size="sm" variant="flat"  className={`m-2`} onClick={() => infoChoosenHandler(item.id, infoChoiceOptions.OVERRIDE_NEW)}>
                                             Ghi đè dữ liệu mới
                                         </Button>
                                     </div>
@@ -164,18 +200,21 @@ function UploadStudentInfoErrorModal(props) {
                                                         </tr>
                                                     )
                                                 }
-
-                                                <tr>
-                                                    <th scope="row"></th>
-                                                    <td> { item.choice == infoChoiceOptions.KEEP_OLD && (
-                                                        <FontAwesomeIcon style={{ color: 'green' }} icon={faCheck} />
+                                                {
+                                                    item.choice && (
+                                                        <tr>
+                                                            <th scope="row"></th>
+                                                            <td> {item.choice == infoChoiceOptions.KEEP_OLD && (
+                                                                <FontAwesomeIcon style={{ color: 'green' }} icon={faCheck} />
+                                                            )
+                                                            }</td>
+                                                            <td> {item.choice == infoChoiceOptions.OVERRIDE_NEW && (
+                                                                <FontAwesomeIcon style={{ color: 'green' }} icon={faCheck} />
+                                                            )
+                                                            }</td>
+                                                        </tr>
                                                     )
-                                                    }</td>
-                                                    <td> { item.choice == infoChoiceOptions.OVERRIDE_NEW && (
-                                                        <FontAwesomeIcon style={{ color: 'green' }} icon={faCheck} />
-                                                    )
-                                                    }</td>
-                                                </tr>
+                                                }
 
                                             </tbody>
                                         </table>

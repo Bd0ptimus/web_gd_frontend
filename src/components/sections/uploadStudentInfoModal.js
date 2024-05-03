@@ -14,6 +14,7 @@ import moment from 'moment';
 import SelectionV1 from "@/components/elements/selectionV1";
 import SelectionV2 from "@/components/elements/selectionV2";
 import useAxiosRequest from '@/helpers/axiosRequest';
+import * as Constants from '@/config/constants/Constants';
 
 function UploadStudentInfoModal(props) {
     const axiosRequest = useAxiosRequest();
@@ -56,7 +57,7 @@ function UploadStudentInfoModal(props) {
         e.target = null;
     };
 
-    const readExcel = (file) => {
+    const readExcel = async (file) => {
         try {
             const promise = new Promise((resolve, reject) => {
                 const fileReader = new FileReader();
@@ -78,8 +79,7 @@ function UploadStudentInfoModal(props) {
                     reject(error);
                 };
             });
-            promise.then(async (d) => {
-                console.log('data imported : ', d);
+            await promise.then(async (d) => {
                 let infoImporting = []
                 for (const item of d) {
                     const product = {};
@@ -88,8 +88,6 @@ function UploadStudentInfoModal(props) {
                     let hasStudentId = false;
                     for (const key of keys) {
                         const mappedValue = props.importDataMapped[key];
-                        console.log('++++> key : ', key, ' --->mappedValue : ', mappedValue, '--> value : ',  item[key]);
-
                         let value =  item[key];
 
                         if (mappedValue == 'birth_date') {
@@ -117,7 +115,6 @@ function UploadStudentInfoModal(props) {
                     }
 
                     infoImporting.push(product);
-                    console.log('product out : ', product);
                 }
 
                 if (infoImporting.length == 0) {
@@ -129,17 +126,22 @@ function UploadStudentInfoModal(props) {
                     exam,
                     info: infoImporting
                 })
-                console.log('data : ', createData, '--> length : ', createData.data.length)
-                if (createData.data && !createData.data.infos) {
-                    props.onModalSuccess(`Tải thông tin lên thành công`);
+                if (createData.status == Constants.RESPONSE_STATUS.SUCCESS) {
+                    if (createData.data && !createData.data.infos) {
+                        props.onModalSuccess(`Tải thông tin lên thành công`);
+                    } else {
+                        props.onErrorGet(createData.data)
+                    }
                 } else {
-                    props.onErrorGet(createData.data)
+                    props.onModalWarning('Đã xảy ra lỗi, vui lòng thử lại')
                 }
+                
             });
+            props.onHide()
         } catch (e) {
+            
             props.onModalWarning(`File không được chấp nhận`)
         }
-        props.onHide()
     };
 
     return (
