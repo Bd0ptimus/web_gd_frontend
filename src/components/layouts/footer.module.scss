@@ -34,6 +34,13 @@ $main-fontsize: 16px;
         }
     }
 
+    .footerTextList {
+        font-size: $main-fontsize;
+        margin: 0px;
+        line-height: 24px;
+        display: list-item;
+    }
+
     .footerText {
         font-size: $main-fontsize;
         margin: 0px;
@@ -53,6 +60,13 @@ $main-fontsize: 16px;
         size: $main-fontsize;
         text-decoration: none;
     }
+
+    .bulletPoint::before {
+        content: "•"; /* Dấu chấm */
+        position: absolute;
+        left: 0;
+        color: inherit; /* Màu sắc giống như văn bản */
+      }
 
 }
 

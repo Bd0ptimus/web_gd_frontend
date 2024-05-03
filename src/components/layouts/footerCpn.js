@@ -44,15 +44,15 @@ function FooterCpn({userLoggedIn, userName, userLogout}) {
                                     src="/logo/logo.png"
                                     width={68}
                                     height={68}
-                                    style={{height:68, width: 68, padding:0}}
+                                    style={{height:74, width: 68, padding:0}}
                                     alt="Logo"
                                 />
                             </div>
                             <div className={`d-block justify-content-center`}>
-                                <p className={` ${styles.footerText}`}>
+                                <p className={` ${styles.footerTextList}`}>
                                     Lớp ôn Chất lượng cao Nguyễn Tất Thành 
                                 </p>
-                                <p className={` ${styles.footerText}`}>
+                                <p className={` ${styles.footerTextList}`}>
                                     Lớp ôn luyện cho học sinh vào các trường chất lượng cao các khối 3-12
                                 </p>
                             </div>
