@@ -33,7 +33,7 @@ function selectionV1 (props) {
         props.response(optionSelectedDetail?.value)
         setTimeout (() => {
             setSelect(false)
-        } , 50 );
+        } , 130 );
     }
     return (
         <>
