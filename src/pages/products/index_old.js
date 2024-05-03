@@ -1,198 +1,198 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import TreeMenu from 'react-simple-tree-menu'
-import 'react-simple-tree-menu/dist/main.css';
-import { Carousel } from "react-bootstrap";
-import {
-    faFileExcel,
-    faList,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PaginationControl } from 'react-bootstrap-pagination-control';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import Head from 'next/head';
+// import Image from 'next/image';
+// import { useEffect, useState } from 'react';
+// import TreeMenu from 'react-simple-tree-menu'
+// import 'react-simple-tree-menu/dist/main.css';
+// import { Carousel } from "react-bootstrap";
+// import {
+//     faFileExcel,
+//     faList,
+// } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { PaginationControl } from 'react-bootstrap-pagination-control';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-import ProductsApi from '@/api/products';
-import FooterCpn from '@/components/layouts/footerCpn';
-import HeaderCpn from '@/components/layouts/headerCpn';
-import mainStyles from '@/pages/index.module.scss';
-import styles from './index.module.scss';
-import ProductElement from '@/components/elements/product/productElement';
-import HowWorking from '@/components/elements/mainpage/howWorking';
-import Intro from '@/components/elements/mainpage/intro';
+// import ProductsApi from '@/api/products';
+// import FooterCpn from '@/components/layouts/footerCpn';
+// import HeaderCpn from '@/components/layouts/headerCpn';
+// import mainStyles from '@/pages/index.module.scss';
+// import styles from './index.module.scss';
+// import ProductElement from '@/components/elements/product/productElement';
+// import HowWorking from '@/components/elements/mainpage/howWorking';
+// import Intro from '@/components/elements/mainpage/intro';
 
-function ProductMain({ data }) {
-    const [treeData, setTreeData] = useState([]);
-    const [page, setPage] = useState(1)
-    const [cpnData, setCpnData] = useState({});
-    const [firstLoad, setFirstLoad] = useState(true);
-    const [categoryChoose, setCategoryChoose] = useState(null);
-    const [productLoading, setProductLoading] = useState(true);
-    const [productData, setProductData] = useState([]);
-    const [numberProduct, setNumberProduct] = useState(0);
-    const [filterListOpen, setFilterListOpen] = useState(false);
+// function ProductMain({ data }) {
+//     const [treeData, setTreeData] = useState([]);
+//     const [page, setPage] = useState(1)
+//     const [cpnData, setCpnData] = useState({});
+//     const [firstLoad, setFirstLoad] = useState(true);
+//     const [categoryChoose, setCategoryChoose] = useState(null);
+//     const [productLoading, setProductLoading] = useState(true);
+//     const [productData, setProductData] = useState([]);
+//     const [numberProduct, setNumberProduct] = useState(0);
+//     const [filterListOpen, setFilterListOpen] = useState(false);
 
-    console.log('STATE CHANGED abcawdawdawdawd');
-    // renderData();
-    useEffect(() => {
-        setCpnData(data);
-        setProductData(data.products.data.products.rows);
-        setNumberProduct(data.totalProducts);
-        // console.log('data products : ', data.products.data.products);
-        var treeVal = data.categories.data.data, tree = function (data, root) {
-            return data.reduce(function (o, { id, pid, name, label, key }) {
-                o[id] = o[id] || { id, pid, name, label, key };
-                o[pid] = o[pid] || { id: pid };
-                o[pid].nodes = o[pid].nodes || [];
-                o[pid].nodes.push(o[id]);
-                return o;
-            }, {})[root].nodes;
-        }(treeVal, null);
-        // console.log('data cba:', cpnData);
-        // console.log('data cba:', cpnData);
-        tree.unshift({
-            id: null,
-            pid: null,
-            name: 'Tất cả',
-            label: 'Tất cả',
-            key: null,
-        })
-        setTreeData(tree);
-        console.log('tree data : ', tree);
-        const input = document.querySelector("input[class=rstm-search]");
-        input.setAttribute("placeholder", "Nhóm sản phẩm");
-
-
-    }, [data]);
-
-    async function renderData() {
-        await setCpnData(data);
-
-    }
-
-    async function changePageHandler(page) {
-        setFirstLoad(false);
-        let products = await ProductsApi.getAllProductsPagination(page, categoryChoose);
-        setProductData(products.data.data.products.rows);
-        setNumberProduct(products.data.data.products.count);
-
-    }
-    console.log('data in return:', cpnData.products);
-
-    async function setSelectedCate(data) {
+//     console.log('STATE CHANGED abcawdawdawdawd');
+//     // renderData();
+//     useEffect(() => {
+//         setCpnData(data);
+//         setProductData(data.products.data.products.rows);
+//         setNumberProduct(data.totalProducts);
+//         // console.log('data products : ', data.products.data.products);
+//         var treeVal = data.categories.data.data, tree = function (data, root) {
+//             return data.reduce(function (o, { id, pid, name, label, key }) {
+//                 o[id] = o[id] || { id, pid, name, label, key };
+//                 o[pid] = o[pid] || { id: pid };
+//                 o[pid].nodes = o[pid].nodes || [];
+//                 o[pid].nodes.push(o[id]);
+//                 return o;
+//             }, {})[root].nodes;
+//         }(treeVal, null);
+//         // console.log('data cba:', cpnData);
+//         // console.log('data cba:', cpnData);
+//         tree.unshift({
+//             id: null,
+//             pid: null,
+//             name: 'Tất cả',
+//             label: 'Tất cả',
+//             key: null,
+//         })
+//         setTreeData(tree);
+//         console.log('tree data : ', tree);
+//         const input = document.querySelector("input[class=rstm-search]");
+//         input.setAttribute("placeholder", "Nhóm sản phẩm");
 
 
-        console.log(data.id);
-        setCategoryChoose(data.id);
-        console.log('------->  setCategoryChoose : ', categoryChoose);
-        setPage(1);
-        let products = await ProductsApi.getAllProductsPagination(page, data.id);
-        console.log('setSelectedCate : ', products);
-        setProductData(products.data.data.products.rows);
-        setNumberProduct(products.data.data.products.count);
+//     }, [data]);
 
-    }
+//     async function renderData() {
+//         await setCpnData(data);
 
+//     }
 
-    return (
-        <>
-            <div>
-                <Head>
-                    <title>Các sản phẩm </title>
-                    <meta name="description" content="Generated by create next app" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-            </div>
-            <div>
-                <HeaderCpn></HeaderCpn>
-                <div className={`${mainStyles.bodySec}`}>
+//     async function changePageHandler(page) {
+//         setFirstLoad(false);
+//         let products = await ProductsApi.getAllProductsPagination(page, categoryChoose);
+//         setProductData(products.data.data.products.rows);
+//         setNumberProduct(products.data.data.products.count);
 
-                    <div className={`${styles.productPage}`}>
-                        <div className={`${styles.categorySec}`}>
-                            <div className={`${styles.sendRequest}`}>
-                                <div className={`d-flex justify-content-start ${styles.sendRequestButton}`} onClick={() => setFilterListOpen(!filterListOpen)}>
-                                    <FontAwesomeIcon icon={faFileExcel} />
-                                    <h6 style={{ margin: 0, padding: 2, }}>Gửi yêu cầu báo giá</h6>
-                                </div>
-                            </div>
-                            <div className={`${styles.filterSec}`}>
-                                <div className={`d-flex justify-content-center ${styles.filterElement} `} onClick={() => setFilterListOpen(!filterListOpen)}>
-                                    <FontAwesomeIcon icon={faList} />
-                                </div>
-                                <div className={`d-flex justify-content-center ${styles.filterElement}`}>
-                                    <FontAwesomeIcon icon={faFileExcel} />
-                                </div>
-                            </div>
-                            <div className={`${styles.filterCategoryList}`}>
-                                <TreeMenu data={treeData} onClickItem={({ key, label, id, pid }) => {
-                                    console.log('onclick in tree :', label);
-                                    setSelectedCate({ id: id, name: label, pid: pid });
-                                }} />
-                            </div>
+//     }
+//     console.log('data in return:', cpnData.products);
 
-                            <div className={`${styles.filterCategoryListMb}`} style={{ display: filterListOpen ? 'block' : 'none' }}>
-                                <TreeMenu data={treeData} onClickItem={({ key, label, id, pid }) => {
-                                    console.log('onclick in tree :', label);
-                                    setSelectedCate({ id: id, name: label, pid: pid });
-                                }} />
-                            </div>
+//     async function setSelectedCate(data) {
 
 
-                        </div>
-                        {/* <div>{productLoading ? <p>Loading...</p> : <p>Finish..</p>}</div> */}
-                        <div className={`${styles.productSec} d-block justify-content-center`}>
-                            <div className={`${styles.productElementSec} d-flex justify-content-around`}>
-                                {
-                                    productData.map((item, index) => {
-                                        return (
-                                            <ProductElement name={item.name} cate={item.Product_Category ? item.Product_Category.name : ''} urls={item.Product_Attachments ? item.Product_Attachments : []} price={item.price} />
-                                        );
-                                    })
-                                }
-                            </div>
-                            <div className={` d-flex justify-content-center`}>
-                                <PaginationControl
-                                    page={page}
-                                    between={4}
-                                    total={Math.floor(numberProduct / process.env.NEXT_PUBLIC_APP_PRODUCT_USER_PAGINATION_OFFSET)}
-                                    limit={1}
-                                    changePage={(page) => {
-                                        setPage(page);
-                                        changePageHandler(page);
-                                        console.log(page)
-                                    }}
-                                    ellipsis={1}
-                                />
+//         console.log(data.id);
+//         setCategoryChoose(data.id);
+//         console.log('------->  setCategoryChoose : ', categoryChoose);
+//         setPage(1);
+//         let products = await ProductsApi.getAllProductsPagination(page, data.id);
+//         console.log('setSelectedCate : ', products);
+//         setProductData(products.data.data.products.rows);
+//         setNumberProduct(products.data.data.products.count);
 
-                            </div>
-                        </div>
-                    </div>
+//     }
 
-                </div>
 
-                <FooterCpn></FooterCpn>
-            </div>
-        </>);
-}
+//     return (
+//         <>
+//             <div>
+//                 <Head>
+//                     <title>Các sản phẩm </title>
+//                     <meta name="description" content="Generated by create next app" />
+//                     <meta name="viewport" content="width=device-width, initial-scale=1" />
+//                     <link rel="icon" href="/favicon.ico" />
+//                 </Head>
+//             </div>
+//             <div>
+//                 <HeaderCpn></HeaderCpn>
+//                 <div className={`${mainStyles.bodySec}`}>
 
-export async function getServerSideProps() {
-    let data = {};
-    let products = await ProductsApi.getAllProductsPagination(1, null);
-    let categories = await ProductsApi.getAllCategories();
-    categories.data.data.data.map((item, index) => {
-        item.label = item.name;
-        item.key = item.id;
-    });
-    data.products = products.data;
-    data.categories = categories.data;
-    data.totalProducts = products.data.data.products.count;
+//                     <div className={`${styles.productPage}`}>
+//                         <div className={`${styles.categorySec}`}>
+//                             <div className={`${styles.sendRequest}`}>
+//                                 <div className={`d-flex justify-content-start ${styles.sendRequestButton}`} onClick={() => setFilterListOpen(!filterListOpen)}>
+//                                     <FontAwesomeIcon icon={faFileExcel} />
+//                                     <h6 style={{ margin: 0, padding: 2, }}>Gửi yêu cầu báo giá</h6>
+//                                 </div>
+//                             </div>
+//                             <div className={`${styles.filterSec}`}>
+//                                 <div className={`d-flex justify-content-center ${styles.filterElement} `} onClick={() => setFilterListOpen(!filterListOpen)}>
+//                                     <FontAwesomeIcon icon={faList} />
+//                                 </div>
+//                                 <div className={`d-flex justify-content-center ${styles.filterElement}`}>
+//                                     <FontAwesomeIcon icon={faFileExcel} />
+//                                 </div>
+//                             </div>
+//                             <div className={`${styles.filterCategoryList}`}>
+//                                 <TreeMenu data={treeData} onClickItem={({ key, label, id, pid }) => {
+//                                     console.log('onclick in tree :', label);
+//                                     setSelectedCate({ id: id, name: label, pid: pid });
+//                                 }} />
+//                             </div>
 
-    console.log(products.data);
-    return { props: { data } }
+//                             <div className={`${styles.filterCategoryListMb}`} style={{ display: filterListOpen ? 'block' : 'none' }}>
+//                                 <TreeMenu data={treeData} onClickItem={({ key, label, id, pid }) => {
+//                                     console.log('onclick in tree :', label);
+//                                     setSelectedCate({ id: id, name: label, pid: pid });
+//                                 }} />
+//                             </div>
 
-}
 
-export default ProductMain;
+//                         </div>
+//                         {/* <div>{productLoading ? <p>Loading...</p> : <p>Finish..</p>}</div> */}
+//                         <div className={`${styles.productSec} d-block justify-content-center`}>
+//                             <div className={`${styles.productElementSec} d-flex justify-content-around`}>
+//                                 {
+//                                     productData.map((item, index) => {
+//                                         return (
+//                                             <ProductElement name={item.name} cate={item.Product_Category ? item.Product_Category.name : ''} urls={item.Product_Attachments ? item.Product_Attachments : []} price={item.price} />
+//                                         );
+//                                     })
+//                                 }
+//                             </div>
+//                             <div className={` d-flex justify-content-center`}>
+//                                 <PaginationControl
+//                                     page={page}
+//                                     between={4}
+//                                     total={Math.floor(numberProduct / process.env.NEXT_PUBLIC_APP_PRODUCT_USER_PAGINATION_OFFSET)}
+//                                     limit={1}
+//                                     changePage={(page) => {
+//                                         setPage(page);
+//                                         changePageHandler(page);
+//                                         console.log(page)
+//                                     }}
+//                                     ellipsis={1}
+//                                 />
+
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                 </div>
+
+//                 <FooterCpn></FooterCpn>
+//             </div>
+//         </>);
+// }
+
+// export async function getServerSideProps() {
+//     let data = {};
+//     let products = await ProductsApi.getAllProductsPagination(1, null);
+//     let categories = await ProductsApi.getAllCategories();
+//     categories.data.data.data.map((item, index) => {
+//         item.label = item.name;
+//         item.key = item.id;
+//     });
+//     data.products = products.data;
+//     data.categories = categories.data;
+//     data.totalProducts = products.data.data.products.count;
+
+//     console.log(products.data);
+//     return { props: { data } }
+
+// }
+
+// export default ProductMain;
