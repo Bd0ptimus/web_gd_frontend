@@ -120,8 +120,6 @@ $intro-text-height : 400px;
 
 @media screen and (min-width : 1020px) and (max-width: 10000px) {
     .mainIntro {
-        padding: $component-bound-space-pc;
-
         .introSec {
             display: flex;
 
@@ -154,7 +152,6 @@ $intro-text-height : 400px;
 
 @media screen and (min-width : 820px) and (max-width: 1020px) {
     .mainIntro {
-        padding: $component-bound-space-pc;
 
         .introSec {
             display: flex;
@@ -188,8 +185,6 @@ $intro-text-height : 400px;
 
 @media screen and (min-width : 450px) and (max-width: 820px) {
     .mainIntro {
-        padding: $component-bound-space-mb;
-
         .introSec {
             display: block;
 
@@ -231,7 +226,6 @@ $intro-text-height : 400px;
 
 @media screen and (max-width: 450px) {
     .mainIntro {
-        padding: $component-bound-space-mb;
 
         .introSec {
             display: block;

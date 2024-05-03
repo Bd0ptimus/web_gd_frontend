@@ -21,7 +21,6 @@
 
 @media screen and (min-width : 1020px) and (max-width: 10000px) {
     .partnerMain {
-        padding: $component-bound-space-pc;
 
     }
 }
@@ -29,7 +28,6 @@
 
 @media screen and (min-width : 820px) and (max-width: 1020px) {
     .partnerMain {
-        padding: $component-bound-space-pc;
 
     }
 }
@@ -37,7 +35,6 @@
 
 @media screen and (min-width : 450px) and (max-width: 820px) {
     .partnerMain {
-        padding: $component-bound-space-mb;
 
     }
 }
@@ -45,7 +42,6 @@
 
 @media screen and (max-width: 450px) {
     .partnerMain {
-        padding: $component-bound-space-mb;
 
     }
 }
