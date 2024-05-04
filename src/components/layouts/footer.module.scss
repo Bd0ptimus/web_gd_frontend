@@ -59,6 +59,8 @@ $main-fontsize: 16px;
         color: $gray-text;
         size: $main-fontsize;
         text-decoration: none;
+        margin: 0px;
+        line-height: 24px;
     }
 
     .bulletPoint::before {
@@ -96,7 +98,7 @@ $main-fontsize: 16px;
 
 @media screen and (min-width : 450px) and (max-width: 820px) {
     .footerMainSec{
-        height: 840px;
+        height: 860px;
     }
 
     .footerCopyrightSec{
@@ -116,7 +118,7 @@ $main-fontsize: 16px;
 
 @media screen and (max-width: 450px) {
     .footerMainSec{
-        height: 840px;
+        height: 860px;
     }
 
     .footerCopyrightSec{

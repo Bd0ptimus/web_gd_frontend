@@ -89,9 +89,12 @@ function FooterCpn({userLoggedIn, userName, userLogout}) {
                                 </p>
                             </div>
                             <div className={`d-block justify-content-center my-3`}>
-                                <p className={` ${styles.footerText} d-flex justify-content-start`}>
+                                <Link href='https://www.facebook.com/p/L%E1%BB%9Bp-%C3%B4n-Ch%E1%BA%A5t-l%C6%B0%E1%BB%A3ng-cao-NTT-100087191577633/' target='_blank' className={` ${styles.footerLink} d-flex justify-content-start`}>
                                     <BsFacebook className={`${styles.footerIcon} mt-1 mr-2`}/> Lớp ôn Chất lượng cao NTT
-                                </p>
+                                </Link>
+                                {/* <p className={` ${styles.footerText} d-flex justify-content-start`} style={{cursor:'pointer'}}>
+                                    <BsFacebook className={`${styles.footerIcon} mt-1 mr-2`}/> Lớp ôn Chất lượng cao NTT
+                                </p> */}
                             </div>
                         </div>
                     </div>

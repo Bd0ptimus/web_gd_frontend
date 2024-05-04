@@ -95,7 +95,11 @@ function ResultPage ({data}) {
                 'Tên',
                 'TÊN',
                 'tên học sinh',
-                'Tên Học Sinh'
+                'Tên Học Sinh',
+                'Ho ten',
+                'Ho va ten',
+                'Ho Va Ten',
+                'Ho Ten'
             ]
         }, {
             value: 'birth_date',
@@ -108,7 +112,11 @@ function ResultPage ({data}) {
                 'sinh ngày',
                 'Sinh ngày',
                 'sinh Ngày',
-                'SINH NGÀY'
+                'SINH NGÀY',
+                'Ngay sinh',
+                'Ngay Sinh',
+                'Sinh Ngay',
+                'Sinh ngay'
             ]
         }, {
             value: "student_id",
@@ -124,7 +132,9 @@ function ResultPage ({data}) {
               "BÁO DANH SỐ",
               "SBD",
               "sbd",
-              "Sbd"
+              "Sbd",
+              'So bao danh',
+              'So Bao Danh'
             ]
         }, {
             value: "room",
@@ -137,7 +147,9 @@ function ResultPage ({data}) {
               "thi phòng",
               "Thi Phòng",
               "thi Phòng",
-              "THI PHÒNG"
+              "THI PHÒNG",
+              'Phong Thi',
+              'Phong thi'
             ]
         }, {
             value: "math_score",
@@ -150,7 +162,9 @@ function ResultPage ({data}) {
               "toán điểm",
               "Toán Điểm",
               "toán Điểm",
-              "TOÁN ĐIỂM"
+              "TOÁN ĐIỂM",
+              'Diem toan',
+              'Diem Toan'
             ]
         }, {
             value: "literature_score",
@@ -163,7 +177,9 @@ function ResultPage ({data}) {
               "tiếng việt điểm",
               "Tiếng Việt Điểm",
               "tiếng Việt Điểm",
-              "TIẾNG VIỆT ĐIỂM"
+              "TIẾNG VIỆT ĐIỂM",
+              'Diem Tieng Viet',
+              'Diem tieng viet'
             ]
         }, {
             value: "english_score",
@@ -176,7 +192,9 @@ function ResultPage ({data}) {
               "tiếng anh điểm",
               "Tiếng Anh Điểm",
               "tiếng Anh Điểm",
-              "TIẾNG ANH ĐIỂM"
+              "TIẾNG ANH ĐIỂM",
+              'Diem Tieng Anh',
+              'Diem tieng anh'
             ]
         }, {
             value: "exam_link",
@@ -189,7 +207,9 @@ function ResultPage ({data}) {
               "bài thi link",
               "Bài Thi Link",
               "bài Thi Link",
-              "BÀI THI LINK"
+              "BÀI THI LINK",
+              'Link bai thi',
+              'Link Bai Thi'
             ]
         }, {
             value: "year",
@@ -202,7 +222,10 @@ function ResultPage ({data}) {
                 "thi năm",
                 "Thi Năm",
                 "thi Năm",
-                "THI NĂM"
+                "THI NĂM",
+                'Nam thi',
+                'nam thi',
+                'Nam Thi'
             ]
         }, {
             value: "exam",
@@ -215,7 +238,10 @@ function ResultPage ({data}) {
                 "thi kỳ",
                 "Thi Kỳ",
                 "thi Kỳ",
-                "THI KỲ"
+                "THI KỲ",
+                'Ky thi',
+                'ky thi',
+                'Ky Thi'
             ]
         }
     ];
@@ -306,16 +332,43 @@ function ResultPage ({data}) {
 
     const qInputDown = (e) => {
         if (e.key === 'Enter') {
-            setupRouterParams('q', qValue)
+            // setupRouterParams('q', qValue)
+            setMultipleRouterParams ([
+                {
+                    key: 'q',
+                    value: qValue
+                }, {
+                    key: 'page',
+                    value: 1
+                }
+            ])
         }
     }
 
     const setYearStudy = (data) => {
-        setupRouterParams('school_year', data)
+        // setupRouterParams('school_year', data)
+        setMultipleRouterParams ([
+            {
+                key: 'school_year',
+                value: data
+            }, {
+                key: 'page',
+                value: 1
+            }
+        ])
     }
 
     const setExam = (data) => {
-        setupRouterParams('exam_type', data)
+        // setupRouterParams('exam_type', data)
+        setMultipleRouterParams ([
+            {
+                key: 'exam_type',
+                value: data
+            }, {
+                key: 'page',
+                value: 1
+            }
+        ])
     }
 
     const onPreviousPage = () => {
@@ -379,7 +432,7 @@ function ResultPage ({data}) {
             <div className="flex justify-between items-center">
               <span className="text-default-400 text-small">Tổng cộng {totalRecords} kết quả</span>
               <label className="flex items-center text-default-400 text-small">
-                Số cột mỗi trang:
+                Số dòng mỗi trang:
                 <select
                   className="bg-transparent outline-none text-default-400 text-small"
                   onChange={onRowsPerPageChange}
