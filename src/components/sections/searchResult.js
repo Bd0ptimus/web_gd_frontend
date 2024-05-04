@@ -45,7 +45,7 @@ function SearchResult (props) {
                                 Ngày sinh
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
-                                {formatTimeStampToCommonDate(props.birthday)}
+                                {props.birthday}
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>

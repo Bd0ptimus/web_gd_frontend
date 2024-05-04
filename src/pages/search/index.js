@@ -11,6 +11,8 @@ import SearchResult from "@/components/sections/searchResult";
 import {ssrAxiosGet} from "@/helpers/ssrAxiosRequest";
 import useAxiosRequest from "@/helpers/axiosRequest";
 import ToastCpn from "@/components/layouts/toastCpn";
+import {formatTimeStampToCommonDate} from '@/helpers/commonFunction';
+
 function SearchPage({yearOptions, items}) {
     const [yearStudy, setYearStudy] = useState(0);
     const [exam, setExam] = useState('');
@@ -44,7 +46,7 @@ function SearchPage({yearOptions, items}) {
         let missing = 'Không có thông tin'
         let notYet = 'Chưa có dữ liệu'
         setStudentName(objStudentInfo.full_name ?? missing)
-        setStudentBirthday(objStudentInfo.birth_date ?? missing)
+        setStudentBirthday(objStudentInfo.birth_date ? formatTimeStampToCommonDate(objStudentInfo.birth_date) : missing)
         setStudentRoom(objStudentInfo.room ?? missing)
         setStudentMath(objStudentInfo.math ?? notYet)
         setStudentLiterature(objStudentInfo.literature ?? notYet)
