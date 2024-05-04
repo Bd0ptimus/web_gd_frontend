@@ -197,7 +197,7 @@ function ResultPage ({data}) {
               'Diem tieng anh'
             ]
         }, {
-            value: "exam_link",
+            value: "link_exam",
             options: [
               "Link bài thi",
               "Link Bài Thi",

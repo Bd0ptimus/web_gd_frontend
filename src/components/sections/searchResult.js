@@ -1,7 +1,7 @@
 import { Modal, Button, Row, Col, Form, Dropdown, ButtonGroup, DropdownButton } from 'react-bootstrap';
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { BsInfoCircle  } from 'react-icons/bs';
-
+import {formatTimeStampToCommonDate} from '@/helpers/commonFunction';
 import styles from './searchResult.module.scss';
 
 function SearchResult (props) {
@@ -45,7 +45,7 @@ function SearchResult (props) {
                                 Ngày sinh
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
-                                {props.birthday}
+                                {formatTimeStampToCommonDate(props.birthday)}
                             </div>
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
