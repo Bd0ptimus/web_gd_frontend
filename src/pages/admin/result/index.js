@@ -268,6 +268,8 @@ function ResultPage ({data}) {
                 "SDT",
                 "sdt",
                 "Sdt",
+                "Số Điện Thoại Người Thân",
+                "Số điện thoại người thân",
             ]
         }, {
             value: "external_id",
