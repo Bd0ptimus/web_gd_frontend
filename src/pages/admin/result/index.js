@@ -34,7 +34,7 @@ import {ssrAxiosGet} from '@/helpers/ssrAxiosRequest';
 import useAxiosRequest from '@/helpers/axiosRequest';
 import SelectionV1 from "@/components/elements/selectionV1";
 import SelectionV2 from "@/components/elements/selectionV2";
-import {formatTimeStampToCommonDate, round} from '@/helpers/commonFunction';
+import {formatTimeStampToCommonDate, roundToCustomDecimal} from '@/helpers/commonFunction';
 import ToastCpn from '@/components/layouts/toastCpn';
 import UploadStudentInfoModal from "@/components/sections/uploadStudentInfoModal";
 import UploadStudentInfoErrorModal from "@/components/sections/uploadStudentInfoErrorModal";
@@ -63,12 +63,15 @@ function ResultPage ({data}) {
     const commonFunction = useCommonFunction();
     const router = useRouter();
     const columns = [
+        { name: "STT", uid: "external_id", sortable: true},
         { name: "Họ tên", uid: "name" },
         { name: "Số báo danh", uid: "student_id" },
+        { name: "Số điện thoại người thân", uid: "contact" },
         { name: "Ngày sinh", uid: "birth_date", sortable: true},
         { name: "Năm thi", uid: "year"},
         { name: "Kỳ thi", uid: "exam"},
         { name: "Phòng thi", uid: "room" },
+        { name: "Địa điểm thi", uid: "location" },
         { name: "Điểm Toán", uid: "math", sortable: true},
         { name: "Điểm Tiếng Việt", uid: "literature", sortable: true},
         { name: "Điểm Tiếng Anh", uid: "english", sortable: true},
@@ -99,7 +102,9 @@ function ResultPage ({data}) {
                 'Ho ten',
                 'Ho va ten',
                 'Ho Va Ten',
-                'Ho Ten'
+                'Ho Ten',
+                'Họ và tên thí sinh',
+                'Họ Và Tên Thí Sinh',
             ]
         }, {
             value: 'birth_date',
@@ -164,7 +169,11 @@ function ResultPage ({data}) {
               "toán Điểm",
               "TOÁN ĐIỂM",
               'Diem toan',
-              'Diem Toan'
+              'Diem Toan',
+              'Toans',
+              'Toán',
+              'toán',
+              'Toan'
             ]
         }, {
             value: "literature_score",
@@ -179,7 +188,10 @@ function ResultPage ({data}) {
               "tiếng Việt Điểm",
               "TIẾNG VIỆT ĐIỂM",
               'Diem Tieng Viet',
-              'Diem tieng viet'
+              'Diem tieng viet',
+              'Tiếng Việt',
+              'Tiếng việt',
+              'tiếng việt'
             ]
         }, {
             value: "english_score",
@@ -194,7 +206,10 @@ function ResultPage ({data}) {
               "tiếng Anh Điểm",
               "TIẾNG ANH ĐIỂM",
               'Diem Tieng Anh',
-              'Diem tieng anh'
+              'Diem tieng anh',
+              'Tiếng Anh',
+              'Tiếng anh',
+              'tiếng anh',
             ]
         }, {
             value: "link_exam",
@@ -242,6 +257,38 @@ function ResultPage ({data}) {
                 'Ky thi',
                 'ky thi',
                 'Ky Thi'
+            ]
+        }, {
+            value: "contact",
+            options: [
+                "Số điện thoại",
+                "Số Điện Thoại",
+                "Số điện thoại liên hệ",
+                "Số Điện Thoại Liên Hệ",
+                "SDT",
+                "sdt",
+                "Sdt",
+            ]
+        }, {
+            value: "external_id",
+            options: [
+                "STT",
+                "stt",
+                "Stt",
+                "Số thứ tự",
+                "Số Thứ Tự",
+            ]
+        }, {
+            value: "location",
+            options: [
+                "Địa điểm",
+                "Địa Điểm",
+                "Dia Diem",
+                "Dia diem",
+                "địa điểm",
+                "Địa điểm thi",
+                "Địa Điểm Thi",
+                'địa điểm thi'
             ]
         }
     ];
@@ -440,10 +487,10 @@ function ResultPage ({data}) {
                   <option value="5">5</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
-                  <option value="15">25</option>
-                  <option value="15">50</option>
-                  <option value="15">100</option>
-                  <option value="15">500</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="500">500</option>
                 </select>
               </label>
             </div>
@@ -548,7 +595,7 @@ function ResultPage ({data}) {
                                 const mathScore = Number(item.math) ?? 0;
                                 const literatureScore = Number(item.literature) ?? 0;
                                 const englishScore = Number(item.english) ?? 0;
-                                const totalScore = round(mathScore + literatureScore + englishScore, 1);
+                                const totalScore = roundToCustomDecimal(mathScore + literatureScore + englishScore, 2);
                                 let itemYear = '';
                                 let itemExam = '';
                                 if (item.examination_school_year && item.examination_school_year.school_years && item.examination_school_year.school_years.year) {
@@ -562,12 +609,22 @@ function ResultPage ({data}) {
                                     <TableRow key={item.id}>
                                         <TableCell>
                                             <div className="flex flex-col">
+                                                <p className="text-bold text-sm capitalize">{item.external_id ?? ''}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col">
                                                 <p className="text-bold text-sm capitalize">{item.full_name ?? ''}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex flex-col">
                                                 <p className="text-bold text-sm capitalize">{item.student_id ?? ''}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col">
+                                                <p className="text-bold text-sm capitalize">{item.contact ?? ''}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell>
@@ -588,6 +645,11 @@ function ResultPage ({data}) {
                                         <TableCell>
                                             <div className="flex flex-col">
                                                 <p className="text-bold text-sm capitalize">{item.room ?? ''}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col">
+                                                <p className="text-bold text-sm capitalize">{item.location ?? ''}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell>
@@ -673,8 +735,8 @@ export async function getServerSideProps(context) {
     const studentInfoUrl = `/api/student-information/list?${queryString}`;
     const studentInfo = await ssrAxiosGet(context, studentInfoUrl);
     const data = {
-        "studentInfo": studentInfo.data ?? null,
-        "filterData": filterData. data ?? null
+        "studentInfo": studentInfo?.data ?? null,
+        "filterData": filterData?. data ?? null
     }
     return { props: { data } }
 }

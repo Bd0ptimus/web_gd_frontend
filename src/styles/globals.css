@@ -4,12 +4,12 @@
 
 :root {
   --primary: #FFFFFF;
-  --secondary: rgba(31, 209, 253, 0.4);
-  --tertiary: rgba(31, 209, 253, 0.6);
+  --secondary: #a4d6f3;
+  --tertiary: #01A7E3;
 }
 
 *::-webkit-scrollbar {
-  width: 0px;
+  width: 10px;
 }
 
 *::-webkit-scrollbar-track {

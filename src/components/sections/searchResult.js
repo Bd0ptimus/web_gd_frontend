@@ -3,14 +3,14 @@ import React, { Component, useEffect, useState, useRef } from 'react';
 import { BsInfoCircle  } from 'react-icons/bs';
 import {formatTimeStampToCommonDate} from '@/helpers/commonFunction';
 import styles from './searchResult.module.scss';
-
+import {roundToCustomDecimal} from '@/helpers/commonFunction'
 function SearchResult (props) {
     function caculateTotalScore(math, literature, english) {
         typeof math === 'string' ? math = 0 : math = parseFloat(math);
         typeof literature === 'string' ? literature = 0 : literature = parseFloat(literature);
         typeof english === 'string' ? english = 0 : english = parseFloat(english);
 
-        return math + literature + english;
+        return roundToCustomDecimal(math + literature + english, 2);
     }
 
     return (
@@ -25,7 +25,7 @@ function SearchResult (props) {
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     <div className='m-2'>
-                        Kết quả điểm thi
+                        Kết quả tra cứu
                     </div>
                 </Modal.Title>
             </Modal.Header>
@@ -42,18 +42,37 @@ function SearchResult (props) {
                         </div>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
                             <div className={`text-start ${styles.resultLabel}`}>
+                                 Số báo danh
+                            </div>
+                            <div className={`text-md-start text-end  ${styles.resultContent}`}>
+                                {props.studentId}
+                            </div>
+                        </div>
+                        <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
+                            <div className={`text-start ${styles.resultLabel}`}>
                                 Ngày sinh
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
                                 {props.birthday}
                             </div>
                         </div>
+                        
+                    </div>
+                    <div className={`d-md-flex d-block`}>
                         <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
                             <div className={`text-start ${styles.resultLabel}`}>
                                 Phòng thi
                             </div>
                             <div className={`text-md-start text-end  ${styles.resultContent}`}>
                                 {props.room}
+                            </div>
+                        </div>
+                        <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
+                            <div className={`text-start ${styles.resultLabel}`}>
+                                Địa điểm thi
+                            </div>
+                            <div className={`text-md-start text-end  ${styles.resultContent}`}>
+                                {props.location}
                             </div>
                         </div>
                     </div>

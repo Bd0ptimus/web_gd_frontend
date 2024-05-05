@@ -63,3 +63,20 @@ export const RESPONSE_STATUS = {
     SUCCESS: 'success',
     ERROR: 'error'
 }
+
+
+export const SEARCH_TYPE = {
+    EXAM_RESULT: 'exam_result',
+    STUDENT_ID: 'student_id'
+}
+
+export const SEARCH_TYPE_ARR = [
+    {
+        value: 'exam_result',
+        content: 'Tra cứu kết quả thi'
+    }, 
+    {
+        value: 'student_id',
+        content: 'Tra cứu số báo danh'
+    }
+]

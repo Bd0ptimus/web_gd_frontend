@@ -41,9 +41,9 @@ function MenuCpn({ path, userRole }) {
         <div className={`${styles.menuMain}  justify-content-center`}>
             
             <div className={`d-block justify-content-center`}>
-                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:85}}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:240}}>
                     <Link href='/search' className={`${styles.menuLink} ${path === 'search' ? styles.pageSelected : ''}`}>
-                        <p className={`m-0`}>Tra cứu</p>
+                        <p className={`m-0`}>Tra cứu SBD, kết quả thi</p>
                     </Link>
                 </div>
             </div>

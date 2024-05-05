@@ -200,6 +200,27 @@ function UploadStudentInfoErrorModal(props) {
                                                         </tr>
                                                     )
                                                 }
+
+                                                {
+                                                    item.data.contact && (
+                                                        <tr>
+                                                            <th scope="row">Số điện thoại liên hệ</th>
+                                                            <td>{item.data.contact.old}</td>
+                                                            <td>{item.data.contact.new}</td>
+                                                        </tr>
+                                                    )
+                                                }
+
+                                                {
+                                                    item.data.external_id && (
+                                                        <tr>
+                                                            <th scope="row">STT</th>
+                                                            <td>{item.data.external_id.old}</td>
+                                                            <td>{item.data.external_id.new}</td>
+                                                        </tr>
+                                                    )
+                                                }
+
                                                 {
                                                     item.choice && (
                                                         <tr>

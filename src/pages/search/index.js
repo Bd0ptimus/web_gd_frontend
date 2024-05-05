@@ -12,12 +12,14 @@ import {ssrAxiosGet} from "@/helpers/ssrAxiosRequest";
 import useAxiosRequest from "@/helpers/axiosRequest";
 import ToastCpn from "@/components/layouts/toastCpn";
 import {formatTimeStampToCommonDate} from '@/helpers/commonFunction';
-
+import * as Constants from '@/config/constants/Constants'
 function SearchPage({yearOptions, items}) {
     const [yearStudy, setYearStudy] = useState(0);
     const [exam, setExam] = useState('');
     const [candidateNumber, setCandidateNumber] = useState('');
     const [openModalResult, setOpenModalResult] = useState(false);
+    const [typeSearch, setTypeSearch] = useState(Constants.SEARCH_TYPE.EXAM_RESULT);
+    const [searchMainLabel, setSearchMainLabel] = useState('Số báo danh');
 
     //student info
     const [studentName, setStudentName] = useState('');
@@ -28,14 +30,25 @@ function SearchPage({yearOptions, items}) {
     const [studentEnglish, setStudentEnglish] = useState('');
     const [studentLocation, setStudentLocation] = useState('');
     const [studentLinkExam, setStudentLinkExam] = useState('');
+    const [studentId, setStudentId] = useState('');
 
+    useEffect(() => {
+        if (typeSearch == '' || typeSearch == Constants.SEARCH_TYPE.EXAM_RESULT) {
+            setSearchMainLabel('Số điện thoại liên hệ hoặc SBD')
+        } else {
+            setSearchMainLabel('Số điện thoại liên hệ')
+        }
+    }, [typeSearch])
 
     const axiosRequest = useAxiosRequest();
     const searchHandler = async () => {
-        const url = `/api/student-information/get-student?year=${yearStudy}&exam=${exam}&candidateNumber=${candidateNumber}`
+        if (yearStudy == 0 || exam == '' || candidateNumber == '') {
+            onModalWarning('Vui nhập đầy đủ thông tin')
+            return
+        }
+        const url = `/api/student-information/get-student?year=${yearStudy}&exam=${exam}&candidateNumber=${candidateNumber}&type=${typeSearch}`
         const response = await axiosRequest.axiosGet(url)
         const objStudentInfo = response.data ?? null
-
         if (!objStudentInfo)
         {
             onModalWarning('Không tìm thấy thông tin học sinh')
@@ -53,7 +66,7 @@ function SearchPage({yearOptions, items}) {
         setStudentEnglish(objStudentInfo.english ?? notYet)
         setStudentLocation(objStudentInfo.location ?? missing)
         setStudentLinkExam(objStudentInfo.link_exam ?? missing)
-
+        setStudentId(objStudentInfo.student_id ?? notYet)
         setOpenModalResult(true);
     }
     const searchResultModalOnHide = () => {
@@ -72,13 +85,20 @@ function SearchPage({yearOptions, items}) {
             <div className = {`d-flex justify-content-center`}>
                 <div className = {`d-block justify-content-center mx-3 mx-md-0`}>
                     <div className = {`row d-flex justify-content-center`}>
-                        <h1 className={`text-center`} style={{fontSize:40, fontWeight:700}}>Tra cứu điểm thi, kết quả học tập</h1>
+                        <h1 className={`text-center`} style={{fontSize:40, fontWeight:700}}>Tra cứu số báo danh, kết quả học tập</h1>
                     </div>
                     <div className = {`row d-flex justify-content-center mx-1 mx-md-0`}>
                         <InstructionSearching/>
                     </div>
                     <div className = {`d-block justify-content-center`}>
-
+                        {/* <div className={`my-3 d-flex justify-content-center`}>
+                            <SelectionV2
+                                label="Loại tra cứu"
+                                placeholder="Chọn loại tra cứu"
+                                options={Constants.SEARCH_TYPE_ARR}
+                                endContent={<BsChevronDown/>}
+                                response = {(e) => setTypeSearch(e)}/>
+                        </div> */}
                         <div className={`my-3 d-flex justify-content-center`}>
                             <SelectionV1
                                 label="Năm thi"
@@ -98,10 +118,10 @@ function SearchPage({yearOptions, items}) {
                         <div className={`my-3 d-flex justify-content-center`}>
                             <Input
                                 type="text"
-                                label="Số báo danh"
+                                label={searchMainLabel}
                                 labelPlacement='outside'
                                 variant="bordered"
-                                placeholder="Nhập số báo danh"
+                                placeholder="Nhập ..."
                                 onChange= {(e)=>setCandidateNumber(e.target.value)}
                             />
                         </div>
@@ -126,6 +146,7 @@ function SearchPage({yearOptions, items}) {
                 literature={studentLiterature}
                 english={studentEnglish}
                 linkExam={studentLinkExam}
+                studentId={studentId}
             />
             <ToastCpn />
         </div>
