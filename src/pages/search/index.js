@@ -31,6 +31,7 @@ function SearchPage({yearOptions, items}) {
     const [studentLocation, setStudentLocation] = useState('');
     const [studentLinkExam, setStudentLinkExam] = useState('');
     const [studentId, setStudentId] = useState('');
+    const [examTime, setExamTime] = useState('');
 
     useEffect(() => {
         if (typeSearch == '' || typeSearch == Constants.SEARCH_TYPE.EXAM_RESULT) {
@@ -60,13 +61,14 @@ function SearchPage({yearOptions, items}) {
         let notYet = 'Chưa có dữ liệu'
         setStudentName(objStudentInfo.full_name ?? missing)
         setStudentBirthday(objStudentInfo.birth_date ? formatTimeStampToCommonDate(objStudentInfo.birth_date) : missing)
-        setStudentRoom(objStudentInfo.room ?? missing)
+        setStudentRoom(objStudentInfo.room ?? notYet)
         setStudentMath(objStudentInfo.math ?? notYet)
         setStudentLiterature(objStudentInfo.literature ?? notYet)
         setStudentEnglish(objStudentInfo.english ?? notYet)
-        setStudentLocation(objStudentInfo.location ?? missing)
+        setStudentLocation(objStudentInfo.location ?? notYet)
         setStudentLinkExam(objStudentInfo.link_exam ?? missing)
         setStudentId(objStudentInfo.student_id ?? notYet)
+        setExamTime(objStudentInfo.time ?? notYet)
         setOpenModalResult(true);
     }
     const searchResultModalOnHide = () => {
@@ -147,6 +149,7 @@ function SearchPage({yearOptions, items}) {
                 english={studentEnglish}
                 linkExam={studentLinkExam}
                 studentId={studentId}
+                time={examTime}
             />
             <ToastCpn />
         </div>

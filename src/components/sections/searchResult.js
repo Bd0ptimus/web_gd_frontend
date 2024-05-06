@@ -75,6 +75,14 @@ function SearchResult (props) {
                                 {props.location}
                             </div>
                         </div>
+                        <div className={`d-md-block d-flex justify-content-md-start justify-content-between col-md-4 col-12 my-3`}>
+                            <div className={`text-start ${styles.resultLabel}`}>
+                                Thời gian thi
+                            </div>
+                            <div className={`text-md-start text-end  ${styles.resultContent}`}>
+                                {props.time}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className={`row d-md-flex d-block m-2 py-4`}>

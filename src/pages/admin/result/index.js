@@ -66,12 +66,14 @@ function ResultPage ({data}) {
         { name: "STT", uid: "external_id", sortable: true},
         { name: "Họ tên", uid: "name" },
         { name: "Số báo danh", uid: "student_id" },
-        { name: "Số điện thoại người thân", uid: "contact" },
+        { name: "Số điện thoại", uid: "contact" },
+        { name: "Số điện thoại 2", uid: "contact2" },
         { name: "Ngày sinh", uid: "birth_date", sortable: true},
         { name: "Năm thi", uid: "year"},
         { name: "Kỳ thi", uid: "exam"},
         { name: "Phòng thi", uid: "room" },
-        { name: "Địa điểm thi", uid: "location" },
+        { name: "Địa điểm", uid: "location" },
+        { name: "Thời gian", uid: "time" },
         { name: "Điểm Toán", uid: "math", sortable: true},
         { name: "Điểm Tiếng Việt", uid: "literature", sortable: true},
         { name: "Điểm Tiếng Anh", uid: "english", sortable: true},
@@ -270,8 +272,50 @@ function ResultPage ({data}) {
                 "Sdt",
                 "Số Điện Thoại Người Thân",
                 "Số điện thoại người thân",
+                "Số điện thoại 1",
+                "Số Điện Thoại 1",
+                "Số điện thoại liên hệ 1",
+                "Số Điện Thoại Liên Hệ 1",
+                "SDT 1",
+                "sdt 1",
+                "Sdt 1",
+                "Số Điện Thoại Người Thân 1",
+                "Số điện thoại người thân 1",
+                "Số điện thoại1",
+                "Số Điện Thoại1",
+                "Số điện thoại liên hệ1",
+                "Số Điện Thoại Liên Hệ1",
+                "SDT1",
+                "sdt1",
+                "Sdt1",
+                "Số Điện Thoại Người Thân1",
+                "Số điện thoại người thân1",
             ]
-        }, {
+        },
+        {
+            value: "contact2",
+            options: [
+                "Số điện thoại 2",
+                "Số Điện Thoại 2",
+                "Số điện thoại liên hệ 2",
+                "Số Điện Thoại Liên Hệ 2",
+                "SDT 2",
+                "sdt 2",
+                "Sdt 2",
+                "Số Điện Thoại Người Thân2",
+                "Số điện thoại người thân2",
+                "Số điện thoại2",
+                "Số Điện Thoại2",
+                "Số điện thoại liên hệ2",
+                "Số Điện Thoại Liên Hệ2",
+                "SDT2",
+                "sdt2",
+                "Sdt2",
+                "Số Điện Thoại Người Thân2",
+                "Số điện thoại người thân2",
+            ]
+        },
+        {
             value: "external_id",
             options: [
                 "STT",
@@ -291,6 +335,16 @@ function ResultPage ({data}) {
                 "Địa điểm thi",
                 "Địa Điểm Thi",
                 'địa điểm thi'
+            ]
+        }, {
+            value: "time",
+            options: [
+                "Thời gian thi",
+                "thời gian thi",
+                "Thời Gian Thi",
+                "Thời gian",
+                "Thời Gian",
+                "thời gian",
             ]
         }
     ];
@@ -631,6 +685,11 @@ function ResultPage ({data}) {
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex flex-col">
+                                                <p className="text-bold text-sm capitalize">{item.contact2 ?? ''}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col">
                                                 <p className="text-bold text-sm capitalize">{formatTimeStampToCommonDate(item.birth_date) ?? ''}</p>
                                             </div>
                                         </TableCell>
@@ -652,6 +711,11 @@ function ResultPage ({data}) {
                                         <TableCell>
                                             <div className="flex flex-col">
                                                 <p className="text-bold text-sm capitalize">{item.location ?? ''}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col">
+                                                <p className="text-bold text-sm capitalize">{item.time ?? ''}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell>

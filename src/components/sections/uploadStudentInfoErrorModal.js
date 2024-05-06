@@ -34,12 +34,60 @@ function UploadStudentInfoErrorModal(props) {
         updateInfoHandler(id, option)
     }
 
+    const allChoosenHandler = (option) => {
+        const students = [];
+        Object.values(props.infos).forEach(student => {
+            student.choice = option
+            students.push(student)
+        })
+        setInfos(students)
+        bulkUpdateInfoHandler(option)
+        // updateInfoHandler(id, option)
+    }
+
     const setupInfos = () => {
         const students = [];
         Object.values(props.infos).forEach(student => {
             students.push(student)
         })
         setInfos(students)
+    }
+
+    const bulkUpdateInfoHandler = async (option) => {
+        try {
+            let optionIndex = ''
+
+            switch (option) {
+                case infoChoiceOptions.KEEP_OLD:
+                    optionIndex = 'old';
+                    break;
+                case infoChoiceOptions.OVERRIDE_NEW:
+                    optionIndex = 'new';
+                    break;
+            }
+            let bulkData = []
+            infos.forEach(info => {
+                let dataUpdate = {}
+                const keys = Object.keys(info.data);
+                keys.forEach((key) => {
+                    dataUpdate[key] = info.data[key][optionIndex];
+                })
+                dataUpdate.id = info?.id ?? '' 
+                bulkData.push(dataUpdate)
+            })
+            const response = await axiosRequest.axiosPost('/api/student-information/bulk-update', {
+                info: bulkData
+            });
+
+            if (response.success) {
+                props.onModalSuccess('Update dữ liệu thành công')
+            } else {
+                props.onModalWarning('Đã xảy ra lỗi, vui lòng thử lại')
+            }
+        } catch (e) {
+            console.error(e)
+            props.onModalWarning('Đã xảy ra lỗi, vui lòng thử lại')
+        }
     }
 
     const updateInfoHandler = async (id, option) => {
@@ -106,6 +154,14 @@ function UploadStudentInfoErrorModal(props) {
                             <p>{props.exam}</p>
                         </div>
                     </div>
+                </div>
+                <div className={`m-3 p-0 d-block d-md-flex justify-content-end`}>
+                    <Button size="sm" variant="flat" className={`m-2`} onClick={() => allChoosenHandler(infoChoiceOptions.KEEP_OLD)}>
+                        Giữ lại toàn bộ dữ liệu cũ
+                    </Button>
+                    <Button color="success" size="sm" variant="flat" className={`m-2`} onClick={() => allChoosenHandler(infoChoiceOptions.OVERRIDE_NEW)}>
+                        Ghi đè toàn bộ dữ liệu mới
+                    </Button>
                 </div>
                 <div className={`m-3 p-0 d-block justify-content-center`}>
                     {
@@ -204,7 +260,7 @@ function UploadStudentInfoErrorModal(props) {
                                                 {
                                                     item.data.contact && (
                                                         <tr>
-                                                            <th scope="row">Số điện thoại liên hệ</th>
+                                                            <th scope="row">Số điện thoại</th>
                                                             <td>{item.data.contact.old}</td>
                                                             <td>{item.data.contact.new}</td>
                                                         </tr>
@@ -217,6 +273,26 @@ function UploadStudentInfoErrorModal(props) {
                                                             <th scope="row">STT</th>
                                                             <td>{item.data.external_id.old}</td>
                                                             <td>{item.data.external_id.new}</td>
+                                                        </tr>
+                                                    )
+                                                }
+
+                                                {
+                                                    item.data.time && (
+                                                        <tr>
+                                                            <th scope="row">Thời gian thi</th>
+                                                            <td>{item.data.time.old}</td>
+                                                            <td>{item.data.time.new}</td>
+                                                        </tr>
+                                                    )
+                                                }
+
+                                                {
+                                                    item.data.contact2 && (
+                                                        <tr>
+                                                            <th scope="row">Số điện thoại 2</th>
+                                                            <td>{item.data.contact2.old}</td>
+                                                            <td>{item.data.contact2.new}</td>
                                                         </tr>
                                                     )
                                                 }
