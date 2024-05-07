@@ -122,7 +122,6 @@ function UploadStudentInfoModal(props) {
 
             await promise.then(async (d) => {
                 let infoImporting = []
-
                 for (const item of d) {
                     const product = {};
                     const keys = Object.keys(item);
@@ -147,13 +146,13 @@ function UploadStudentInfoModal(props) {
                     }
 
                     if (!hasFullname) {
-                        props.onModalWarning(`Cột '` + 'Họ tên' + `' bắt buộc phải tồn tại, vui lòng kiểm tra lại`);
-                        return; 
+                        props.onModalWarning(`Chú ý! Cột '` + 'Họ tên' + `' bắt buộc phải tồn tại. Dòng bị lỗi đã được bỏ qua`);
+                        continue; 
                     }
 
                     if (!hasStudentId) {
-                        props.onModalWarning(`Cột '` + 'Số báo danh' + `' bắt buộc phải tồn tại, vui lòng kiểm tra lại`);
-                        return; 
+                        props.onModalWarning(`Chú ý! Cột '` + 'Số báo danh' + `' bắt buộc phải tồn tại. Dòng bị lỗi đã được bỏ qua`);
+                        continue; 
                     }
 
                     infoImporting.push(product);

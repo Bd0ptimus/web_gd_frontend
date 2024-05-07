@@ -130,7 +130,7 @@ function SearchPage({yearOptions, items}) {
 
                         <div className={`my-5 d-flex justify-content-center`}>
                             <Button className={`${styles.searchBtn}`} onClick={()=>searchHandler()}>
-                                Tra cứu điểm thi
+                                Tra cứu
                             </Button>
                         </div>
 
