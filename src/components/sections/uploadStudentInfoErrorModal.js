@@ -174,10 +174,6 @@ function UploadStudentInfoErrorModal(props) {
                                             <b className={`mx-2`}>SBD: </b>
                                             <p>{item.student_id}</p>
                                         </div>
-                                        <div className={`d-flex justify-content-center`}>
-                                            <b className={`mx-2`}> - Họ và tên: </b>
-                                            <p>{item.full_name}</p>
-                                        </div>
                                     </div>
                                     <div className={`d-flex justify-content-end`}>
                                         <Button size="sm" variant="flat" className={`m-2`} onClick={() => infoChoosenHandler(item.id, infoChoiceOptions.KEEP_OLD)}>
@@ -197,6 +193,15 @@ function UploadStudentInfoErrorModal(props) {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {
+                                                    item.data.full_name && (
+                                                        <tr>
+                                                            <th scope="row">Họ tên học sinh</th>
+                                                            <td>{item.data.full_name.old}</td>
+                                                            <td>{item.data.full_name.new}</td>
+                                                        </tr>
+                                                    )
+                                                }
                                                 {
                                                     item.data.room && (
                                                         <tr>
