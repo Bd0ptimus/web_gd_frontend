@@ -27,10 +27,45 @@ $orange-main: #F06E3A;
     margin: auto;
 }
 
-@media screen and (min-width : 1020px) and (max-width: 10000px) {}
+.pageContainer {
+    margin: 120px 0px;
+    .contentSectionContainer {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .pageContainer {
+        .contentSectionContainer {
+            margin: 30px 120px;
+        }
+    }
+    
+}
 
 
-@media screen and (min-width : 820px) and (max-width: 1020px) {}
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .pageContainer {
+        .contentSectionContainer {
+            margin: 30px 120px;
+        }
+    }
+}
 
 
-@media screen and (min-width : 450px) and (max-width: 820px) {}
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .pageContainer {
+        .contentSectionContainer {
+            margin: 30px 80px;
+        }
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    .pageContainer {
+        .contentSectionContainer {
+            margin: 25px 30px;
+        }
+    }
+}

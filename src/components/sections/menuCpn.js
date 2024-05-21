@@ -39,6 +39,13 @@ function MenuCpn({ path, userRole }) {
 
     return (
         <div className={`${styles.menuMain}  justify-content-center`}>
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
+                    <Link href='/' className={`${styles.menuLink} ${path === '' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Trang chủ</p>
+                    </Link>
+                </div>
+            </div>
             
             <div className={`d-block justify-content-center`}>
                 <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:240}}>
