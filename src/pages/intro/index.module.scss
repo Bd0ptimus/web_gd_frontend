@@ -1,0 +1,136 @@
+@import '../../styles/main.module.scss';
+
+$main-fontsize: 16px;
+$main-text-height: 24px;
+
+@mixin text-content {
+  margin: 0px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  color: $gray-neutral;
+}
+
+.allContent {
+
+}
+
+.introBoxTitle {
+  height: 120px;
+
+  .introRow {
+      max-height: 64px;
+
+    .introTitle {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 48px;
+    }
+  }
+}
+
+.dashedHr {
+  border: 0;
+  border-bottom: 1px dashed #DCDCDC;
+  padding-bottom: 50px;
+  margin-bottom: 50px;
+}
+
+.order1 {
+    order: 1;
+}
+
+.order2 {
+  order: 2;
+}
+
+.contentIntro {
+  .typography p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #656565;
+  }
+
+  .introDivHeader {
+    .header {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 48px;
+      color: #292929
+    }
+  }
+
+}
+
+.imgIntro{
+    object-fit: cover;
+    border-radius: 20px;
+    width: 486px;
+    height: 520px;
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {}
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+  .imgIntro{
+    object-fit: contain;
+  }
+}
+@media screen and (min-width : 450px) and (max-width: 820px) {}
+@media screen and (max-width: 450px) {
+  .allContent {
+    width: auto;
+    padding: 0px 10px;
+  }
+
+  .introBoxTitle {
+    height: 120px;
+
+    .introRow {
+      max-height: 64px;
+
+      .introHeader {
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 48px;
+      }
+    }
+  }
+
+  .contentIntro {
+    padding: 30px 0px;
+
+    .introDivHeader {
+      padding: 0px 20px;
+
+      .header {
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+  }
+  .order1 {
+    order: 2;
+  }
+
+  .order2 {
+    order: 1;
+  }
+
+  .imgIntro{
+    object-fit: cover;
+    border-radius: 16px;
+    width: 335px;
+    height: 358px;
+  }
+}
+
+
+
+
+
+
+
+
