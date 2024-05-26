@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d405768-883a-461a-ac0d-dd540a10f9ab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/intro/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/intro/index.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/teachers/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/teachers/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/teachers/detail/[id].js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/teachers/detail/teacherDetail.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/intro/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/intro/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/teachers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/teachers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/teachers/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/teachers/index.module.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,20 +73,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;thai-raw-1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "thai-raw-1",
+    "last_opened_file_path": "/Users/kartech/Repo/web_gd_frontend/src/pages/teachers/detail",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "watcher.settings",
+    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/teachers/detail" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/teachers/detail" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -106,7 +117,8 @@
       <workItem from="1716432471629" duration="25000" />
       <workItem from="1716478749178" duration="7252000" />
       <workItem from="1716519583188" duration="4000" />
-      <workItem from="1716566047292" duration="4742000" />
+      <workItem from="1716566047292" duration="5576000" />
+      <workItem from="1716729987561" duration="11464000" />
     </task>
     <servers />
   </component>
