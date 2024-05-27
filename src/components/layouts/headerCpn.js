@@ -89,7 +89,7 @@ function HeaderCpn({ userName, userLogout, userRole }) {
                 </div>
             </div >
             <div style={{ display: isMenuOpened ? 'block' : 'none' }} className={`${styles.mbMenuSec}`}>
-                <MenuMbCpn path={mainPath} onClose={() => { handleOpenMenu() }} />
+                <MenuMbCpn refresh={isMenuOpened} path={mainPath} onClose={() => { handleOpenMenu() }} />
             </div>
 
         </div>

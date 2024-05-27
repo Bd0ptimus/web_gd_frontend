@@ -34,6 +34,14 @@ $orange-main: #F06E3A;
     }
 }
 
+@mixin text-content {
+    margin: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    color: $gray-neutral;
+}
+
 @media screen and (min-width : 1020px) and (max-width: 10000px) {
     .pageContainer {
         .contentSectionContainer {

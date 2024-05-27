@@ -3,16 +3,6 @@
 $main-fontsize: 16px;
 $main-text-height: 24px;
 
-
-@mixin text-content {
-    margin: 0px;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 28px;
-    color: $gray-neutral;
-}
-
-
 .introSec {
     background-color: $blue-secondary;
     border-radius: 25px;

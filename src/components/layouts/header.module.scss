@@ -182,7 +182,7 @@ $header-height: 88px;
     }
 }
 
-@media screen and (min-width : 1020px) and (max-width: 10000px) {
+@media screen and (min-width : 1050px) and (max-width: 10000px) {
     .headerMain {
         .headerMainSec {
             // height: $header-bot-sec-pc;
@@ -217,42 +217,42 @@ $header-height: 88px;
 }
 
 
-@media screen and (min-width : 820px) and (max-width: 1020px) {
-    .headerMain {
+// @media screen and (min-width : 1000px) and (max-width: 1020px) {
+//     .headerMain {
 
-        .headerMainSec {
-            // height: $header-bot-sec-pc;
-            width: 100%;
-        }
-
-
-
-        .fontIcon {
-            display: none;
-        }
-
-        .midSec {
-            display: flex;
-        }
-
-        .rightSec {
-            .infoSec {
-                display: none;
-            }
-            .mbAltIcon{
-                display: none !important;
-
-            }
-        }
-    }
-
-    .headerSubTop {
-        display: block !important;
-    }
-}
+//         .headerMainSec {
+//             // height: $header-bot-sec-pc;
+//             width: 100%;
+//         }
 
 
-@media screen and (min-width : 450px) and (max-width: 820px) {
+
+//         .fontIcon {
+//             display: none;
+//         }
+
+//         .midSec {
+//             display: flex;
+//         }
+
+//         .rightSec {
+//             .infoSec {
+//                 display: none;
+//             }
+//             .mbAltIcon{
+//                 display: none !important;
+
+//             }
+//         }
+//     }
+
+//     .headerSubTop {
+//         display: block !important;
+//     }
+// }
+
+
+@media screen and (min-width : 450px) and (max-width: 1050px) {
     .headerMain {
 
         .headerMainSec {

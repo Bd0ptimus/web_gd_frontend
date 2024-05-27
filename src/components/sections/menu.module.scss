@@ -39,17 +39,19 @@ $main-text-height: 24px;
     }
 
     .subMenuGroup {
-        background-color: $gray-bg;
-        border-radius: 5px;
-        border: solid 0.2px $color-primary-border;
-        // .subMenuLink {
-        //     @include menuPcLink;
-        //     & :hover {
-        //         background: $white-up;
-        //         transition: .3s;
-        //         border-radius: 10px;
-        //     }
-        // } 
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        margin: 5px 0px;
+        background-color: $white-up;
+        border-radius: 12px;
+        cursor: pointer;
+        .subMenuLink {
+            @include menuPcLink;
+            & :hover {
+                border-bottom: none !important;
+                background: $white-up;
+                transition: .3s;
+            }
+        } 
     }
 
     .menuLink {
