@@ -5,6 +5,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import {
     faX,
+    faChevronDown,
+    faChevronUp
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AiOutlineHome, AiOutlineLock, AiOutlineMail, AiFillFacebook  } from 'react-icons/ai';
@@ -18,12 +20,17 @@ import styles from './menuMb.module.scss';
 import { MENUS } from '../../data/menuList';
 import FooterCpn from '@/components/layouts/footerCpn';
 import * as Constants from '@/config/constants/Constants';
-function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onClose, path}) {
+function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onClose, path, refresh}) {
     const [expireString, setExpireString] = useState('');
+    const [menuNews, setMenuNews] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
     useEffect(() => {
         setCurrentPath(path)
     }, [path])
+
+    useEffect(() => {
+        setMenuNews(false)
+    }, [refresh])
     useEffect(() => {
         const date = new Date(expireDate);
         const day = date.getDate();
@@ -32,6 +39,23 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
         const formattedDate = `${day}/${month}/${year}`;
         setExpireString(formattedDate)
     })
+
+    function setMenuOpen(index) {
+        switch (index) {
+            case 'news':
+                setMenuNews(!menuNews);
+                break;
+        }
+    }
+
+    function getMenuOpen(index) {
+        switch (index) {
+            case 'news':
+                return menuNews;
+                break;
+        }
+    }
+
     return (
         <div className={`${styles.menuMain} d-block justify-content-center p-4`}>
             <div className={`d-flex justify-content-end`}>
@@ -47,11 +71,40 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
                             alt="Logo"
                         />
             </div>
-            <div className={`${styles.menuElement} d-flex justify-content-start`}>
+            {/* <div className={`${styles.menuElement} d-flex justify-content-start`}>
                 <Link href='/' className={`${styles.menuLink} ${currentPath === '/' || currentPath === '' ? styles.pageSelected : ''}`}>
                     <p className={`mx-1 my-0`}>Trang chủ</p>
                 </Link>
             </div>
+            <div className={`${styles.devider}`}></div> */}
+            <div className={`${styles.menuElement} d-flex justify-content-between`} onClick={() => setMenuOpen('news')}>
+                <Link href='#' className={`${styles.menuLink} ${currentPath === '/news' || currentPath === 'news' ? styles.pageSelected : ''}`}>
+                    <p className={`mx-1 my-0`}>Tin tức</p>
+                </Link>
+                {
+                    menuNews ? (
+                        <FontAwesomeIcon icon={faChevronUp}/>
+                    ) : (
+                        <FontAwesomeIcon icon={faChevronDown}/>
+                    )
+                }
+            </div>
+            {
+                menuNews && (
+                    <>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/news/posts' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Bài viết</p>
+                            </Link>
+                        </div>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/news/videos' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Video</p>
+                            </Link>
+                        </div>
+                    </>
+                )
+            }
             <div className={`${styles.devider}`}></div>
             <div className={`${styles.menuElement} d-flex justify-content-start`}>
                 <Link href='/search' className={`${styles.menuLink} ${currentPath === 'search' ? styles.pageSelected : ''}`}>

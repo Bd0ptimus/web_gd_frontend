@@ -1,0 +1,123 @@
+@import '../../styles/main.module.scss';
+
+
+.pageDirect {
+    .title{
+        margin: 0px;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 400;
+        color: $gray-neutral;
+    }
+
+    .content {
+        margin: 0px;
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 600;
+        color: $black-main;
+        overflow: hidden !important;
+        white-space: normal !important;
+        text-overflow: ellipsis;
+        display: -webkit-box; /* Sử dụng flexbox để hiển thị văn bản trong một hộp */
+        -webkit-line-clamp: 1; /* Giới hạn số dòng hiển thị */
+        -webkit-box-orient: vertical;
+    }
+
+    .arrowSec {
+        border-radius: 15px;
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+        background-color: $blue-selected;
+        color: $color-primary;
+
+        .icon {
+            margin-top: 14px;
+            // font-size: 18px;
+            font-weight: 400;
+        }
+    }
+
+
+}
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    .pageDirect {
+        .title{
+            margin: 0px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 400;
+            color: $gray-neutral;
+        }
+    
+        .content {
+            margin: 0px;
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 600;
+        }
+    }
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+    .pageDirect {
+        .title{
+            margin: 0px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 400;
+            color: $gray-neutral;
+        }
+    
+        .content {
+            margin: 0px;
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 600;
+        }
+    }
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+    .pageDirect {
+        .title{
+            margin: 0px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 400;
+            color: $gray-neutral;
+        }
+    
+        .content {
+            margin: 0px;
+            font-size: 18px;
+            line-height: 28px;
+            font-weight: 600;
+        }
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .pageDirect {
+        .title{
+            margin: 0px;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 400;
+            color: $gray-neutral;
+        }
+    
+        .content {
+            margin: 0px;
+            font-size: 14px;
+            line-height: 28px;
+            font-weight: 600;
+        }
+    }
+}

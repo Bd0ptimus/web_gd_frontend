@@ -14,7 +14,7 @@ import { MENUS } from '../../data/menuList';
 import * as Constants from '@/config/constants/Constants';
 function MenuCpn({ path, userRole }) {
     const router = useRouter();
-    const [menuAccount, setMenuAccount] = useState(false);
+    const [menuNews, setMenuNews] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
     useEffect(() => {
         setCurrentPath(path)
@@ -23,32 +23,54 @@ function MenuCpn({ path, userRole }) {
 
     function setMenuOpen(index) {
         switch (index) {
-            case 'account':
-                setMenuAccount(!menuAccount);
+            case 'news':
+                setMenuNews(!menuNews);
                 break;
         }
     }
 
     function getMenuOpen(index) {
         switch (index) {
-            case 'account':
-                return menuAccount;
+            case 'news':
+                return menuNews;
                 break;
         }
     }
 
     return (
         <div className={`${styles.menuMain}  justify-content-center`}>
-            <div className={`d-block justify-content-center`}>
+            {/* <div className={`d-block justify-content-center`}>
                 <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
                     <Link href='/' className={`${styles.menuLink} ${path === '' ? styles.pageSelected : ''}`}>
                         <p className={`m-0`}>Trang chủ</p>
                     </Link>
                 </div>
+            </div> */}
+
+            <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('news')} onMouseLeave={() => setMenuOpen('news')}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
+                    <div href='#' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Tin tức</p>
+                    </div>
+                </div>
+                { 
+                    menuNews && (
+                        <div className={`${styles.subMenuGroup} d-block justify-content-center`} >
+                            <Link href='/news/posts' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Bài viết</p>
+                            </Link>
+                            <Link href='/news/videos' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Video</p>
+                            </Link>
+                        </div>
+                    )
+
+                }
             </div>
             
+            
             <div className={`d-block justify-content-center`}>
-                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:240}}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:190}}>
                     <Link href='/search' className={`${styles.menuLink} ${path === 'search' ? styles.pageSelected : ''}`}>
                         <p className={`m-0`}>Tra cứu SBD, kết quả thi</p>
                     </Link>
