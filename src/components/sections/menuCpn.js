@@ -49,9 +49,9 @@ function MenuCpn({ path, userRole }) {
 
             <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('news')} onMouseLeave={() => setMenuOpen('news')}>
                 <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
-                    <p href='#' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
+                    <div href='#' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
                         <p className={`m-0`}>Tin tức</p>
-                    </p>
+                    </div>
                 </div>
                 { 
                     menuNews && (
@@ -59,9 +59,9 @@ function MenuCpn({ path, userRole }) {
                             <Link href='/news/posts' className={`${styles.subMenuLink} d-flex justify-content-center`}>
                                 <p className={`m-1 p-2 w-100`}>Bài viết</p>
                             </Link>
-                            {/* <Link href='/news/videos' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                            <Link href='/news/videos' className={`${styles.subMenuLink} d-flex justify-content-center`}>
                                 <p className={`m-1 p-2 w-100`}>Video</p>
-                            </Link> */}
+                            </Link>
                         </div>
                     )
 

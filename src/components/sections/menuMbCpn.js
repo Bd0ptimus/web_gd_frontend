@@ -93,15 +93,15 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
                 menuNews && (
                     <>
                         <div className={`${styles.menuElement} d-flex justify-content-start`}>
-                            <Link href='/news' className={`${styles.menuLink} ${styles.menuSubLink} ${currentPath === '/news' || currentPath === 'news' ? styles.pageSelected : ''}`}>
+                            <Link href='/news/posts' className={`${styles.menuLink} ${styles.menuSubLink}`}>
                                 <p className={`mx-1 my-0`}>Bài viết</p>
                             </Link>
                         </div>
-                        {/* <div className={`${styles.menuElement} d-flex justify-content-start`}>
-                            <Link href='/news' className={`${styles.menuLink} ${styles.menuSubLink} ${currentPath === '/news' || currentPath === 'news' ? styles.pageSelected : ''}`}>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/news/videos' className={`${styles.menuLink} ${styles.menuSubLink}`}>
                                 <p className={`mx-1 my-0`}>Video</p>
                             </Link>
-                        </div> */}
+                        </div>
                     </>
                 )
             }
