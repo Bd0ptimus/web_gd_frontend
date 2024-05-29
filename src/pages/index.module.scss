@@ -4,6 +4,8 @@ $main-fontsize: 16px;
 $main-text-height: 24px;
 
 .introSec {
+    background-size: cover;
+    background-position: left;
     background-color: $blue-secondary;
     border-radius: 25px;
     .textSection {
@@ -83,11 +85,61 @@ $main-text-height: 24px;
     line-height: 40px;
 }
 
+.introQualityContainer{
+    position: relative;
+
+    .decorSec {
+        border-radius: 0px 50px 0px 0px;
+        z-index: 1;
+        position:absolute;
+        left: 0px;
+        top : 210px;
+        background-color: $orange-bg;
+    }
+}
+
 .introQualitySec {
     .leftSec {
         margin: 0px 0px 60px;
         overflow: hidden;
-        
+        // position: relative;
+
+        .decorIcon {
+            z-index: 50;
+            border-radius: 15px;
+            width: 150px;
+            height: 80px;
+            background-color: $white-up;
+            // z-index: 30;
+
+
+            position:absolute;
+            .titleContent{
+                @include text-content;
+                font-size: 15px !important;
+                font-weight: 600;
+                color: $black-main;
+            }
+
+            .textContent{
+                @include text-content;
+                font-size: 15px !important;
+            }
+            .img {
+                z-index: 100;
+                margin:10px 0px;
+            }
+        }
+
+        // .decorIcon1{
+        //     left: 50px;
+        //     top : 320px;
+        // }
+
+        // .decorIcon2{
+        //     left: 400px;
+        //     top : 450px;
+        // }
     }
 
     .textContent {
@@ -100,6 +152,8 @@ $main-text-height: 24px;
         width: 400px;
         height: 540px;
         object-fit: cover;
+        z-index: 10;
+
     }
 }
 
@@ -148,8 +202,8 @@ $main-text-height: 24px;
 
 .videoSec {
     border-radius: 12px;
-    width: 280px !important;
-    height: 550px !important;
+    width: 320px !important;
+    height: 570px !important;
     min-width: 280px !important;
     min-height: 550px !important;
     overflow: hidden;
@@ -205,10 +259,28 @@ $main-text-height: 24px;
         }
     }
 
-    .introSec{
-        .textSection {
-            margin: 160px 60px;  
+        .introSec {
+            background-image: url("/assets/home/banner_pc.png");
+            height: 650px;
+    
+            .textSection {
+                margin: 160px 60px;
+            }
         }
+    
+    
+        .decorIcon1 {
+            left: 50px;
+            top: 320px;
+        }
+    
+        .decorIcon2 {
+            left: 24%;
+            top: 450px;
+        }
+    .decorSec {
+        height: 380px;
+        width: 33.3%;
     }
 
 }
@@ -226,10 +298,28 @@ $main-text-height: 24px;
     }
 
     .introSec{
+        background-image: url("/assets/home/banner_pc.png");
+        height: 400px;
         .textSection {
             margin: 160px 60px;  
         }
     }
+
+    .decorIcon1 {
+        left: 50px;
+        top: 320px;
+    }
+
+    .decorIcon2 {
+        left: 30%;
+        top: 450px;
+    }
+
+    .decorSec {
+        height: 380px;
+        width: 33.3%;
+    }
+
 }
 
 
@@ -244,11 +334,27 @@ $main-text-height: 24px;
         }
     }
 
+    .decorIcon1 {
+        left: 50px;
+        top: 320px;
+    }
+
+    .decorIcon2 {
+        left: 20%;
+        top: 450px;
+    }
+
     .introSec{
         .textSection {
             margin: 160px 30px;  
         }
     }
+
+    .decorSec {
+        height: 380px;
+        width: 33.3%;
+    }
+
 }
 
 
@@ -257,7 +363,28 @@ $main-text-height: 24px;
         .leftSec {
             margin: 0px 0px;
         }
+
+        .rightSec{
+            margin: 50px 0px 0px;
+        }
+
+        
+        .decorIcon1{
+            left: 5px;
+            top : 320px;
+        }
+
+        .decorIcon2{
+            right: 20px;
+            top : 450px;
+        }
     }
+
+    .decorSec {
+        height: 380px;
+        width: 97%;
+    }
+
 
     .introSec{
         .textSection {
