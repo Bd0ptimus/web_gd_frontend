@@ -2,6 +2,7 @@ import styles from './index.module.scss';
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import { BsFillTelephoneFill, BsFacebook, BsEnvelopeFill } from 'react-icons/bs';
+import Image from 'next/image';
 
 
 const SchoolMap = dynamic(() => import('@/components/sections/schoolMap'), {
@@ -20,9 +21,17 @@ function Contact() {
             <div className={`${styles.pageContainer}`}>
                 <div className="container-fluid">
                     <div className={`w-100 d-flex justify-content-center vh-50 ${styles.contactBoxTitle}`}>
-                        <div className={`row ${styles.contactRow}`}>
+                        <div className={`row d-block ${styles.contactRow}`}>
                             <div className="col-12">
                                 <h3 className={`text-center ${styles.contactTitle}`}>Liên Hệ</h3>
+                            </div>
+                            <div className={`d-flex justify-content-center`}>
+                                <Image
+                                    className={`col-12`}
+                                    src="/assets/components/underline.png"
+                                    width={150}
+                                    height={30}
+                                    alt="underline" />
                             </div>
                         </div>
                     </div>

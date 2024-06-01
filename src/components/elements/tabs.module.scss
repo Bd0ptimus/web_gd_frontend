@@ -1,0 +1,58 @@
+@import '../../styles/main.module.scss';
+
+$main-fontsize: 16px;
+$main-text-height: 24px;
+@mixin sectionScroll {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    width: 100%;
+    z-index: 1000 !important;
+    background-color: $white-up;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.tabsSec {
+    flex-wrap: wrap;
+    cursor: pointer;
+    .tabSelected {
+        border-radius: 10px 10px 0px 0px;
+        background-color: $blue-secondary;
+        border-bottom: solid 3px $color-primary;
+        .tabText {
+            color: $color-primary !important;
+        }
+    }
+    
+    .tabSec {
+        font-size: 20px;
+        line-height: 40px;
+        .tabText {
+            color: $gray-text;
+        }
+    }
+}
+
+
+
+@media screen and (min-width : 1020px) and (max-width: 10000px) {
+    
+
+}
+
+
+@media screen and (min-width : 820px) and (max-width: 1020px) {
+  
+}
+
+
+@media screen and (min-width : 450px) and (max-width: 820px) {
+   
+}
+
+
+@media screen and (max-width: 450px) {
+   
+}

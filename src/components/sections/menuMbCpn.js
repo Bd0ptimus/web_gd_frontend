@@ -23,6 +23,8 @@ import * as Constants from '@/config/constants/Constants';
 function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onClose, path, refresh}) {
     const [expireString, setExpireString] = useState('');
     const [menuNews, setMenuNews] = useState(false);
+    const [menuSchedule, setMenuSchedule] = useState(false);
+    const [menuIntro, setMenuIntro] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
     useEffect(() => {
         setCurrentPath(path)
@@ -44,6 +46,12 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
         switch (index) {
             case 'news':
                 setMenuNews(!menuNews);
+                break;
+            case 'schedule':
+                setMenuSchedule(!menuSchedule);
+                break;
+            case 'intro':
+                setMenuIntro(!menuIntro);
                 break;
         }
     }
@@ -76,6 +84,69 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
                     <p className={`mx-1 my-0`}>Trang chủ</p>
                 </Link>
             </div>
+            <div className={`${styles.devider}`}></div>
+            <div className={`${styles.menuElement} d-flex justify-content-between`} onClick={() => setMenuOpen('intro')}>
+                <Link href='#' className={`${styles.menuLink} ${currentPath === '/intro' || currentPath === 'intro' || currentPath === 'teachers' || currentPath === '/teachers' ? styles.pageSelected : ''}`}>
+                    <p className={`mx-1 my-0`}>Giới thiệu</p>
+                </Link>
+                {
+                    menuIntro ? (
+                        <FontAwesomeIcon icon={faChevronUp}/>
+                    ) : (
+                        <FontAwesomeIcon icon={faChevronDown}/>
+                    )
+                }
+            </div>
+            {
+                menuIntro && (
+                    <>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/intro' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Về lớp ôn</p>
+                            </Link>
+                        </div>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/teachers' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Đội ngũ giáo viên</p>
+                            </Link>
+                        </div>
+                    </>
+                )
+            }
+            <div className={`${styles.devider}`}></div>
+            <div className={`${styles.menuElement} d-flex justify-content-between`} onClick={() => setMenuOpen('schedule')}>
+                <Link href='#' className={`${styles.menuLink} ${currentPath === '/schedule' || currentPath === 'schedule' ? styles.pageSelected : ''}`}>
+                    <p className={`mx-1 my-0`}>Lịch học</p>
+                </Link>
+                {
+                    menuSchedule ? (
+                        <FontAwesomeIcon icon={faChevronUp}/>
+                    ) : (
+                        <FontAwesomeIcon icon={faChevronDown}/>
+                    )
+                }
+            </div>
+            {
+                menuSchedule && (
+                    <>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/schedule/tieu_hoc' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Tiểu học</p>
+                            </Link>
+                        </div>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/schedule/thcs' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Trung học cơ sở</p>
+                            </Link>
+                        </div>
+                        <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                            <Link href='/schedule/thpt' className={`${styles.menuLink} ${styles.menuSubLink}`}>
+                                <p className={`mx-1 my-0`}>Trung học phổ thông</p>
+                            </Link>
+                        </div>
+                    </>
+                )
+            }
             <div className={`${styles.devider}`}></div>
             <div className={`${styles.menuElement} d-flex justify-content-between`} onClick={() => setMenuOpen('news')}>
                 <Link href='#' className={`${styles.menuLink} ${currentPath === '/news' || currentPath === 'news' ? styles.pageSelected : ''}`}>
@@ -124,6 +195,12 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
                     
                 )
             }
+            <div className={`${styles.devider}`}></div>
+            <div className={`${styles.menuElement} d-flex justify-content-start`}>
+                <Link href='/contact' className={`${styles.menuLink} ${currentPath === 'contact' ? styles.pageSelected : ''}`}>
+                    <p className={`mx-1 my-0`}>Liên hệ</p>
+                </Link>
+            </div>
         </div>
     );
 }
