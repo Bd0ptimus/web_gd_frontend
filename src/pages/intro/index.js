@@ -9,10 +9,16 @@ function Intro() {
         <div className={`${styles.pageContainer}`}>
             <div className="container-fluid">
                 <div className={`w-100 d-flex justify-content-center vh-50 ${styles.introBoxTitle}`}>
-                    <div className={`row ${styles.introRow}`}>
+                    <div className={`row d-block ${styles.introRow}`}>
                         <div className="col-12">
                             <h3 className={`text-center ${styles.introTitle}`}>Giới thiệu</h3>
                         </div>
+                        <Image
+                            className={`col-12`}
+                            src="/assets/components/underline.png"
+                            width={150}
+                            height={30}
+                            alt="underline" />
                     </div>
                 </div>
             </div>

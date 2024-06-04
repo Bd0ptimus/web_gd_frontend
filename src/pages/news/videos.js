@@ -19,6 +19,14 @@ function Videos({ data }) {
                     <div className={`d-flex justify-content-center mx-3 mx-md-0`}>
                         <div className={`col-12 col-md-8 d-block justify-content-center mb-4 `}>
                             <h1 className={`${styles.secTitles} text-center`}>Video</h1>
+                            <div className={`d-flex justify-content-center`}>
+                                <Image
+                                    className={`col-12 col-xl-4`}
+                                    src="/assets/components/underline.png"
+                                    width={150}
+                                    height={30}
+                                    alt="underline" />
+                            </div>
                             {/* underline */}
                         </div>
                     </div>

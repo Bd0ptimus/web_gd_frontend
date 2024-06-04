@@ -15,6 +15,9 @@ import * as Constants from '@/config/constants/Constants';
 function MenuCpn({ path, userRole }) {
     const router = useRouter();
     const [menuNews, setMenuNews] = useState(false);
+    const [menuSchedule, setMenuSchedule] = useState(false);
+    const [menuIntro, setMenuIntro] = useState(false);
+
     const [currentPath, setCurrentPath] = useState('');
     useEffect(() => {
         setCurrentPath(path)
@@ -26,6 +29,12 @@ function MenuCpn({ path, userRole }) {
             case 'news':
                 setMenuNews(!menuNews);
                 break;
+            case 'schedule':
+                setMenuSchedule(!menuSchedule);
+                break;
+            case 'intro':
+                setMenuIntro(!menuIntro);
+                break;
         }
     }
 
@@ -33,6 +42,9 @@ function MenuCpn({ path, userRole }) {
         switch (index) {
             case 'news':
                 return menuNews;
+                break;
+            case 'schedule':
+                return menuSchedule;
                 break;
         }
     }
@@ -47,6 +59,51 @@ function MenuCpn({ path, userRole }) {
                 </div>
             </div>
 
+            <div className={`d-block justify-content-center ${styles.submenuDropdown}`} onMouseEnter={() => setMenuOpen('intro')} onMouseLeave={() => setMenuOpen('intro')}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:100}}>
+                    <Link href='/intro' className={`${styles.menuLink} ${path === 'intro' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Giới thiệu</p>
+                    </Link>
+                </div>
+                { 
+                    menuIntro && (
+                        <div className={`${styles.subMenuGroup} ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} >
+                            <Link href='/intro' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Về lớp ôn</p>
+                            </Link>
+                            <Link href='/teachers' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Đội ngũ giáo viên</p>
+                            </Link>
+                        </div>
+                    )
+
+                }
+            </div>
+
+            <div className={`d-block justify-content-center ${styles.submenuDropdown}`} onMouseEnter={() => setMenuOpen('schedule')} onMouseLeave={() => setMenuOpen('schedule')}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:100}}>
+                    <Link href='/schedule' className={`${styles.menuLink} ${path === 'schedule' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Lịch học</p>
+                    </Link>
+                </div>
+                { 
+                    menuSchedule && (
+                        <div className={`${styles.subMenuGroup} ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} >
+                            <Link href='/schedule/tieu_hoc' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Tiểu học</p>
+                            </Link>
+                            <Link href='/schedule/thcs' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Trung học cơ sở</p>
+                            </Link>
+                            <Link href='/schedule/thpt' className={`${styles.subMenuLink} d-flex justify-content-center`}>
+                                <p className={`m-1 p-2 w-100`}>Trung học phổ thông</p>
+                            </Link>
+                        </div>
+                    )
+
+                }
+            </div>
+
             <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('news')} onMouseLeave={() => setMenuOpen('news')}>
                 <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
                     <div href='#' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
@@ -55,7 +112,7 @@ function MenuCpn({ path, userRole }) {
                 </div>
                 { 
                     menuNews && (
-                        <div className={`${styles.subMenuGroup} d-block justify-content-center`} >
+                        <div className={`${styles.subMenuGroup}  ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} >
                             <Link href='/news/posts' className={`${styles.subMenuLink} d-flex justify-content-center`}>
                                 <p className={`m-1 p-2 w-100`}>Bài viết</p>
                             </Link>
@@ -76,13 +133,6 @@ function MenuCpn({ path, userRole }) {
                     </Link>
                 </div>
             </div>
-            {/* <div className={`d-block justify-content-center`}>
-                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:85} }>
-                    <Link href='/' className={`${styles.menuLink} ${path === 'contact' ? styles.pageSelected : ''}`}>
-                        <p className={`m-0`}>Liên hệ</p>
-                    </Link>
-                </div>
-            </div> */}
             {
                 userRole === Constants.ROLE_ADMIN && (
                     <>
@@ -96,6 +146,13 @@ function MenuCpn({ path, userRole }) {
                     </>
                 )
             }
+            <div className={`d-block justify-content-center`}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:85} }>
+                    <Link href='/contact' className={`${styles.menuLink} ${path === 'contact' ? styles.pageSelected : ''}`}>
+                        <p className={`m-0`}>Liên hệ</p>
+                    </Link>
+                </div>
+            </div>
             
         </div>
     );

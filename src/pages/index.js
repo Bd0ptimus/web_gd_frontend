@@ -101,6 +101,15 @@ function Home({ teachers }) {
                     <div className={`col-12 col-md-7 col-lg-8 ${styles.rightSec}`}>
                         <div className={`d-block justify-content-center mb-4 mt-2`}>
                             <h1 className={`${styles.secTitles} text-md-start text-center`}>Giới thiệu về lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
+                            <div className={`d-flex justify-content-center justify-content-xl-start`}>
+                                <Image
+                                    className={`col-12 col-xl-4`}
+                                    src="/assets/components/underline.png"
+                                    width={150}
+                                    height={30}
+                                    alt="underline" />
+                            </div>
+                            
                             {/* underline */}
                         </div>
                         <p  className={`${styles.textContent} text-start`}>
@@ -189,6 +198,14 @@ function Home({ teachers }) {
                         <div className={`col-12 col-md-8 d-block justify-content-center mb-4 `}>
                             <h1 className={`${styles.secTitles} text-center`}>Phụ huynh & học sinh nghĩ gì về lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
                             {/* underline */}
+                            <div className={`d-flex justify-content-center`}>
+                                <Image
+                                    className={`col-12 col-xl-4`}
+                                    src="/assets/components/underline.png"
+                                    width={150}
+                                    height={30}
+                                    alt="underline" />
+                            </div>
                         </div>
                     </div>
 
@@ -198,7 +215,6 @@ function Home({ teachers }) {
                                 url="https://www.tiktok.com/@loponclc/video/7361469576527219976"
                                 width={320}
                             />
-                            {/* <iframe width="280" height="550" src="https://www.youtube.com/embed/GagFI25XywI?si=QMDysnsXwmPNPyJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
                         </div>
                         <div className={`d-block ${styles.videoSec}`}>
                             <TikTokEmbed
@@ -232,6 +248,14 @@ function Home({ teachers }) {
                                 </a>
                             </h1>
                             <h1 className={`${styles.secTitles} text-md-start text-center`}>KINH NGHIỆM - TÀI NĂNG - TÂM HUYẾT</h1>
+                            <div className={`d-flex justify-content-center justify-content-xl-start`}>
+                                <Image
+                                    className={`col-12 col-xl-4`}
+                                    src="/assets/components/underline.png"
+                                    width={150}
+                                    height={30}
+                                    alt="underline" />
+                            </div>
                             {/* underline */}
                         </div>
                     </div>
