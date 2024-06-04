@@ -117,7 +117,7 @@ function Home({ teachers }) {
                         </p>
                         <p  className={`${styles.textContent} text-start`}>Chúng tôi không chỉ tập trung vào việc truyền đạt kiến thức một cách hiệu quả mà còn khuyến khích sự phát triển toàn diện cho học sinh, từ khả năng tư duy, logic đến kỹ năng làm việc nhóm và giao tiếp. Với một môi trường học tập tích cực và đầy động lực, lớp ôn Chất lượng cao Nguyễn Tất Thành sẽ là nơi tạo ra những học sinh tự tin, đam mê và thành công.</p>
                         <div className={`d-flex justify-content-start`}>
-                            <CustomButton buttonText='Xem thêm' url='/' textColor='white' backgroundColor='#01A7E3'/>
+                            <CustomButton buttonText='Xem thêm' url='/intro' textColor='white' backgroundColor='#01A7E3'/>
                         </div>
                     </div>
 
@@ -134,7 +134,7 @@ function Home({ teachers }) {
                     </div>
 
                     <div className={`${styles.scrollList} d-flex justify-content-start justify-content-xl-center`}>
-                        <div className={`d-block ${styles.courseDetailSec}`}>
+                        <Link href="/schedule/tieu_hoc" className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
                             src="/assets/home/tieu_hoc.png"
@@ -146,12 +146,12 @@ function Home({ teachers }) {
                             </div>
 
                             <div className={`m-2 d-flex justify-content-start`}>
-                                <p className={`${styles.textContent} text-start`}>Củng cố kiến thức Tiểu học, nâng cao để bồi dưỡng các em thi vào các trường Chuyên, Chất lượng cao.</p>
+                                <p className={`${styles.textContent} text-start`}>Xây dựng nền tảng, nâng cao kiến thức Tiểu học để bồi dưỡng học sinh thi vào các trường THCS Chuyên, Chất lượng cao.</p>
                             </div>
 
-                        </div>
+                        </Link>
 
-                        <div className={`d-block ${styles.courseDetailSec}`}>
+                        <Link href="/schedule/thcs" className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
                             src="/assets/home/thcs.png"
@@ -163,12 +163,12 @@ function Home({ teachers }) {
                             </div>
 
                             <div className={`m-2 d-flex justify-content-start`}>
-                                <p className={`${styles.textContent} text-start`}>Củng cố kiến thức Tiểu học, nâng cao để bồi dưỡng các em thi vào các trường Chuyên, Chất lượng cao.</p>
+                                <p className={`${styles.textContent} text-start`}>Củng cố kiến thức nền tảng, đưa ra phương hướng và kế hoạch phù hợp với năng lực học sinh, giúp các em đặt mục tiêu trúng tuyển vào trường Chuyên, Chất lượng cao.</p>
                             </div>
 
-                        </div>
+                        </Link>
 
-                        <div className={`d-block ${styles.courseDetailSec}`}>
+                        <Link href="/schedule/thpt" className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
                             src="/assets/home/thpt.png"
@@ -180,14 +180,31 @@ function Home({ teachers }) {
                             </div>
 
                             <div className={`m-2 d-flex justify-content-start`}>
-                                <p className={`${styles.textContent} text-start `}>Củng cố kiến thức Tiểu học, nâng cao để bồi dưỡng các em thi vào các trường Chuyên, Chất lượng cao.</p>
+                                <p className={`${styles.textContent} text-start `}>Đánh giá năng lực, đưa ra định hướng và ôn luyện kiến thức cho học sinh bám sát theo cấu trúc đề thi THPT Quốc gia.</p>
                             </div>
 
-                        </div>
+                        </Link>
+
+                        <Link href="/schedule/thpt?class=tsa" className={`d-block ${styles.courseDetailSec}`}>
+                            <Image
+                            className={`${styles.imageComp}`}
+                            src="/assets/home/tsa.png"
+                            width={282}
+                            height={180}
+                            alt="Logo" />
+                            <div className={`m-2 d-flex justify-content-start`}>
+                                <p className={`${styles.titleContent} text-start`}>Luyện thi TSA</p>
+                            </div>
+
+                            <div className={`m-2 d-flex justify-content-start`}>
+                                <p className={`${styles.textContent} text-start `}>Ôn luyện kiến thức cho học sinh bám sát cấu trúc đề thi Đánh giá tư duy, giúp các em đạt mục tiêu xét tuyển vào các trường đại học.</p>
+                            </div>
+
+                        </Link>
                     </div>
 
                     <div className={`d-flex justify-content-center my-4`}>
-                        <CustomButton buttonText='Tìm hiểu thêm' url='/' textColor='black' backgroundColor='white'/>
+                        <CustomButton buttonText='Tìm hiểu thêm' url='/schedule' textColor='black' backgroundColor='white'/>
                     </div>
                 </div>
             </div>

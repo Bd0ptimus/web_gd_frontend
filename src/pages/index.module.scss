@@ -170,6 +170,7 @@ $main-text-height: 24px;
     background-repeat: repeat;
 
     .courseDetailSec {
+        text-decoration: none;
         background-color: $white-bg;
         border-radius: 12px;
         margin: 10px 25px;
@@ -194,8 +195,14 @@ $main-text-height: 24px;
             font-size: 14px;
             font-weight: 400;
             color: $gray-neutral;
-            overflow-x: wrap !important;
+            overflow: hidden !important;
             white-space: normal !important;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            /* Sử dụng flexbox để hiển thị văn bản trong một hộp */
+            -webkit-line-clamp: 3;
+            /* Giới hạn số dòng hiển thị */
+            -webkit-box-orient: vertical;
         }
     }
 }
@@ -345,6 +352,8 @@ $main-text-height: 24px;
     }
 
     .introSec{
+        background-image: url("/assets/home/banner_pc.png");
+        height: 400px;
         .textSection {
             margin: 160px 30px;  
         }
@@ -387,6 +396,8 @@ $main-text-height: 24px;
 
 
     .introSec{
+        background-image: url("/assets/home/banner_pc.png");
+        height: 400px;
         .textSection {
             margin: 100px 20px;  
         }

@@ -9,6 +9,7 @@ import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyV
 import useAxiosRequest from "@/helpers/axiosRequest";
 import Tabs from '@/components/elements/tabs';
 import OthersGrade from '@/components/sections/othersGrade';
+import RegisterStudent1 from '@/components/sections/registerStudent1';
 function Grade({ data }) {
     const [tabSelected, setTabSelected] = useState('');
     const [classList, setClassList] = useState([]);
@@ -16,6 +17,7 @@ function Grade({ data }) {
     const [pageTitle, setPageTitle] = useState('');
     const axiosRequest = useAxiosRequest();
     const [schedules, setSchedules] = useState([]);
+    const [description, setDescription] = useState('');
 
     useEffect(() => {
         setGrade(data.grade);
@@ -125,6 +127,7 @@ function Grade({ data }) {
         let schedules = response?.data?.schedule ?? '{}';
         schedules = JSON.parse(schedules)
         setSchedules(schedules)
+        setDescription(response?.data?.description)
         console.log('schedules : ', schedules)
     }
 
@@ -156,7 +159,60 @@ function Grade({ data }) {
                                     Các môn học đang được giảng dạy tại trung tâm
                                 </div>
                                 {
-                                    grade == grades.TIEU_HOC || grade == grades.THCS ? (
+                                    grade == grades.TIEU_HOC && (
+                                        <div className={`d-flex justify-content-start`}>
+                                            <div className={`col-4 col-xl-2 p-1`}>
+                                                <div className={`d-block ${styles.classSelectSec} m-1`}>
+                                                    <div className={`d-flex justify-content-center`}>
+                                                        <Image
+                                                            className={`col-12 ${styles.classImage}`}
+                                                            src="/assets/classes/toan.png"
+                                                            width={80}
+                                                            height={80}
+                                                            alt="class" />
+                                                    </div>
+                                                    <div className={`${styles.postParagraphSecTitle} text-center`}>
+                                                        Toán
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className={`col-4 col-xl-2 p-1`}>
+                                                <div className={`d-block ${styles.classSelectSec} m-1`}>
+                                                    <div className={`d-flex justify-content-center`}>
+                                                        <Image
+                                                            className={`col-12 ${styles.classImage}`}
+                                                            src="/assets/classes/van.png"
+                                                            width={80}
+                                                            height={80}
+                                                            alt="class" />
+                                                    </div>
+                                                    <div className={`${styles.postParagraphSecTitle} text-center`}>
+                                                        Tiếng Việt
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className={`col-4 col-xl-2 p-1`}>
+                                                <div className={`d-block ${styles.classSelectSec} m-1`}>
+                                                    <div className={`d-flex justify-content-center`}>
+                                                        <Image
+                                                            className={`col-12 ${styles.classImage}`}
+                                                            src="/assets/classes/tieng_anh.png"
+                                                            width={80}
+                                                            height={80}
+                                                            alt="class" />
+                                                    </div>
+                                                    <div className={`${styles.postParagraphSecTitle} text-center`}>
+                                                        Tiếng Anh
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    grade == grades.THCS && (
                                         <div className={`d-flex justify-content-start`}>
                                             <div className={`col-4 col-xl-2 p-1`}>
                                                 <div className={`d-block ${styles.classSelectSec} m-1`}>
@@ -206,7 +262,10 @@ function Grade({ data }) {
                                                 </div>
                                             </div>
                                         </div>
-                                    ) : (
+                                    )
+                                }
+                                {
+                                    grade == grades.THPT && (
                                         <div className={`col-12 d-flex justify-content-start ${styles.classContainer}`}>
                                             <div className={`col-4 col-xl-2 p-1`}>
                                                 <div className={`d-block ${styles.classSelectSec} m-1`}>
@@ -293,14 +352,13 @@ function Grade({ data }) {
                                 }
                                 
                             </div>
-                            {/* <div className={`d-block my-4`}>
+                            <div className={`d-block my-4`}>
                                 <div className={`${styles.postParagraphSecTitle}`}>
-                                    Bồi dưỡng lớp X
+                                    Chương trình đào tạo lớp {tabSelected.toUpperCase()}
                                 </div>
-                                <div className={`${styles.postParagraphSecContent}`}>
-                                    Chương trình bồi dưỡng lớp X kế thừa những nội dung quan trọng từ lớp Y, đồng thời bổ sung các phần kiến thức mới mẻ về kiến thức. Lớp ôn chất lượng cao Nguyễn Tất Thành có các lớp X được phân theo từng trình độ từ cơ bản đến nâng cao, tại đó các con được học kiến thức theo lộ trình như sau: Học chắc kiến thức cơ bản, kiến thức nền và những phương pháp giải toán thông dụng. Có sự nâng cao, mở rộng hợp lý tùy theo năng lực và khả năng tiếp thu của học sinh.                                
+                                <div className={`${styles.postParagraphSecContent}`} dangerouslySetInnerHTML={{ __html: description }}>
                                 </div>
-                            </div> */}
+                            </div>
                             <div className={`d-block my-4`}>
                                 <Table aria-label="Result Table"
                                     color="default"
@@ -365,6 +423,11 @@ function Grade({ data }) {
 
                                 </Table>
                             </div>
+
+                            <div className={`d-block my-4`}>
+                                <RegisterStudent1/>
+                            </div>
+
                         </div>
                         <div className={`col-12 col-md-3`}>
                             <OthersGrade isLoaded={true} classCode={tabSelected}/>

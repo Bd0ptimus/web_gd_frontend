@@ -1,0 +1,23 @@
+@import '../../styles/main.module.scss';
+
+.mainSec {
+    border-radius: 12px;
+    border: solid 1px $color-primary;
+    padding: 24px;
+    .segTitle {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+        border-bottom: solid 1px $color-primary;
+        color: $color-primary;
+        width: auto;
+    }
+    
+    
+    .registerBtn {
+        padding: 12px 100px;
+        background-color: $color-primary;
+        color: $white-up;
+        font-size: 16px;
+    }
+}
