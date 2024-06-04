@@ -71,12 +71,12 @@ function MenuMbCpn({ userLoggedIn, closeMenu, userRole, logout, expireDate, onCl
                             alt="Logo"
                         />
             </div>
-            {/* <div className={`${styles.menuElement} d-flex justify-content-start`}>
+            <div className={`${styles.menuElement} d-flex justify-content-start`}>
                 <Link href='/' className={`${styles.menuLink} ${currentPath === '/' || currentPath === '' ? styles.pageSelected : ''}`}>
                     <p className={`mx-1 my-0`}>Trang chủ</p>
                 </Link>
             </div>
-            <div className={`${styles.devider}`}></div> */}
+            <div className={`${styles.devider}`}></div>
             <div className={`${styles.menuElement} d-flex justify-content-between`} onClick={() => setMenuOpen('news')}>
                 <Link href='#' className={`${styles.menuLink} ${currentPath === '/news' || currentPath === 'news' ? styles.pageSelected : ''}`}>
                     <p className={`mx-1 my-0`}>Tin tức</p>

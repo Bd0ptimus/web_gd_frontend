@@ -1,5 +1,6 @@
 import styles from './index.module.scss';
 import Image from 'next/image';
+import { TikTokEmbed } from 'react-social-media-embed';
 
 import CustomButton from '@/components/elements/customButton';
 import {ssrAxiosGet} from "@/helpers/ssrAxiosRequest";
@@ -11,7 +12,7 @@ function Home({ teachers }) {
             <div className={`w-100 d-flex justify-content-center`}>
                 <div className={`${styles.contentSectionContainer} ${styles.introSec} d-flex justify-content-start`}>
                     <div className={` ${styles.textSection} d-block justify-md-content-center justify-content-center`}>
-                        <p className={`${styles.firstTitle}`}>
+                        {/* <p className={`${styles.firstTitle}`}>
                             Thông tin tuyển sinh
                         </p>
 
@@ -52,14 +53,14 @@ function Home({ teachers }) {
                                     <p className={`${styles.content}  ${styles.contentSecondTitle}`}>25 - 28/05/2024</p>
                                 </div>
                             </div>
-                        </div>
-
+                        </div> */}
+                        
                     </div>
                 </div>
 
             </div>
 
-            <div className={`w-100 d-flex justify-content-center`}>
+            <div className={`w-100 d-flex justify-content-center ${styles.introQualityContainer}`}>
                 <div className={`${styles.contentSectionContainer} ${styles.introQualitySec} d-block d-md-flex justify-content-between`}>
                     <div className={`col-12 col-md-4 ${styles.leftSec} d-flex justify-content-center justify-content-md-start`}>
                         <Image
@@ -68,9 +69,36 @@ function Home({ teachers }) {
                             width={400}
                             height={540}
                             alt="Logo" />
+                        <div className={` d-flex justify-content-center ${styles.decorIcon}  ${styles.decorIcon1}`}>
+                            <div className={`col-6 d-block justify-content-start ml-1 mt-2`}>
+                                <p className={`${styles.titleContent} m-0 text-start`}>10 điểm</p>
+                                <p className={`${styles.textContent} m-0 text-start`}>Toán</p>
+                            </div>
+                            <Image
+                            className={`col-5 ${styles.img}`}
+                            src="/assets/home/calculator.png"
+                            width={40}
+                            height={40}
+                            alt="Logo" />
+                        </div>
+                        <div className={` d-flex justify-content-center ${styles.decorIcon} ${styles.decorIcon2}`}>
+                            <div className={`col-6 d-block justify-content-start ml-1 mt-2`}>
+                                <p className={`${styles.titleContent} m-0 text-start`}>9 điểm</p>
+                                <p className={`${styles.textContent} m-0 text-start`}>Văn</p>
+                            </div>
+                            <Image
+                            className={`col-5 ${styles.img}`}
+                            src="/assets/home/document.png"
+                            width={40}
+                            height={40}
+                            alt="Logo" />
+                        </div>
+                        <div className={`col-12 ${styles.decorSec}`}>
+
+                        </div>
                     </div>
 
-                    <div className={`col-12 col-md-7 col-lg-8 ${styles.rightSec} m-2`}>
+                    <div className={`col-12 col-md-7 col-lg-8 ${styles.rightSec}`}>
                         <div className={`d-block justify-content-center mb-4 mt-2`}>
                             <h1 className={`${styles.secTitles} text-md-start text-center`}>Giới thiệu về lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
                             {/* underline */}
@@ -89,14 +117,14 @@ function Home({ teachers }) {
 
             <div className={`w-100 d-flex justify-content-center ${styles.introCoursesContainer}`}>
                 <div className={`${styles.contentSectionContainer} d-block justify-content-center`}>
-                    <div className={`d-flex justify-content-md-start justify-content-center mx-3 mx-md-0`}>
-                        <div className={`col-md-6 col-12 d-block justify-content-center mb-4 `}>
-                            <h1 className={`${styles.secTitles} text-md-start text-center`}>Hệ thống khoá học tại lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
+                    <div className={`d-flex justify-content-xl-start justify-content-center mx-3 mx-md-2 mx-lg-0`}>
+                        <div className={`col-lg-6 col-12 d-block justify-content-center mb-4 `}>
+                            <h1 className={`${styles.secTitles} text-xl-start text-center`}>Hệ thống khoá học tại lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
                             {/* underline */}
                         </div>
                     </div>
 
-                    <div className={`${styles.scrollList} d-flex justify-content-start justify-content-md-center`}>
+                    <div className={`${styles.scrollList} d-flex justify-content-start justify-content-xl-center`}>
                         <div className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
@@ -164,15 +192,31 @@ function Home({ teachers }) {
                         </div>
                     </div>
 
-                    <div className={`${styles.scrollList} d-flex justify-content-start justify-content-lg-center`}>
+                    <div className={`${styles.scrollList} d-flex justify-content-start justify-content-xl-center`}>
                         <div className={`d-block ${styles.videoSec}`}>
-                            <iframe width="280" height="550" src="https://www.youtube.com/embed/GagFI25XywI?si=QMDysnsXwmPNPyJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <TikTokEmbed
+                                url="https://www.tiktok.com/@loponclc/video/7361469576527219976"
+                                width={320}
+                            />
+                            {/* <iframe width="280" height="550" src="https://www.youtube.com/embed/GagFI25XywI?si=QMDysnsXwmPNPyJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
                         </div>
                         <div className={`d-block ${styles.videoSec}`}>
-                            <iframe width="280" height="550" src="https://www.youtube.com/embed/GagFI25XywI?si=QMDysnsXwmPNPyJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <TikTokEmbed
+                                url="https://www.tiktok.com/@loponclc/video/7361067770454248722"
+                                width={320}
+                            />
                         </div>
                         <div className={`d-block ${styles.videoSec}`}>
-                            <iframe width="280" height="550" src="https://www.youtube.com/embed/GagFI25XywI?si=QMDysnsXwmPNPyJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <TikTokEmbed
+                                url="https://www.tiktok.com/@loponclc/video/7362889818461834514"
+                                width={320}
+                            />
+                        </div>
+                        <div className={`d-block ${styles.videoSec}`}>
+                            <TikTokEmbed
+                                url="https://www.tiktok.com/@loponclc/video/7368830050512276754"
+                                width={320}
+                            />
                         </div>
                     </div>
                 </div>
@@ -228,18 +272,17 @@ function Home({ teachers }) {
                 </div>
             </div>
 
-            <div className={`w-100 d-flex justify-content-center`}>
+            {/* <div className={`w-100 d-flex justify-content-center`}>
                 <div className={`${styles.contentSectionContainer} d-block justify-content-center`}>
                     <div className={`d-flex justify-content-center mx-3 mx-md-0`}>
                         <div className={`col-12 col-md-8 d-block justify-content-center mb-4 `}>
                             <h1 className={`${styles.secTitles} text-center`}>Tin tức</h1>
-                            {/* underline */}
                         </div>
                     </div>
 
 
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
