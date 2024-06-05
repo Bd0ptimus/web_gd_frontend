@@ -131,3 +131,7 @@ input[type="number"] {
 .fk6fouc {
   font-family: 'Roboto', sans-serif !important;
 }
+
+.leaflet-marker-icon{
+  content:url("/assets/icons/location.svg") !important;
+}

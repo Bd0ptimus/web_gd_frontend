@@ -127,8 +127,8 @@ function Home({ teachers }) {
             <div className={`w-100 d-flex justify-content-center ${styles.introCoursesContainer}`}>
                 <div className={`${styles.contentSectionContainer} d-block justify-content-center`}>
                     <div className={`d-flex justify-content-xl-start justify-content-center mx-3 mx-md-2 mx-lg-0`}>
-                        <div className={`col-lg-6 col-12 d-block justify-content-center mb-4 `}>
-                            <h1 className={`${styles.secTitles} text-xl-start text-center`}>Hệ thống khoá học tại lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
+                        <div className={`col-lg-12 col-12 d-block justify-content-center mb-4 `}>
+                            <h1 className={`${styles.secTitles} text-xl-center text-center`}>Hệ thống khoá học tại lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
                             {/* underline */}
                         </div>
                     </div>
@@ -213,7 +213,9 @@ function Home({ teachers }) {
                 <div className={`${styles.contentSectionContainer} d-block justify-content-center`}>
                     <div className={`d-flex justify-content-center mx-3 mx-md-0`}>
                         <div className={`col-12 col-md-8 d-block justify-content-center mb-4 `}>
-                            <h1 className={`${styles.secTitles} text-center`}>Phụ huynh & học sinh nghĩ gì về lớp ôn Chất lượng cao Nguyễn Tất Thành</h1>
+                            <h1 className={`${styles.secTitles} text-center`}>Phụ huynh & học sinh nghĩ gì về lớp ôn</h1>
+                            <h1 className={`${styles.secTitles} text-center`}>Chất lượng cao Nguyễn Tất Thành</h1>
+
                             {/* underline */}
                             <div className={`d-flex justify-content-center`}>
                                 <Image
@@ -259,13 +261,13 @@ function Home({ teachers }) {
                 <div className={`${styles.contentSectionContainer} d-block justify-content-center`}>
                     <div className={`d-flex justify-content-center mx-3 mx-md-0`}>
                         <div className={`col-12 d-block justify-content-center mb-4 `}>
-                            <h1 className={`${styles.secTitles} text-md-start text-center`}>
-                                <a href="/teachers" style={{textDecoration:'none', color: 'inherit'}}>Đội ngũ giáo
-                                    viên
+                            <h1 className={`${styles.secTitles} text-md-center text-center`}>
+                                <a href="/teachers" style={{textDecoration:'none', color: 'inherit'}}>
+                                    Đội ngũ giáo viên
                                 </a>
                             </h1>
-                            <h1 className={`${styles.secTitles} text-md-start text-center`}>KINH NGHIỆM - TÀI NĂNG - TÂM HUYẾT</h1>
-                            <div className={`d-flex justify-content-center justify-content-xl-start`}>
+                            <h1 className={`${styles.secTitles} text-md-center text-center`}>KINH NGHIỆM - TÀI NĂNG - TÂM HUYẾT</h1>
+                            <div className={`d-flex justify-content-center justify-content-xl-center`}>
                                 <Image
                                     className={`col-12 col-xl-4`}
                                     src="/assets/components/underline.png"
