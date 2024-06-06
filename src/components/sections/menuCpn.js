@@ -14,7 +14,7 @@ import { MENUS } from '../../data/menuList';
 import * as Constants from '@/config/constants/Constants';
 function MenuCpn({ path, userRole }) {
     const router = useRouter();
-    const [menuNews, setMenuNews] = useState(true);
+    const [menuNews, setMenuNews] = useState(false);
     const [menuSchedule, setMenuSchedule] = useState(false);
     const [menuIntro, setMenuIntro] = useState(false);
 
