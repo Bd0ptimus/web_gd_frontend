@@ -104,7 +104,7 @@ function Home({ teachers }) {
                             <div className={`d-flex justify-content-center justify-content-xl-start`}>
                                 <Image
                                     className={`col-12 col-xl-4`}
-                                    src="/assets/components/underline.png"
+                                    src="/assets/components/underlineOrange.png"
                                     width={150}
                                     height={30}
                                     alt="underline" />
@@ -117,7 +117,7 @@ function Home({ teachers }) {
                         </p>
                         <p  className={`${styles.textContent} text-start`}>Chúng tôi không chỉ tập trung vào việc truyền đạt kiến thức một cách hiệu quả mà còn khuyến khích sự phát triển toàn diện cho học sinh, từ khả năng tư duy, logic đến kỹ năng làm việc nhóm và giao tiếp. Với một môi trường học tập tích cực và đầy động lực, lớp ôn Chất lượng cao Nguyễn Tất Thành sẽ là nơi tạo ra những học sinh tự tin, đam mê và thành công.</p>
                         <div className={`d-flex justify-content-start`}>
-                            <CustomButton buttonText='Xem thêm' url='/intro' textColor='white' backgroundColor='#01A7E3'/>
+                            <CustomButton buttonText='Xem thêm' url='/intro' textColor='white' backgroundColor='#fc7d3a'/>
                         </div>
                     </div>
 
@@ -220,7 +220,7 @@ function Home({ teachers }) {
                             <div className={`d-flex justify-content-center`}>
                                 <Image
                                     className={`col-12 col-xl-4`}
-                                    src="/assets/components/underline.png"
+                                    src="/assets/components/underlineOrange.png"
                                     width={150}
                                     height={30}
                                     alt="underline" />
@@ -270,7 +270,7 @@ function Home({ teachers }) {
                             <div className={`d-flex justify-content-center justify-content-xl-center`}>
                                 <Image
                                     className={`col-12 col-xl-4`}
-                                    src="/assets/components/underline.png"
+                                    src="/assets/components/underlineOrange.png"
                                     width={150}
                                     height={30}
                                     alt="underline" />
@@ -310,7 +310,7 @@ function Home({ teachers }) {
                     </div>
                     <div className={`d-flex justify-content-center my-4`}>
                         <CustomButton buttonText='Đội ngũ giáo viên' url='/' textColor='white'
-                                      backgroundColor='#01A7E3'/>
+                                      backgroundColor='#fc7d3a'/>
                     </div>
                 </div>
             </div>

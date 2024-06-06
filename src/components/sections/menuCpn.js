@@ -14,7 +14,7 @@ import { MENUS } from '../../data/menuList';
 import * as Constants from '@/config/constants/Constants';
 function MenuCpn({ path, userRole }) {
     const router = useRouter();
-    const [menuNews, setMenuNews] = useState(false);
+    const [menuNews, setMenuNews] = useState(true);
     const [menuSchedule, setMenuSchedule] = useState(false);
     const [menuIntro, setMenuIntro] = useState(false);
 
@@ -67,7 +67,7 @@ function MenuCpn({ path, userRole }) {
                 </div>
                 { 
                     menuIntro && (
-                        <div className={`${styles.subMenuGroup} ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} >
+                        <div className={`${styles.subMenuGroup} ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`}  style={{left:'-50%'}}>
                             <Link href='/intro' className={`${styles.subMenuLink} d-flex justify-content-center`}>
                                 <p className={`m-1 p-2 w-100`}>Về lớp ôn</p>
                             </Link>
@@ -81,14 +81,14 @@ function MenuCpn({ path, userRole }) {
             </div>
 
             <div className={`d-block justify-content-center ${styles.submenuDropdown}`} onMouseEnter={() => setMenuOpen('schedule')} onMouseLeave={() => setMenuOpen('schedule')}>
-                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:100}}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
                     <Link href='/schedule' className={`${styles.menuLink} ${path === 'schedule' ? styles.pageSelected : ''}`}>
                         <p className={`m-0`}>Lịch học</p>
                     </Link>
                 </div>
                 { 
                     menuSchedule && (
-                        <div className={`${styles.subMenuGroup} ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} >
+                        <div className={`${styles.subMenuGroup} ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} style={{left:'-70%'}} >
                             <Link href='/schedule/tieu_hoc' className={`${styles.subMenuLink} d-flex justify-content-center`}>
                                 <p className={`m-1 p-2 w-100`}>Tiểu học</p>
                             </Link>
@@ -104,15 +104,15 @@ function MenuCpn({ path, userRole }) {
                 }
             </div>
 
-            <div className={`d-block justify-content-center`} onMouseEnter={() => setMenuOpen('news')} onMouseLeave={() => setMenuOpen('news')}>
-                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:80}}>
-                    <div href='#' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
+            <div className={`d-block justify-content-center ${styles.submenuDropdown}`} onMouseEnter={() => setMenuOpen('news')} onMouseLeave={() => setMenuOpen('news')}>
+                <div className={`${styles.menuElement} d-flex justify-content-center`} style={{width:70}}>
+                    <Link href='#' className={`${styles.menuLink} ${path === 'news' ? styles.pageSelected : ''}`}>
                         <p className={`m-0`}>Tin tức</p>
-                    </div>
+                    </Link>
                 </div>
                 { 
                     menuNews && (
-                        <div className={`${styles.subMenuGroup}  ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`} >
+                        <div className={`${styles.subMenuGroup}  ${styles.subMenuGroup2} ${styles.subMenuGroupSchedule} d-block justify-content-center`}  style={{left:'-80%'}}>
                             <Link href='/news/posts' className={`${styles.subMenuLink} d-flex justify-content-center`}>
                                 <p className={`m-1 p-2 w-100`}>Bài viết</p>
                             </Link>

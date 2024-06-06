@@ -16,7 +16,7 @@ function Teachers({teachers}) {
                         </div>
                         <Image
                             className={`col-12`}
-                            src="/assets/components/underline.png"
+                            src="/assets/components/underlineOrange.png"
                             width={150}
                             height={30}
                             alt="underline" />
