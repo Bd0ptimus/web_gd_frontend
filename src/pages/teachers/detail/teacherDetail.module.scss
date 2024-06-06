@@ -4,7 +4,7 @@ $main-fontsize: 16px;
 $main-text-height: 24px;
 
 @mixin text-content {
-  margin: 0px;
+  margin: 0;
   font-size: 20px;
   font-weight: 400;
   line-height: 28px;
@@ -26,7 +26,6 @@ $main-text-height: 24px;
 }
 
 .customCard {
-  height: 636px;
   width: 384px;
   border-radius: 20px;
   background-color: #01A7E3;
@@ -120,6 +119,12 @@ $main-text-height: 24px;
     }
   }
 
+  .quoteSection {
+    padding: 15px 25px;
+  }
+}
+
+@media screen and (max-width: 390px) {
   .quoteSection {
     padding: 15px 25px;
   }
