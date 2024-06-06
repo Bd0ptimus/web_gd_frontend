@@ -30,7 +30,7 @@ function TeacherDetail({ teacher }) {
                                 <div className={`${styles.bulletPoint}`}>
                                     {teacher.bullet_point && teacher.bullet_point.map((point, index) => {
                                             return (
-                                                <li>{point}</li>
+                                                <li key={index}>{point}</li>
                                             )
                                         }
                                     )}
