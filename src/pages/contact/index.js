@@ -89,7 +89,7 @@ function Contact() {
                                     </div>
                                     <div className={`d-flex flex-column`}>
                                         <div className={`${styles.contactLabel}`}>Email</div>
-                                        <div className={`${styles.contactInfo}`} style={{ textDecoration: 'underline' }}>lopon5ien6@gmail.com</div>
+                                        <div className={`${styles.contactInfo}`} style={{ textDecoration: 'underline' }}>clcntt@gmail.com</div>
                                     </div>
                                 </div>
                                 <div className={`${styles.contactItem}`}>

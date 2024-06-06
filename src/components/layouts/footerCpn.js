@@ -85,7 +85,7 @@ function FooterCpn({userLoggedIn, userName, userLogout}) {
                             </div>
                             <div className={`d-block justify-content-center my-3`}>
                                 <p className={` ${styles.footerText} d-flex justify-content-start`}>
-                                    <BsEnvelopeFill className={`${styles.footerIcon} mt-1 mr-2`}/> lopon5len6@gmail.com
+                                    <BsEnvelopeFill className={`${styles.footerIcon} mt-1 mr-2`}/> clcntt@gmail.com
                                 </p>
                             </div>
                             <div className={`d-block justify-content-center my-3`}>
