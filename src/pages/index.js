@@ -309,7 +309,7 @@ function Home({ teachers }) {
                             }
                     </div>
                     <div className={`d-flex justify-content-center my-4`}>
-                        <CustomButton buttonText='Đội ngũ giáo viên' url='/' textColor='white'
+                        <CustomButton buttonText='Đội ngũ giáo viên' url='/teachers' textColor='white'
                                       backgroundColor='#fc7d3a'/>
                     </div>
                 </div>
