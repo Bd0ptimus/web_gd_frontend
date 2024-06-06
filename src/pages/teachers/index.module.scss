@@ -57,6 +57,12 @@ $main-text-height: 24px;
       line-height: 24px;
       color: #525252;
       opacity: 80%;
+      overflow: hidden !important;
+      white-space: normal !important;
+      text-overflow: ellipsis;
+      display: -webkit-box; /* Sử dụng flexbox để hiển thị văn bản trong một hộp */
+      -webkit-line-clamp: 3; /* Giới hạn số dòng hiển thị */
+      -webkit-box-orient: vertical;
     }
   }
 }

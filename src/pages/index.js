@@ -331,7 +331,7 @@ function Home({ teachers }) {
 }
 
 export async function getServerSideProps(context) {
-    const res = await ssrAxiosGet(context, '/api/teachers/list')
+    const res = await ssrAxiosGet(context, '/api/teachers/list?limit=4')
     const teachers = res?.data.data ?? []
     return {props: {teachers}}
 }
