@@ -98,7 +98,7 @@ function Contact() {
                                     </div>
                                     <div className={`d-flex flex-column`}>
                                         <div className={`${styles.contactLabel}`}>Facebook</div>
-                                        <div className={`${styles.contactInfo}`}>Lớp ôn Chất Lượng Lượng cao NTT</div>
+                                        <div className={`${styles.contactInfo}`}>Lớp ôn Chất Lượng cao NTT</div>
                                     </div>
                                 </div>
                             </div>
