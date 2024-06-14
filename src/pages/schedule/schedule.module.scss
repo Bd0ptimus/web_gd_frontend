@@ -87,6 +87,24 @@
 
 }
 
+.tableContainer {
+    overflow-x: scroll;
+    .tableSec {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            min-width: 100px;
+        }
+    }
+}
+
+
+  
+
 
 @media screen and (min-width : 1020px) and (max-width: 10000px) {
     .classContainer {

@@ -359,7 +359,57 @@ function Grade({ data }) {
                                 <div className={`${styles.postParagraphSecContent}`} dangerouslySetInnerHTML={{ __html: description }}>
                                 </div>
                             </div>
-                            <div className={`d-block my-4`}>
+                            <div className={`d-block my-4 ${styles.tableContainer}`}>
+                                <table className={`${styles.tableSec}`}>
+                                    <tr>
+                                        {
+                                            columns.map((column) => {
+                                                return (<th>{column.name}</th>)
+                                            })
+                                        }
+                                    </tr>
+                                    {
+                                        schedules.length > 0 ?
+                                            schedules.map((grade, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-bold text-sm capitalize">{grade.subject ?? ''}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-bold text-sm capitalize">{grade.class_code ?? ''}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-bold text-sm capitalize">{grade.start_date ?? ''}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-bold text-sm capitalize">{grade.time ?? ''}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-bold text-sm capitalize">{grade.week_day ?? ''}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-bold text-sm capitalize">{grade.teacher ?? ''}</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }) : 'Chưa có dữ liệu'
+                                    }
+                                </table>
+                            </div>
+                            {/* <div className={`d-block my-4`}>
                                 <Table aria-label="Result Table"
                                     color="default"
                                     selectionMode="single"
@@ -422,7 +472,7 @@ function Grade({ data }) {
                                     </TableBody>
 
                                 </Table>
-                            </div>
+                            </div> */}
 
                             <div className={`d-block my-4`}>
                                 <RegisterStudent1/>
