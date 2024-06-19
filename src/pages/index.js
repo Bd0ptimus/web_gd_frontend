@@ -54,7 +54,7 @@ function Home({ teachers }) {
                                 </div>
                             </div>
                         </div> */}
-                        
+
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@ function Home({ teachers }) {
                                     height={30}
                                     alt="underline" />
                             </div>
-                            
+
                             {/* underline */}
                         </div>
                         <p  className={`${styles.textContent} text-start`}>
@@ -154,7 +154,7 @@ function Home({ teachers }) {
                         <Link href="/schedule/thcs" className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
-                            src="/assets/home/thcs.png"
+                            src="/assets/home/thcs_2.jpg"
                             width={400}
                             height={540}
                             alt="Logo" />
@@ -168,10 +168,10 @@ function Home({ teachers }) {
 
                         </Link>
 
-                        <Link href="/schedule/thpt" className={`d-block ${styles.courseDetailSec}`}>
+                        <Link href="/schedule/thpt_2" className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
-                            src="/assets/home/thpt.png"
+                            src="/assets/home/thpt_2.jpg"
                             width={282}
                             height={180}
                             alt="Logo" />
@@ -188,7 +188,7 @@ function Home({ teachers }) {
                         <Link href="/schedule/thpt?class=tsa" className={`d-block ${styles.courseDetailSec}`}>
                             <Image
                             className={`${styles.imageComp}`}
-                            src="/assets/home/tsa.png"
+                            src="/assets/home/tsa_1.JPG"
                             width={282}
                             height={180}
                             alt="Logo" />

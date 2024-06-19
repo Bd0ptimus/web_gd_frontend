@@ -35,9 +35,7 @@ function Intro() {
                             <div
                                 className={`${styles.typography}`}
                             >
-                                <p>
-                                    Lớp ôn CLC Nguyễn Tất Thành được sáng lập vào năm 2022 bởi ông Đỗ Bá Hoài Giao, một người đã dành mọi tâm huyết và đam mê của mình dành cho giáo dục, với mục tiêu mang đến môi trường học tập chất lượng cao và hiệu quả cho học sinh. Trong thời gian ngắn, lớp ôn CLC Nguyễn Tất Thành đã nhanh chóng khẳng định vị trí của mình trong lòng phụ huynh và học sinh nhờ vào chương trình đào tạo bài bản, đội ngũ giáo viên tận tâm và cơ sở vật chất hiện đại.
-                                </p>
+                                <p>Lớp ôn CLC Nguyễn Tất Thành được sáng lập vào năm 2020 bởi nhóm giáo viên trường THCS và THPT Nguyễn Tất Thành với mục tiêu mang đến môi trường học tập chất lượng cao và hiệu quả cho học sinh. Trong thời gian ngắn, lớp ôn CLC Nguyễn Tất Thành đã nhanh chóng khẳng định vị trí của mình trong lòng phụ huynh và học sinh nhờ vào chương trình đào tạo bài bản, đội ngũ giáo viên tận tâm và cơ sở vật chất hiện đại.</p>
 
                             </div>
                         </div>
@@ -63,13 +61,13 @@ function Intro() {
                             <div
                                 className={`${styles.typography}`}
                             >
+                                <p>Lớp ôn CLC Nguyễn Tất Thành hiện đang có khoảng 800 học sinh theo học, được hỗ trợ bởi đội ngũ gần 40 giáo viên và trợ giảng. Địa điểm học đặt tại tòa D3, Trường Đại học Sư phạm Hà Nội, số 136 Xuân Thủy, Cầu Giấy, Hà Nội. Với hơn 10 phòng học được trang bị đầy đủ máy chiếu, điều hòa và các thiết bị hiện đại khác, học sinh luôn có môi trường học tập thoải mái và tiện nghi.</p>
                                 <p>
-                                    Lớp ôn CLC Nguyễn Tất Thành hiện đang có khoảng 1000 học sinh theo học, được hỗ trợ bởi đội ngũ  gần 50 giáo viên và trợ giảng. Địa điểm học đặt tại tòa D7, Trường Đại học Sư phạm Hà Nội, số 136 Xuân Thủy, Cầu Giấy, Hà Nội. Với hơn 10 phòng học được trang bị đầy đủ máy chiếu, điều hòa và các thiết bị hiện đại khác, học sinh luôn có môi trường học tập thoải mái và tiện nghi.                                </p>
-                                <p>
-                                    Lớp ôn CLC Nguyễn Tất Thành khẳng định thương hiệu của mình với các chương trình ôn luyện thi vào lớp 6 và lớp 10 các trường Chuyên, Chất lượng cao trên địa bàn Hà Nội. Trong 2 năm hình hình thành và phát triển, lớp ôn có gần 1000 học sinh đỗ vào các trường THCS và THPT Chuyên,  Chất lượng cao.
+                                    Lớp ôn CLC Nguyễn Tất Thành khẳng định thương hiệu của mình với các chương trình ôn luyện thi vào lớp 6 và lớp 10 các trường Chuyên, Chất lượng cao trên địa bàn Hà Nội. Trong 4 năm hình hình thành và phát triển, lớp ôn có hơn 70% học sinh đỗ vào các trường THCS và THPT Chuyên, Chất lượng cao.
                                 </p>
                                 <p>
-                                    Năm 2024,  Lớp ôn CLC Nguyễn Tất Thành đã phát triển thêm mảng học online dành cho học sinh ở xa mà vẫn có nhu cầu theo học. Năm học 2023 – 2024, Lớp ôn đã tổ chức 40 lớp học trực tiếp và 6 lớp học trực tuyến.                                 </p>
+                                    Năm 2024, Lớp ôn CLC Nguyễn Tất Thành đã phát triển thêm mảng học online dành cho học sinh ở xa mà vẫn có nhu cầu theo học. Năm học 2023 – 2024, Lớp ôn đã tổ chức 30 lớp học trực tiếp và 6 lớp học trực tuyến.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -160,7 +158,7 @@ function Intro() {
                                 className={`${styles.typography}`}
                             >
                                 <p>
-                                    Lớp ôn CLC Nguyễn Tất Thành luôn tự hào với thành tích nổi bật của học sinh trong các kỳ thi. Tỷ lệ học sinh đỗ vào các trường THCS, THPT chất lượng cao luôn ở mức cao, là minh chứng rõ ràng cho chất lượng đào tạo và sự nỗ lực không ngừng của đội ngũ giáo viên. Các học sinh không chỉ đạt được kết quả cao trong học tập mà còn phát triển tư duy toàn diện, sẵn sàng cho những thử thách học thuật ở các cấp học cao hơn.                                
+                                    Lớp ôn CLC Nguyễn Tất Thành luôn tự hào với thành tích nổi bật của học sinh trong các kỳ thi. Tỷ lệ học sinh đỗ vào các trường THCS, THPT chất lượng cao luôn ở mức cao, là minh chứng rõ ràng cho chất lượng đào tạo và sự nỗ lực không ngừng của đội ngũ giáo viên. Các học sinh không chỉ đạt được kết quả cao trong học tập mà còn phát triển tư duy toàn diện, sẵn sàng cho những thử thách học thuật ở các cấp học cao hơn.
                                 </p>
                                 <p>
                                     Bên cạnh đó, Lớp ôn CLC Nguyễn Tất Thành nhận được rất nhiều phản hồi tích cực từ  quý phụ huynh và học sinh, được đánh giá cao về chất lượng chương trình đào tạo, sự nhiệt tình của giáo viên và phương pháp giảng dạy thú vị, tạo hứng thú học tập cho học sinh. Thành tích học tập của học sinh sau khi tham gia học tại đây thường rất cao, góp phần khẳng định uy tín của lớp ôn.
