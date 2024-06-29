@@ -73,6 +73,7 @@ function ResultPage ({data}) {
         { name: "Kỳ thi", uid: "exam"},
         { name: "Phòng thi", uid: "room" },
         { name: "Địa điểm", uid: "location" },
+        { name: "Môn thi", uid: "subject" },
         { name: "Thời gian", uid: "time" },
         { name: "Điểm Toán", uid: "math", sortable: true},
         { name: "Điểm Tiếng Việt", uid: "literature", sortable: true},
@@ -345,6 +346,15 @@ function ResultPage ({data}) {
                 "Thời gian",
                 "Thời Gian",
                 "thời gian",
+            ]
+        }, {
+            value: "subject",
+            options: [
+                "Môn thi",
+                "môn thi",
+                "Mon thi",
+                "mon thi",
+                "Môn Thi",
             ]
         }
     ];
@@ -711,6 +721,11 @@ function ResultPage ({data}) {
                                         <TableCell>
                                             <div className="flex flex-col">
                                                 <p className="text-bold text-sm capitalize">{item.location ?? ''}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex flex-col">
+                                                <p className="text-bold text-sm capitalize">{item.subject ?? ''}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell>

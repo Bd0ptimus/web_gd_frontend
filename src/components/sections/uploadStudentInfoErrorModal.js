@@ -303,6 +303,16 @@ function UploadStudentInfoErrorModal(props) {
                                                 }
 
                                                 {
+                                                    item.data.subject && (
+                                                        <tr>
+                                                            <th scope="row">Môn thi</th>
+                                                            <td>{item.data.subject.old}</td>
+                                                            <td>{item.data.subject.new}</td>
+                                                        </tr>
+                                                    )
+                                                }
+
+                                                {
                                                     item.choice && (
                                                         <tr>
                                                             <th scope="row"></th>

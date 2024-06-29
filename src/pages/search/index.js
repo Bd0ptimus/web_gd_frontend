@@ -32,6 +32,7 @@ function SearchPage({yearOptions, items}) {
     const [studentLinkExam, setStudentLinkExam] = useState('');
     const [studentId, setStudentId] = useState('');
     const [examTime, setExamTime] = useState('');
+    const [examSubject, setSubject] = useState('');
 
     useEffect(() => {
         if (typeSearch == '' || typeSearch == Constants.SEARCH_TYPE.EXAM_RESULT) {
@@ -69,6 +70,7 @@ function SearchPage({yearOptions, items}) {
         setStudentLinkExam(objStudentInfo.link_exam ?? missing)
         setStudentId(objStudentInfo.student_id ?? notYet)
         setExamTime(objStudentInfo.time ?? notYet)
+        setSubject(objStudentInfo.subject ?? missing)
         setOpenModalResult(true);
     }
     const searchResultModalOnHide = () => {
@@ -150,6 +152,7 @@ function SearchPage({yearOptions, items}) {
                 linkExam={studentLinkExam}
                 studentId={studentId}
                 time={examTime}
+                subject={examSubject}
             />
             <ToastCpn />
         </div>
